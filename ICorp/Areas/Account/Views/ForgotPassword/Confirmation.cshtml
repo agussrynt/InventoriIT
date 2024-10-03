@@ -1,0 +1,26 @@
+﻿@{
+    ViewData["Title"] = "Forgot Password";
+}
+
+<div class="card">
+    <div class="card-body">
+        <!-- Logo -->
+        <div class="app-brand justify-content-center">
+            <a href="index.html" class="app-brand-link gap-2">
+                <span class="app-brand-logo demo">
+                    <img src="~/assets/img/icons/portal-9.svg" alt="logo-portal" width="24" height="27" />
+                </span>
+                <span class="app-brand-text demo text-body fw-bolder" style="text-transform: none">i-Corp</span>
+            </a>
+        </div>
+        <!-- /Logo -->
+        <h4 class="mb-2">Forgot Password Confirmation 🔒</h4>
+        <p class="mb-4">Please check your email to reset your password.</p>
+        <div class="text-center">
+            <a asp-area="Account" asp-controller="Login" asp-action="Index" class="d-flex align-items-center justify-content-center">
+                <i class="bx bx-chevron-left scaleX-n1-rtl bx-sm"></i>
+                Back to login
+            </a>
+        </div>
+    </div>
+</div>

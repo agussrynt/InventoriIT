@@ -1,0 +1,130 @@
+﻿@using Microsoft.AspNetCore.Http;
+
+@{
+    ViewData["Title"] = "Audit Process Detail";
+}
+
+@section Styles {
+}
+
+<div id="loadingContent" class="container-xxl flex-grow-1 container-p-y d-none">
+    <div class="card">
+        <div class="card-body text-center">
+            <div class="spinner-grow text-primary" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+            <div class="spinner-grow text-primary" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+            <div class="spinner-grow text-primary" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="contentPage" class="container-xxl flex-grow-1 container-p-y">
+    <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Page /</span> <span class="text-muted fw-light">Follow Up /</span> Detail Year Data <span id="year-span"> </span></span></h4>
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                @*<div class="card-header d-flex align-items-center justify-content-between flex-column flex-md-row">
+                    <div class="head-label text-center">
+                        <button class="create-new btn btn-secondary" type="button">
+                            <span>
+                                <i class="bx bx-timer me-sm-2"></i> 
+                                <span class="d-sm-inline-block">
+                                    <span id="d">00</span>
+                                    <span>D</span>
+                                    <span id="h">00</span>
+                                    <span>H</span>
+                                    <span id="m">00</span>
+                                    <span>M</span>
+                                    <span id="s">00</span>
+                                    <span>S</span>
+                                </span>
+                            </span>
+                        </button> 
+                    </div>
+                </div>*@
+                <div class="card-datatable table-responsive">
+                    <table id="dataTable" class="table table-bordered responsive compact dataTable no-footer no-wrap"></table>
+                </div>
+                @*<div class="card-body border-top text-center">
+                    <button class="btn btn-success me-1">Approve</button>
+                    <button class="btn btn-danger">Reject</button>
+                </div>*@
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Response Auditee -->
+<div class="modal fade" id="responseAdmin" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="responseAuditee" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form name="form-response-admin" class="edit-dokumen pt-0 row g-2 fv-plugins-bootstrap5 fv-plugins-framework need-validation" id="form-add-new-record" novalidate="novalidate">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="addModalLabel">
+                        <i class="bx bx-document me-1"></i>
+                        Update Due Date
+                    </h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" id="Id" name="Id" class="form-control" />
+                    <input type="hidden" id="FukId" name="FukId" class="form-control" />
+                    <div class="col-sm-12 mb-2">
+                        <label class="form-label" for="Year">Year</label>
+                        <input type="text" id="Year" name="Year" class="form-control" readonly />
+                    </div>
+                    <div class="col-sm-12 mb-2">
+                        <label class="form-label" for="Parameter">Parameter</label>
+                        <textarea cols="5" id="Parameter" name="Parameter" class="form-control" readonly></textarea>
+                    </div>
+                    <div class="col-sm-12 mb-2">
+                        <label class="form-label" for="FUK">Faktor Uji Kesesuaian</label>
+                        <textarea cols="5" id="FUK" name="FUK" class="form-control" readonly></textarea>
+                    </div>
+                    <div class="col-sm-12 mb-2">
+                        <label class="form-label" for="UP">Unsur Pemenuhan</label>
+                        <textarea cols="5" id="UP" name="UP" class="form-control" readonly></textarea>
+                    </div>
+                    <div class="col-sm-12 mb-2">
+                        <label class="form-label" for="Score">Score</label>
+                        <input type="text" id="Score" name="Score" class="form-control" readonly />
+                    </div>
+                    <div id="showNote" class="col-sm-12 mb-2">
+                        <label class="form-label" for="Review">Review</label>
+                        <textarea cols="5" id="Review" name="Review" class="form-control" readonly></textarea>
+                    </div>
+                    <div id="showNote" class="col-sm-12 mb-2">
+                        <label class="form-label" for="Recommendation">Recommendation from auditor</label>
+                        <textarea cols="5" id="Recommendation" name="Recommendation" class="form-control" readonly></textarea>
+                    </div>
+                    <div class="col-sm-12 mb-2">
+                        <label class="form-label" for="Assigment">Assignment</label>
+                        <input type="text" id="Assignment" name="Assignment" class="form-control" readonly />
+                    </div>
+                    <div class="col-sm-12 mb-2">
+                        <label class="form-label" for="DueDate">Due Date</label>
+                        <input type="date" id="DueDate" name="DueDate" class="form-control" required />
+                    </div>
+                    <div id="showFile my-2"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" id="btnUpdateDueDate" class="btn btn-primary">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts { 
+    <script src="https://cdn.datatables.net/responsive/2.3.0/js/dataTables.responsive.min.js"></script>
+    @*<script src="https://cdn.datatables.net/buttons/2.2.3/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.colVis.min.js"></script>*@
+    <script src="~/js/pages/Monitoring/monitoring-detail.js"></script>
+}

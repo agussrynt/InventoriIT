@@ -1,0 +1,162 @@
+﻿@{
+	ViewData["Title"] = "Create";
+}
+@section Styles {
+	<link rel="stylesheet" href="~/css/bs-stepper.css">
+	<style>
+		.bs-stepper.vertical .bs-stepper-header {
+			width: 18rem !important;
+		}
+
+		.bs-stepper.vertical .bs-stepper-content {
+			/*width: 100%*/
+			width: calc(100% - 18rem) !important;
+		}
+		.ml-1{
+			margin-left: 1rem;
+		}
+	</style>
+    }
+	<div id="loadingContent" class="container-xxl flex-grow-1 container-p-y d-none">
+		<div class="card">
+			<div class="card-body text-center">
+				<div class="spinner-grow text-primary" role="status">
+					<span class="visually-hidden">Loading...</span>
+				</div>
+				<div class="spinner-grow text-primary" role="status">
+					<span class="visually-hidden">Loading...</span>
+				</div>
+				<div class="spinner-grow text-primary" role="status">
+					<span class="visually-hidden">Loading...</span>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div id="contentPage" class="container-xxl flex-grow-1 container-p-y">
+		<h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Page /</span> <span class="text-muted fw-light">Audit External /</span> Upload Score and Recomendation</span></span></h4>
+		<div class="row">
+			<div class="col-12">
+				<div class="card">
+					<form id="frmAuditExternal" name="frmAuditExternal">
+						<div class="card-header d-flex_ align-items-center justify-content-between flex-column flex-md-row">
+							<div class="row">
+								<div class="col-sm-12 mb-2">
+									<label class="form-label" for="Year">Auditor Name</label>
+									<input type="text" id="AUDITOR_NAME" name="AUDITOR_NAME" class="form-control" readonly />
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-sm-12 mb-2">
+									<label class="form-label" for="Year">Date</label>
+									<input type="text" id="DATE" name="DATE" class="form-control" readonly />
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-sm-12 mb-2">
+									<label class="form-label" for="Year">Upload File PDF</label>
+									<a id="ATTACHMENT_File" href="/Documents/ExternalAudit/Template/TemplateScoreGCG.xlsx" download>
+										<span class="ml-1 form-label">Download</span><i class="menu-icon tf-icons bx bx-download"></i>
+									</a>
+								</div>
+							</div>
+							<div id="stepper-mkk" class="bs-stepper wizard-vertical vertical mt-3">
+								<div class="bs-stepper-header">
+									<div id="stp_score" class="step active" data-target="#parameter-details" onclick="clickDtScore()">
+										<button type="button" class="step-trigger">
+											<span class="bs-stepper-circle">1</span>
+											<span class="bs-stepper-label mt-1">
+												<span class="bs-stepper-title">Data Score</span>
+												@*<span class="bs-stepper-subtitle">Setup Parameter Details</span>*@
+											</span>
+										</button>
+									</div>
+									<div class="line"></div>
+									<div id="stp_reco" class="step" data-target="#fuk-detail" onclick="clickRecomendation()">
+										<button type="button" class="step-trigger" aria-selected="false">
+											<span class="bs-stepper-circle">2</span>
+											<span class="bs-stepper-label mt-1">
+												<span class="bs-stepper-title">Recomendation</span>
+												@*<span class="bs-stepper-subtitle">Add Faktor Uji Kesesuaian (FUK)</span>*@
+											</span>
+										</button>
+									</div>
+
+								</div>
+								<div class="bs-stepper-content">
+									<!-- Parameter Details -->
+									<div id="parameter-details" class="content dstepper-block active">
+										@*<partial name="_ParameterDetail.cshtml" />*@
+										<div class="card-datatable table-responsive">
+											@*<table id="dataTable" class="table table-bordered responsive compact dataTable no-footer no-wrap"></table>*@
+											@*<div class="row">
+												<div class="col-sm-12 mb-2">
+													<label class="form-label" for="Year">Upload File</label>
+
+													<div class="input-group">
+														<input type="file" id="file_ATTACHMENT_DATA_SCORE" name="file_ATTACHMENT_DATA_SCORE" class="form-control" onchange="uploadDocScore()" required />
+													</div>
+												</div>
+											</div>*@
+											<table id="dataTableScore" class="table no-footer">
+												<thead>
+													<tr class="text-nowrap">
+														<th>Indicator</th>
+														<th>Bobot</th>
+														<th>Jumlah Parameter</th>
+														<th>Score</th>
+														<th>Capaian (%)</th>
+													</tr>
+												</thead>
+												<tbody></tbody>
+											</table>
+										</div>
+									</div>
+
+									<!-- FUK Info -->
+									<div id="fuk-detail" class="content dstepper-block">
+										@*<partial name="_FUKInfo.cshtml" />*@
+										<div class="card-datatable table-responsive">
+											<div class="card-datatable table-responsive">
+												@*<table id="dataTable" class="table table-bordered responsive compact dataTable no-footer no-wrap"></table>*@
+												@*<div class="row">
+													<div class="col-sm-12 mb-2">
+														<label class="form-label" for="Year">Upload File</label>
+														<div class="input-group">
+															<input type="file" id="file_ATTACHMENT_DATA_RECOMENDATION" name="file_ATTACHMENT_DATA_RECOMENDATION" class="form-control" onchange="uploadDocRecomendation()" />
+														</div>
+
+													</div>
+												</div>*@
+												<table id="dataTableRecomendation" class="table no-footer">
+													<thead>
+														<tr class="text-nowrap">
+															<th>Rekomendasi</th>
+															<th>Pemegang Saham</th>
+															<th>Dewan Komisaris</th>
+															<th>Direksi</th>
+														</tr>
+													</thead>
+													<tbody></tbody>
+												</table>
+											</div>
+										</div>
+									</div>
+
+								</div>
+							</div>
+						</div>
+						<div class="card-datatable table-responsive">
+							<table id="dataTable" class="table table-bordered responsive compact dataTable no-footer no-wrap"></table>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	@section Scripts {
+	@*<script src="~/js/demo/dataTable-demos.js"></script>*@
+	<script src="~/js/pages/AuditExternal/audit-external-detail.js"></script>
+}
+

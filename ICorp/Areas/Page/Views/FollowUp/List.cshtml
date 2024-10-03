@@ -1,0 +1,64 @@
+﻿@using Microsoft.AspNetCore.Http;
+
+@{
+    ViewData["Title"] = "Audit Process List";
+}
+
+@section Styles {
+}
+
+<div id="loadingContent" class="container-xxl flex-grow-1 container-p-y d-none">
+    <div class="card">
+        <div class="card-body text-center">
+            <div class="spinner-grow text-primary" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+            <div class="spinner-grow text-primary" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+            <div class="spinner-grow text-primary" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="contentPage" class="container-xxl flex-grow-1 container-p-y">
+    <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Page /</span> <span class="text-muted fw-light">Follow Up /</span> List</h4>
+    <div class="card">
+        <div class="card-datatable table-responsive text-nowrap">
+            <table id="dataTable" class="table no-footer"></table>
+            @*<table id="dataTable" class="table no-footer">
+                <thead>
+                    <tr class="text-nowrap">
+                        <th>Id</th>
+                        <th>Year</th>
+                        <th>Created By</th>
+                        <th>Created Date</th>
+                        <th>Audit By</th>
+                        <th>Audit Date</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>2015</td>
+                        <td>iman.ramadhan</td>
+                        <td>20 Sep 2022</td>
+                        <td>iman.ramadhan</td>
+                        <td>20 Sep 2022</td>
+                        <td>
+                            <button class="btn btn-sm btn-primary">Follow up</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>*@
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @*<script src="~/js/demo/dataTable-demos.js"></script>*@
+    <script src="~/js/pages/FollowUp/follow-up-list.js"></script>
+}

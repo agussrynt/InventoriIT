@@ -1,0 +1,215 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@addTagHelper *, AuthoringTagHelpers
+
+@{
+    ViewData["Title"] = "Register";
+}
+
+@section Styles {
+    <style>
+        #Password-error,
+        #ConfirmPassword-error {
+            position: absolute;
+            bottom: -24px;
+        }
+    </style>
+}
+
+<div class="card">
+    <div class="card-body">
+        <!-- Logo -->
+        <div class="app-brand justify-content-center">
+            <a href="index.html" class="app-brand-link gap-2">
+                <span class="app-brand-logo demo">
+                        <img src="~/assets/img/icons/favicon.ico" alt="logo-portal" width="24" height="27" />
+                </span>
+                <span class="app-brand-text demo text-body fw-bolder" style="text-transform: none">i-Corp</span>
+            </a>
+        </div>
+        <!-- /Logo -->
+        <h4 class="mb-2">Adventure starts here 🚀</h4>
+        <p class="mb-4">Make your app management easy and fun!</p>
+
+        <form id="registerForm" name="register" class="mb-3 need-validation">
+            <div class="row">
+                <div class="col-6">
+                    <div class="mb-3">
+                        <label for="FirstName" class="form-label">First Name</label>
+                        <input
+                            id="FirstName"
+                            name="FirstName"
+                            type="text"
+                            class="form-control"
+                            placeholder="Enter your FirstName"
+                            autofocus
+                            required
+                        />
+                        <span id="error-firstname" class="text-danger" style="font-size: 12px"></span>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="mb-3">
+                        <label for="LastName" class="form-label">Last Name</label>
+                        <input
+                            id="LastName"
+                            name="LastName"
+                            type="text"
+                            class="form-control"
+                            placeholder="Enter your LastName"
+                            autofocus
+                        />
+                        <span id="error-lastname" class="text-danger" style="font-size: 12px"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label for="Email" class="form-label">Email</label>
+                <input
+                    id="Email"
+                    name="Email"
+                    type="email"
+                    class="form-control"
+                    placeholder="Enter your email"
+                    autocomplete="off" 
+                    aria-required="true" 
+                    required
+                    autofocus
+                />
+                <span id="error-email" class="text-danger" style="font-size: 12px"></span>
+            </div>
+            <div class="mb-4 form-password-toggle">
+                <label for="Password" class="form-label">Password</label>
+                <div class="input-group input-group-merge">
+                    <input
+                        id="Password"
+                        name="Password"
+                        type="password"
+                        class="form-control"
+                        placeholder="Enter your password"
+                        aria-describedby="password"
+                        aria-required="true" 
+                        required
+                    />
+                    <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
+                </div>
+                <span id="error-password" class="text-danger" style="font-size: 12px"></span>
+            </div>
+            <div class="mb-3 form-password-toggle">
+                <label class="form-label" for="ConfirmPassword">Re-Password</label>
+                <div class="input-group input-group-merge">
+                    <input
+                        id="ConfirmPassword"
+                        name="ConfirmPassword"
+                        type="password"
+                        class="form-control"
+                        placeholder="Re-Enter your password"
+                        aria-describedby="password"
+                        aria-required="true" 
+                    />
+                    <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
+                 </div>
+                <span id="error-confirmpassword" class="text-danger" style="font-size: 12px"></span>
+            </div>
+
+            <div class="mb-3 mt-4">
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="terms-conditions" name="terms" />
+                    <label class="form-check-label" for="terms-conditions">
+                        I agree to
+                        <a href="javascript:void(0);">privacy policy & terms</a>
+                    </label>
+                </div>
+            </div>
+            <div class="mb-3">
+                <button class="btn btn-primary d-grid w-100" id="register-submit" type="submit">Sign Up</button>
+            </div>
+        </form>
+        <p class="text-center">
+            <span>Already have account?</span>
+            <a asp-area="Account" asp-controller="Login" asp-action="Index">
+                <span>Sign In Here</span>
+            </a>
+        </p>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        // Wait for the DOM to be ready
+        $(function() {
+            var 
+                invalid = $("#invalid").data("value"),
+                messageInvalid = $("#messageInvalid"),
+                loginFrom =  $("form[name='register']"),
+                submitLogin = "register-submit",
+                alertInvalid = $("#caseInvalid");
+
+            // Initialize form validation on the login form.
+            // It has the name attribute "login"
+            loginFrom.validate({
+                // Specify validation rules
+                rules: {
+                    // The key name on the left side is the name attribute
+                    // of an input field. Validation rules are defined
+                    // on the right side
+                    FirstName: "required",
+                    Email: {
+                        required: true,
+                        email: true
+                    },
+                    //Password: "required",
+                    Password: {
+                        required: true,
+                        minlength: 6
+                    },
+                    ConfirmPassword: {
+                        equalTo: "#Password"
+                    }
+                },
+                // Specify validation error messages
+                messages: {
+                    FirstName: "Please enter your username",
+                    Email: {
+                        required: "Please provide a password",
+                        email: "Please type a valid Email"
+                    },
+                    Password: {
+                        required: "Please provide a password",
+                        minlength: "Your password must be at least 6 characters long"
+                    },
+                    ConfirmPassword: "Enter Confirm Password Same as Password"
+                },
+                // Make sure the form is submitted to the destination defined
+                // in the "action" attribute of the form when valid
+                submitHandler: function(form) {
+                    console.log("tes");
+                    //form.submit();
+                    loadingForm(true, submitLogin);
+                    $.ajax({
+                        url: "/account/register/on-post-ajax",
+                        method: "POST",
+                        data: new FormData(form),
+                        contentType: false,
+                        processData: false,      
+                        success: function(result) {
+                            if (result.success) {
+                                loadingForm('default', submitLogin, result.message);
+                                window.location.href = result.urlResponse;
+                            } else {
+                                swallAllert.Error("Login Failed!", result.message)
+
+                                loadingForm(false, submitLogin, "Sign Up");
+                            }
+                        },
+                        error: function(err) {
+                            console.log(err);
+                            swallAllert.Error(500, "Something wrong when register!");
+                            loadingForm(false, submitLogin, "Sign Up");
+                        }
+                    });
+                    return false;
+                }
+            });
+        });
+    </script>
+}

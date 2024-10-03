@@ -1,0 +1,210 @@
+﻿@using Microsoft.AspNetCore.Http;
+
+<aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme position-fixed" data-bg-class="bg-menu-theme">
+	<div class="app-brand demo">
+		<a href="#" class="app-brand-link">
+			<span class="app-brand-logo demo">
+				<img src="~/assets/img/icons/favicon.ico" alt="logo-portal" width="32" height="30" />
+			</span>
+			<span class="app-brand-text demo menu-text fw-bolder ms-2" style="text-transform: none">PDSI LCDC</span>
+		</a>
+
+		<a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto">
+			<i class="bx bx-chevron-left bx-sm align-middle"></i>
+		</a>
+	</div>
+
+	<div class="menu-inner-shadow"></div>
+
+	<ul class="menu-inner py-1">
+		<!-- Dashboard -->
+		<li class="menu-item active">
+			<a asp-controller="Home" asp-action="Index" class="menu-link">
+				<i class="menu-icon tf-icons bx bx-home-circle"></i>
+				<div data-i18n="Analytics">Dashboard</div>
+			</a>
+		</li>
+
+		@if (User.IsInRole("Admin"))
+		{
+			<!-- Master -->
+			<li class="menu-header small text-uppercase">
+				<span class="menu-header-text">Master Data</span>
+			</li>
+			@*      <li class="menu-item">
+		<a asp-area="Master" asp-controller="User" asp-action="Index" class="menu-link">
+		<i class="menu-icon tf-icons bx bxs-user-account"></i>
+		<div data-i18n="Account">User Management</div>
+		</a>
+		</li>*@
+
+			<li class="menu-item">
+				<a href="javascript:void(0);" class="menu-link menu-toggle">
+					<i class="menu-icon tf-icons bx bx-check-shield"></i>
+					<div data-i18n="Account">User Management</div>
+				</a>
+				<ul class="menu-sub">
+					<li class="menu-item">
+						<a class="menu-link" asp-area="Master" asp-controller="Role" asp-action="Index">
+							<div data-i18n="Basic">Role</div>
+						</a>
+					</li>
+					<li class="menu-item">
+						<a class="menu-link" asp-area="Master" asp-controller="User" asp-action="Index">
+							<div data-i18n="Basic">User</div>
+						</a>
+					</li>
+				</ul>
+			</li>
+		}
+
+
+		<!-- Pages -->
+		<li class="menu-header small text-uppercase">
+			<span class="menu-header-text">Pages</span>
+		</li>
+		@if (User.IsInRole("Admin") || User.IsInRole("Auditor"))
+		{
+			<li class="menu-item">
+				<a class="menu-link" asp-area="Page" asp-controller="MasterKertasKerja" asp-action="List">
+					<i class="menu-icon tf-icons bx bx-file"></i>
+					<div data-i18n="Basic">Master Kertas Kerja</div>
+				</a>
+			</li>
+		}
+
+
+		@*<li class="menu-item"> <i class='bx bx-file'></i>
+		<a class="menu-link" asp-area="Page" asp-controller="DocumentUpload" asp-action="List">
+		<i class="menu-icon tf-icons bx bx-street-view"></i>
+		<div data-i18n="Basic">FUK Assignment</div><i class='bx bx-archive-out'></i>
+		</a>
+		</li>*@
+		@if (User.IsInRole("Auditee"))
+		{
+			<li class="menu-item">
+				<a class="menu-link" asp-area="Page" asp-controller="DocumentUpload" asp-action="List">
+					<i class="menu-icon tf-icons bx bx-upload"></i>
+					<div data-i18n="Basic">Upload Documents</div>
+				</a>
+			</li>
+		}
+
+		@if (User.IsInRole("Auditee"))
+		{
+			<li class="menu-item">
+				<a class="menu-link" asp-area="Page" asp-controller="FollowUp" asp-action="List">
+					<i class="menu-icon tf-icons bx bx-archive-out"></i>
+					<div data-i18n="Basic">Follow Up</div>
+				</a>
+			</li>
+		}
+
+
+		@if (User.IsInRole("Admin") || User.IsInRole("Auditor"))
+		{
+			<li class="menu-item">
+				<a href="javascript:void(0);" class="menu-link menu-toggle">
+					<i class="menu-icon tf-icons bx bx-check-shield"></i>
+					<div data-i18n="Basic">Audits</div>
+				</a>
+				<ul class="menu-sub">
+					<li class="menu-item">
+						<a class="menu-link" asp-area="Page" asp-controller="Audit" asp-action="List">
+							<div data-i18n="Basic">Audit Process</div>
+						</a>
+					</li>
+					@*<li class="menu-item">
+				<a class="menu-link" asp-area="Page" asp-controller="Audit" asp-action="Review">
+				<div data-i18n="Basic">Audit Review</div>
+				</a>
+				</li>*@
+				</ul>
+			</li>
+
+			<li class="menu-item">
+				<a class="menu-link" asp-area="Page" asp-controller="Monitoring" asp-action="List">
+					<i class='menu-icon tf-icons bx bx-desktop'></i>
+					<div data-i18n="Basic">Monitoring</div>
+				</a>
+			</li>
+		}
+
+
+
+
+		<li class="menu-item">
+			<a href="javascript:void(0);" class="menu-link menu-toggle">
+				<i class="menu-icon tf-icons bx bx-check-shield"></i>
+				<div data-i18n="Basic">Audit External</div>
+			</a>
+			<ul class="menu-sub">
+				@if (User.IsInRole("Admin") || User.IsInRole("Auditor"))
+				{
+					<li class="menu-item">
+						<a class="menu-link" asp-area="Page" asp-controller="AuditExternal" asp-action="Index">
+							<div data-i18n="Basic">Upload Score and Recomendation</div>
+						</a>
+					</li>
+					<li class="menu-item">
+						<a class="menu-link" asp-area="Page" asp-controller="AuditExternalAssigment" asp-action="Index">
+							<div data-i18n="Basic">Assigement Recomendation</div>
+						</a>
+					</li>
+					<li class="menu-item">
+						<a class="menu-link" asp-area="Page" asp-controller="AuditExternalMonitoring" asp-action="Index">
+							<div data-i18n="Basic">Monitoring FolowUp Recomendation</div>
+						</a>
+					</li>
+				}
+				@if (User.IsInRole("Auditee"))
+				{
+					<li class="menu-item">
+						<a class="menu-link" asp-area="Page" asp-controller="AuditExternalFollowUp" asp-action="Index">
+							<div data-i18n="Basic">FolowUp Recomendation</div>
+						</a>
+					</li>
+				}
+
+			</ul>
+		</li>
+
+		<!-- Pages -->
+		<li class="menu-header small text-uppercase">
+			<span class="menu-header-text">Access</span>
+		</li>
+		@*		<li class="menu-item">
+		<a class="menu-link">
+		<i class="menu-icon tf-icons bx bx-plus-medical"></i>
+		<div data-i18n="Basic">SIDOKTER</div>
+		</a>
+		</li>*@
+		<li class="menu-item">
+			<a class="menu-link" asp-controller="Home" asp-action="accessSIHP" target="_blank">
+				<i class="menu-icon tf-icons bx bx-collection"></i>
+				<div data-i18n="Basic">SIHP</div>
+			</a>
+		</li>
+		@*<script type="text/javascript">
+		function movePage() {
+		var
+		url = "https://localhost:44309/SIHP/Account/Login?UID=ParamID",
+		uid = "@Context.Session.GetString("uID")";
+		url = url.replace("ParamID", uid);
+		console.log(uid, url);
+		//window.open(url, '_blank');
+		}
+		</script>*@
+
+		<!-- Misc -->
+		<li class="menu-header small text-uppercase"><span class="menu-header-text">Misc</span></li>
+		<li class="menu-item">
+			<a href="https://github.com/themeselection/sneat-html-admin-template-free/issues"
+			   target="_blank"
+			   class="menu-link">
+				<i class="menu-icon tf-icons bx bx-support"></i>
+				<div data-i18n="Support">Support</div>
+			</a>
+		</li>
+	</ul>
+</aside>

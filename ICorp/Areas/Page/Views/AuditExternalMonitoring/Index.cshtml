@@ -1,0 +1,95 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div id="loadingContent" class="container-xxl flex-grow-1 container-p-y d-none">
+    <div class="card">
+        <div class="card-body text-center">
+            <div class="spinner-grow text-primary" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+            <div class="spinner-grow text-primary" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+            <div class="spinner-grow text-primary" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="contentPage" class="container-xxl flex-grow-1 container-p-y">
+    <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Page /</span> <span class="text-muted fw-light">Audit External /</span> List</h4>
+    <div class="card">
+        <div class="card-header d-flex">
+            <div class="dt-action-buttons text-end me-2 pt-3 pt-md-0">
+                
+            </div>
+        </div>
+        <div class="card-datatable table-responsive text-nowrap">
+            <table id="dataTable" class="table no-footer">
+                <thead>
+                    <tr class="text-nowrap">
+                        <th>Auditor Name</th>
+                        <th>Total Score</th>
+                        <th>Date</th>
+                        <th>Recomendation</th>
+                        <th>Function Assigment</th>
+                        <th>Due Date</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- Modal FollowUp  -->
+<div class="modal fade" id="setFollowUp" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="setFollowUp" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form name="form-set-followup" class="add-new-user pt-0 row g-2 fv-plugins-bootstrap5 fv-plugins-framework need-validation" id="form-add-new-record" novalidate="novalidate">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="addModalLabel">
+                        <i class="bx bx-user-plus me-1"></i>
+                        Monitoring FollowUp Recomendation
+                    </h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" id="Id" name="Id" class="form-control" />
+                    <div class="col-sm-12 mb-2">
+                        <label class="form-label" for="Recomendation">Rekomendasi</label>
+                        <textarea cols="5" id="Recomendation" name="Recomendation" class="form-control" readonly></textarea>
+                    </div>
+                    <div class="col-sm-12 mb-2">
+                        <label class="form-label" for="DueDate">Due Date</label>
+                        <input type="date" id="DueDate" name="DueDate" class="form-control" readonly />
+                    </div>
+                    <div class="col-sm-12 mb-2">
+                        <label class="form-label" for="FollowUp">Follow Up</label>
+                        <textarea cols="5" id="FollowUp" name="FollowUp" class="form-control" readonly></textarea>
+                    </div>
+                    <div class="col-sm-12 mb-2">
+                        <label class="form-label" for="FollowUp">Remark</label>
+                        <textarea cols="5" id="Remark" name="Remark" class="form-control"></textarea>
+                    </div>
+                    <div class="col-sm-12 mb-2">
+                        <label class="form-label" for="DueDate">Attachment</label>
+                        <div id="attachment"><a href=""  download>Download File</a></div>
+                        
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" id="btnSetAssignment" class="btn btn-danger">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    <script src="~/js/pages/AuditExternalMonitoring/audit-external-monitoring-list.js"></script>
+}

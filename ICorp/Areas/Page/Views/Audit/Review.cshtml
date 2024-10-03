@@ -1,0 +1,44 @@
+﻿@using Microsoft.AspNetCore.Http;
+
+@{
+    ViewData["Title"] = "Audit Review List";
+}
+
+@section Styles {
+    <style>
+        table.dataTable.dtr-inline.collapsed > tbody > tr > td.dtr-control::before, 
+        table.dataTable.dtr-inline.collapsed > tbody > tr > th.dtr-control::before {
+            left: 1.2rem !important;
+        }
+    </style>
+}
+
+<div id="loadingContent" class="container-xxl flex-grow-1 container-p-y d-none">
+    <div class="card">
+        <div class="card-body text-center">
+            <div class="spinner-grow text-primary" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+            <div class="spinner-grow text-primary" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+            <div class="spinner-grow text-primary" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="contentPage" class="container-xxl flex-grow-1 container-p-y">
+    <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Page /</span> <span class="text-muted fw-light">Audit Review /</span> List</h4>
+    <div class="card">
+        <div class="card-datatable table-responsive text-nowrap">
+            <table id="dataTable" class="table table-bordered responsive no-footer"></table>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @*<script src="~/js/demo/dataTable-demos.js"></script>*@
+    <script src="~/js/pages/AuditProcess/audit-review.js"></script>
+}

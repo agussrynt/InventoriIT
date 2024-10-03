@@ -1,0 +1,142 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@addTagHelper *, AuthoringTagHelpers
+
+@{
+    ViewData["Title"] = "Sign In";
+}
+
+<div class="card">
+    <div class="card-body">
+        <!-- Logo -->
+        <div class="app-brand justify-content-center">
+            <a class="app-brand-link gap-2">
+                <span class="app-brand-logo demo">
+                    <img src="~/assets/img/icons/favicon.ico" alt="logo-portal" width="24" height="27" />
+                </span>
+                <span class="app-brand-text demo text-body fw-bolder" style="text-transform: none">PDSI LCDC</span>
+            </a>
+        </div>
+        <!-- /Logo -->
+        <h4 class="mb-4">Legal & Compliance Data Center</h4>
+        @*<p class="mb-4">Please sign-in to your account and start the adventure</p>*@
+        <form id="account" name="login" class="mb-3 needs-validation">
+            <div class="mb-3">
+                <label for="Username" class="form-label">Username</label>
+                <input
+                    id="Username"
+                    name="Username"
+                    type="text"
+                    class="form-control"
+                    placeholder="Enter your username"
+                    autocomplete="Username" 
+                    aria-required="true" 
+                    autofocus
+                    required
+                />
+                <span id="error-email" class="text-danger" style="font-size: 12px"></span>
+            </div>
+            <div class="mb-3 form-password-toggle">
+                <div class="d-flex justify-content-between">
+                    <label for="Password" class="form-label">Password</label>
+                    @*<a id="forgot-password" asp-area="Account" asp-controller="ForgotPassword" asp-action="Index">
+                        <small>Forgot Password?</small>
+                    </a>*@
+                </div>
+                <div class="input-group input-group-merge">
+                    <input
+                        id="Password"
+                        name="Password"
+                        type="password"
+                        class="form-control"
+                        placeholder="Enter your password"
+                        aria-required="true" 
+                        aria-describedby="password"
+                        required
+                    />
+                    <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
+                </div>
+                <span id="error-password" class="text-danger" style="font-size: 12px"></span>
+            </div>
+            @*<div class="mb-3">
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" for="RememberMe" />
+                    <label id="RememberMe" class="form-check-label"> Remember Me</label>
+                </div>
+            </div>*@
+            <div class="mb-3">
+                <button class="btn btn-primary d-grid w-100" id="login-submit" type="submit">Sign in</button>
+            </div>
+        </form>
+        @*<p class="text-center">
+            <span>New on our platform?</span>
+            <a asp-area="Account" asp-controller="Register" asp-action="Index">
+                <span>Create an account</span>
+            </a>
+        </p>*@
+    </div>
+</div>
+
+                    
+@section Scripts {
+    <script>
+        // Wait for the DOM to be ready
+        $(function() {
+            var 
+                invalid = $("#invalid").data("value"),
+                messageInvalid = $("#messageInvalid"),
+                loginFrom =  $("form[name='login']"),
+                submitLogin = "login-submit",
+                alertInvalid = $("#caseInvalid");
+
+            // Initialize form validation on the login form.
+            // It has the name attribute "login"
+            loginFrom.validate({
+                // Specify validation rules
+                rules: {
+                    // The key name on the left side is the name attribute
+                    // of an input field. Validation rules are defined
+                    // on the right side
+                    Username: "required",
+                    Password: "required",
+                },
+                // Specify validation error messages
+                messages: {
+                    Username: "Please enter your username",
+                    Password: {
+                        required: "Please provide a password",
+                    },
+                },
+                // Make sure the form is submitted to the destination defined
+                // in the "action" attribute of the form when valid
+                submitHandler: function(form) {
+                    //form.submit();
+                    loadingForm(true, submitLogin);
+                    $.ajax({
+                        url: baseUrl+"/account/login/on-post-ajax",
+                        method: "POST",
+                        data: new FormData(form),
+                        contentType: false,
+                        processData: false,      
+                        success: function(result) {
+                            if (result.success) {
+                                loadingForm('default', submitLogin, result.message);
+                                window.location.href = result.urlResponse;
+                            } else {
+                                swallAllert.Error("Login Failed!", result.message)
+
+                                loadingForm(false, submitLogin, "Sign In");
+                            }
+                        },
+                        error: function(err) {
+                            console.log(err);
+                            swallAllert.Error(500, "Something wrong when login!");
+                            loadingForm(false, submitLogin, "Sign In");
+                        }
+                    });
+                    return false;
+                }
+            });
+        });
+    </script>
+     
+}

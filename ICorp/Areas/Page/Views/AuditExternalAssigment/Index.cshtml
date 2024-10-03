@@ -1,0 +1,111 @@
+﻿@{
+	ViewData["Title"] = "Index";
+}
+
+<div id="loadingContent" class="container-xxl flex-grow-1 container-p-y d-none">
+	<div class="card">
+		<div class="card-body text-center">
+			<div class="spinner-grow text-primary" role="status">
+				<span class="visually-hidden">Loading...</span>
+			</div>
+			<div class="spinner-grow text-primary" role="status">
+				<span class="visually-hidden">Loading...</span>
+			</div>
+			<div class="spinner-grow text-primary" role="status">
+				<span class="visually-hidden">Loading...</span>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div id="contentPage" class="container-xxl flex-grow-1 container-p-y">
+	<h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Page /</span> <span class="text-muted fw-light">Audit External Assigment /</span> List</h4>
+	<div class="card">
+		<div class="card-header">
+			<div class="row">
+				<div class="col-md-6">
+                        <div class="form-group row">
+                          <label class="col-sm-3 col-form-label">Year</label>
+                          <div class="col-sm-12 col-lg-9">
+							<select id="assignYear" name="assignYear" class="form-control">
+								<option value="2020">2020</option>
+								<option value="2021">2021</option>
+								<option selected value="2022">2022</option>
+								<option value="2023">2023</option>
+								<option value="2024">2024</option>
+							</select>
+						</div>
+                        </div>
+                      </div>
+			</div>
+		</div>
+		<div class="card-datatable table-responsive text-nowrap">
+			<table id="dataTable" class="table no-footer">
+				<thead>
+					<tr class="text-nowrap">
+						<th>Auditor Name</th>
+						<th>Recomendation</th>
+						<th>Assigment For</th>
+						<th>PIC</th>
+						<th>Due Date</th>
+						<th>Action</th>
+					</tr>
+				</thead>
+				<tbody></tbody>
+			</table>
+		</div>
+	</div>
+</div>
+
+<!-- Modal Assignment  -->
+<div class="modal fade" id="setAssignment" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="setAssignment" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<form name="form-set-assignment" class="add-new-user pt-0 row g-2 fv-plugins-bootstrap5 fv-plugins-framework need-validation" id="form-add-new-record" novalidate="novalidate">
+				<div class="modal-header">
+					<h4 class="modal-title" id="addModalLabel">
+						<i class="bx bx-user-plus me-1"></i>
+						Set Recomendation Assignment
+					</h4>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<input type="hidden" id="Id" name="Id" class="form-control" />
+					<div class="col-sm-12 mb-2">
+						<label class="form-label" for="Description">Rekomendasi</label>
+						<textarea cols="5" id="Recomendation" name="Recomendation" class="form-control" readonly></textarea>
+					</div>
+					<div class="col-sm-12 mb-2">
+						<label class="form-label" for="DueDate">Due Date</label>
+						<input type="date" id="DueDate" name="DueDate" class="form-control" required />
+					</div>
+					<div class="col-sm-12 mb-2">
+						<label class="form-label" for="Assignment">Fungsi Assignment</label>
+						<div class="position-relative">
+							<select class="form-select" id="Assignment" name="Assignment" required>
+								<option value="" disabled></option>
+							</select>
+						</div>
+					</div>
+					<div id="userPic" class="col-sm-12 mb-2 d-none">
+						<label class="form-label" for="PIC">User PIC</label>
+						<div class="position-relative">
+							<select class="form-select" id="PIC" name="PIC" required>
+								<option value="" disabled></option>
+							</select>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+					<button type="submit" id="btnSetAssignment" class="btn btn-primary">Submit</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+
+@section Scripts {
+	@*<script src="~/js/demo/dataTable-demos.js"></script>*@
+	<script src="~/js/pages/AuditExternalAssigment/audit-external-assigment-list.js"></script>
+}

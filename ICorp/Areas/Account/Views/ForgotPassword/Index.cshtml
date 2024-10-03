@@ -1,0 +1,117 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@addTagHelper *, AuthoringTagHelpers
+
+@{
+    ViewData["Title"] = "Forgot Password";
+}
+
+<div class="card">
+    <div class="card-body">
+        <!-- Logo -->
+        <div class="app-brand justify-content-center">
+            <a href="index.html" class="app-brand-link gap-2">
+                <span class="app-brand-logo demo">
+                    <img src="~/assets/img/icons/portal-9.svg" alt="logo-portal" width="24" height="27" />
+                </span>
+                <span class="app-brand-text demo text-body fw-bolder" style="text-transform: none">i-Corp</span>
+            </a>
+        </div>
+        <!-- /Logo -->
+        <h4 class="mb-2">Forgot Password? 🔒</h4>
+        <p class="mb-4">Enter your email and we'll send you instructions to reset your password</p>
+        <form id="account" class="mb-3" method="POST">
+            <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input
+                    id="email"
+                    type="email"
+                    class="form-control"
+                    placeholder="Enter your email"
+                    autocomplete="email" 
+                    aria-required="true" 
+                    autofocus
+                    required
+                />
+                <span id="error-email" class="text-danger" style="font-size: 12px"></span>
+            </div>
+            <div class="mb-3">
+                <button class="btn btn-primary d-grid w-100" id="login-submit" type="submit">Send Reset Link</button>
+            </div>
+        </form>
+        <div class="text-center">
+            <a asp-area="Account" asp-controller="Login" asp-action="Index" class="d-flex align-items-center justify-content-center">
+                <i class="bx bx-chevron-left scaleX-n1-rtl bx-sm"></i>
+                Back to login
+            </a>
+        </div>
+    </div>
+</div>
+
+                    
+@section Scripts {
+    <script>
+        // Wait for the DOM to be ready
+        $(function() {
+            var 
+                invalid = $("#invalid").data("value"),
+                messageInvalid = $("#messageInvalid"),
+                loginFrom =  $("form[name='login']"),
+                submitLogin = "submitLogin",
+                alertInvalid = $("#caseInvalid");
+
+            // Initialize form validation on the login form.
+            // It has the name attribute "login"
+            loginFrom.validate({
+                // Specify validation rules
+                rules: {
+                    // The key name on the left side is the name attribute
+                    // of an input field. Validation rules are defined
+                    // on the right side
+                    Username: "required",
+                    Password: "required",
+                    Password: {
+                        required: true,
+                        minlength: 6
+                    }
+                },
+                // Specify validation error messages
+                messages: {
+                    Username: "Please enter your username",
+                    Password: {
+                        required: "Please provide a password",
+                        minlength: "Your password must be at least 6 characters long"
+                    },
+                },
+                // Make sure the form is submitted to the destination defined
+                // in the "action" attribute of the form when valid
+                submitHandler: function(form) {
+                    //form.submit();
+                    loadingForm(true, submitLogin);
+                    $.ajax({
+                        url: "/account/login/on-post-ajax",
+                        method: "POST",
+                        data: new FormData(form),
+                        contentType: false,
+                        processData: false,      
+                        success: function(result) {
+                            if (result.success) {
+                                loadingForm('default', submitLogin, result.message);
+                                window.location.href = result.urlResponse;
+                            } else {
+                                swallAllert.Error("Login Failed!", result.message)
+
+                                loadingForm(false, submitLogin, "Login");
+                            }
+                        },
+                        error: function(err) {
+                            console.log(err);
+                            swallAllert.Error(500, "Something wrong when login!");
+                            loadingForm(false, submitLogin, "Login");
+                        }
+                    });
+                    return false;
+                }
+            });
+        });
+    </script>
+}

@@ -1,0 +1,379 @@
+﻿@{
+	ViewData["Title"] = "User List";
+}
+
+@section Styles {
+	@*<link href="~/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">*@
+	<link rel="stylesheet" href="~/lib/datatables-bs5/dataTables.bootstrap5.min.css">
+	<link rel="stylesheet" href="~/lib/datatables-responsive-bs5/responsive.bootstrap5.min.css">
+}
+
+<style>
+	.select2-container--default .select2-selection--multiple .select2-selection__choice__remove {
+		position: relative;
+	}
+</style>
+
+	<div id="loadingContent" class="container-xxl flex-grow-1 container-p-y">
+		<div class="card">
+			<div class="card-body text-center">
+				<div class="spinner-grow text-primary" role="status">
+					<span class="visually-hidden">Loading...</span>
+				</div>
+				<div class="spinner-grow text-primary" role="status">
+					<span class="visually-hidden">Loading...</span>
+				</div>
+				<div class="spinner-grow text-primary" role="status">
+					<span class="visually-hidden">Loading...</span>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div id="contentPage" class="container-xxl flex-grow-1 container-p-y d-none">
+		<h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Master /</span> User List</h4>
+		<div class="row g-4 mb-4">
+			<div class="col-sm-6 col-xl-3">
+				<div class="card">
+					<div class="card-body">
+						<div class="d-flex align-items-start justify-content-between">
+							<div class="content-left">
+								<span>Session</span>
+								<div class="d-flex align-items-end mt-2">
+									<h4 id="totalUser" class="mb-0 me-2"></h4>
+									@*<small class="text-success">(+29%)</small>*@
+								</div>
+								@*<small>Total Users</small>*@
+							</div>
+							<span class="badge bg-label-primary rounded p-2">
+								<i class="bx bx-user bx-sm"></i>
+							</span>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-sm-6 col-xl-3">
+				<div class="card">
+					<div class="card-body">
+						<div class="d-flex align-items-start justify-content-between">
+							<div class="content-left">
+								<span>LDAP Users</span>
+								<div class="d-flex align-items-end mt-2">
+									<h4 id="userLDAP" class="mb-0 me-2"></h4>
+									@*<small class="text-success">(+18%)</small>*@
+								</div>
+								@*<small>User LDAP registered in system</small>*@
+							</div>
+							<span class="badge bg-label-danger rounded p-2">
+								@*<i class="bx bx-user-plus bx-sm"></i>*@
+								<i class="bx bxs-user-badge bx-sm"></i>
+							</span>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-sm-6 col-xl-3">
+				<div class="card">
+					<div class="card-body">
+						<div class="d-flex align-items-start justify-content-between">
+							<div class="content-left">
+								<span>SITE User</span>
+								<div class="d-flex align-items-end mt-2">
+									<h4 id="userSITE" class="mb-0 me-2"></h4>
+									@*<small class="text-success">(+42%)</small>*@
+								</div>
+								@*<small>User registered with system</small>*@
+							</div>
+							<span class="badge bg-label-warning rounded p-2">
+								<i class="bx bx-user-pin bx-sm"></i>
+							</span>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-sm-6 col-xl-3">
+				<div class="card">
+					<div class="card-body">
+						<div class="d-flex align-items-start justify-content-between">
+							<div class="content-left">
+								<span>Active Users</span>
+								<div class="d-flex align-items-end mt-2">
+									<h4 id="activeUser" class="mb-0 me-2"></h4>
+									@*<small class="text-danger">(-14%)</small>*@
+								</div>
+								@*<small>User actived in system</small>*@
+							</div>
+							<span class="badge bg-label-success rounded p-2">
+								<i class="bx bxs-user-check bx-sm"></i>
+							</span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="card">
+			<div class="card-header d-flex justify-content-between">
+				<div class="head-label text-center my-auto">
+					<h5 class="card-title mb-0">List Users</h5>
+				</div>
+				<div class="dt-action-buttons text-end pt-3 pt-md-0">
+					<div class="dt-buttons">
+						<button id="btnNew" class="dt-button create-new btn btn-primary" type="button">
+							<span>
+								<i class="bx bx-plus me-sm-2"></i>
+								<span class="d-none d-sm-inline-block">Add New Record</span>
+							</span>
+						</button>
+					</div>
+				</div>
+			</div>
+			<div class="card-datatable table-responsive text-nowrap">
+				<table id="dataTable" class="table no-footer">
+					<thead>
+						<tr>
+							<th>#</th>
+							<th>UserID</th>
+							<th>Username</th>
+							<th>Email</th>
+							<th>Display Name</th>
+							<th>Role</th>
+							<th>Fungsi</th>
+							<th>Status</th>
+							<th>Create date</th>
+							<th>Action</th>
+						</tr>
+					</thead>
+				</table>
+			</div>
+		</div>
+	</div>
+
+
+	<div class="modal fade" id="userModal" tabindex="-1" role="dialog" aria-labelledby="userModal"
+	 aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<form name="user-modal" class="user-modal">
+					<div class="modal-header">
+						<h5 class="modal-title" id="userModal"></h5>
+						<button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close">
+							@*<span aria-hidden="true">×</span>*@
+						</button>
+					</div>
+					<div class="modal-body">
+						<div class="row mb-3">
+							<div class="col mb-3">
+								<label for="UserName" class="form-label form-required">UserName</label>
+								<input type="text" class="form-control" id="UserName" name="UserName">
+								<input type="hidden" class="form-control" id="IdUser" name="IdUser">
+								<input type="hidden" class="form-control" id="IdProfile" name="IdProfile">
+							</div>
+						</div>
+						<div class="row mb-3 rowValidateLDAP">
+							<div class="col mb-3">
+								<button id="validateLDAP" type="button" class="btn btn-primary">Validate LDAP</button>
+							</div>
+						</div>
+						<div class="form-row mb-3 row">
+								<div class="form-group col-6 mb-3">
+									<label for="Fullname" class="form-label form-required">First Name</label>
+									<input type="text" class="form-control" id="FirstName" name="FirstName" readonly>
+								</div>
+								<div class="form-group  col-6 mb-3">
+									<label for="Fullname" class="form-label form-required">Last Name</label>
+									<input type="text" class="form-control" id="LastName" name="LastName" readonly>
+								</div>
+						</div>
+						<div id="ldapChoice" class="row mb-4">
+							<div class="col-12">
+								<label for="Email" class="form-label form-required">Email address</label>
+								<input type="email" class="form-control" id="Email" name="Email" required readonly>
+							</div>
+							@*<div class="col-12" id="passwordInp">
+						<label for="Password" class="form-label form-required">Password</label>
+						<input type="password" class="form-control" id="Password" name="Password">
+						</div>*@
+						</div>
+						<div class="row mb-3" hidden>
+							<div class="col-12 mb-3">
+								<label for="Fullname" class="form-label form-required">Fullname</label>
+								<input type="text" class="form-control" id="Fullname" name="Fullname">
+							</div>
+						</div>
+						
+
+						<div class="row mb-3" hidden>
+							<div class="col-12 mb-3">
+								<label for="EmpNumber" class="form-label form-required">EmpNumber</label>
+								<input type="text" class="form-control" id="EmpNumber" name="EmpNumber" readonly>
+							</div>
+						</div>
+
+
+						<div class="row mb-3">
+							<div class="col-12 mb-3">
+								<label class="form-label" for="Assignment">Fungsi Assignment</label>
+								<div class="position-relative">
+									<select class="form-select" id="FungsiId" name="FungsiId" required>
+										<option value="" ></option>
+									</select>
+								</div>
+							</div>
+						</div>
+
+						<div class="row mb-3" >
+							<div class="col-12 mb-3">
+								<label for="Fullname" class="form-label form-required">Directorate</label>
+								<input type="text" class="form-control" id="Directorate" name="Directorate" readonly>
+							</div>
+						</div>
+
+						<div class="row mb-3" hidden>
+							<div class="col-12 mb-3">
+								<label for="PosID" class="form-label form-required">PosID</label>
+								<input type="text" class="form-control" id="PosID" name="PosID">
+							</div>
+						</div>
+						<div class="row mb-3" hidden>
+							<div class="col-12 mb-3">
+								<label for="PosName" class="form-label form-required">PosName</label>
+								<input type="text" class="form-control" id="PosName" name="PosName">
+							</div>
+						</div>
+						<div class="row mb-3" hidden>
+							<div class="col-12 mb-3">
+								<label for="DirID" class="form-label form-required">DirID</label>
+								<input type="text" class="form-control" id="DirID" name="DirID">
+							</div>
+						</div>
+						<div class="row mb-3" hidden>
+							<div class="col-12 mb-3">
+								<label for="DirName" class="form-label form-required">DirName</label>
+								<input type="text" class="form-control" id="DirName" name="DirName">
+							</div>
+						</div>
+						<div class="row mb-3" hidden>
+							<div class="col-12 mb-3">
+								<label for="DivID" class="form-label form-required">DivID</label>
+								<input type="text" class="form-control" id="DivID" name="DivID">
+							</div>
+						</div>
+						<div class="row mb-3" hidden>
+							<div class="col-12 mb-3">
+								<label for="DivName" class="form-label form-required">DivName</label>
+								<input type="text" class="form-control" id="DivName" name="DivName">
+							</div>
+						</div>
+						<div class="row mb-3" hidden>
+							<div class="col-12 mb-3">
+								<label for="DepID" class="form-label form-required">DepID</label>
+								<input type="text" class="form-control" id="DepID" name="DepID">
+							</div>
+						</div>
+						<div class="row mb-3" hidden>
+							<div class="col-12 mb-3">
+								<label for="DepName" class="form-label form-required">DepName</label>
+								<input type="text" class="form-control" id="DepName" name="DepName">
+							</div>
+						</div>
+						<div class="row mb-3" hidden>
+							<div class="col-12 mb-3">
+								<label for="IsMitra" class="form-label form-required">IsMitra</label>
+								<input type="text" class="form-control" id="IsMitra" name="IsMitra">
+							</div>
+						</div>
+						<div class="row mb-3" hidden>
+							<div class="col-12 mb-3">
+								<label for="IsPDSI" class="form-label form-required">IsPDSI</label>
+								<input type="text" class="form-control" id="IsPDSI" name="IsPDSI">
+							</div>
+						</div>
+						<div class="row mb-3">
+							<div class="col">
+								<label for="Role" class="form-label form-required">Roles</label>
+								<div>
+									<select  class="form-control" id="Roles" name="Roles" required multiple>
+									</select>
+								</div>
+							</div>
+
+						</div>
+						<div class="row mt-4">
+							<div class="col-12">
+								<p class="text-muted" style="font-size: 11px">
+									Note: Fields marked with <span class="text-danger">(*)</span> must be filled!
+								</p>
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Cancel</button>
+						<button id="submitUser" type="submit" class="btn btn-danger">Submit!</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+
+	<!-- Modal -->
+	@*<div class="modal fade" id="addUserModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form name="new-user" class="add-new-user pt-0 row g-2 fv-plugins-bootstrap5 fv-plugins-framework need-validation" id="form-add-new-record" novalidate="novalidate">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="addModalLabel">
+                        <i class="bx bx-user-plus me-1"></i>
+                        Add User
+                    </h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="col-sm-12 mb-1">
+                        <label class="form-label" for="fullname">Full Name</label>
+                        <div class="input-group input-group-merge has-validation">
+                            <span id="fullname" class="input-group-text"><i class="bx bx-user"></i></span>
+                            <input type="text" id="fullname" class="form-control dt-full-name" name="fulname" placeholder="John Doe" aria-label="John Doe" aria-describedby="fullname">
+                        </div>
+                        <div class="invalid-feedback"></div>
+                    </div>
+                    <div class="col-sm-12 mb-1">
+                        <label class="form-label" for="email">Email</label>
+                        <div class="input-group input-group-merge has-validation">
+                            <span class="input-group-text"><i class="bx bx-envelope"></i></span>
+                            <input type="text" id="email" name="email" class="form-control dt-email" placeholder="john.doe@example.com" aria-label="email">
+                        </div>
+                        <div class="invalid-feedback"></div>
+                    </div>
+                    <div class="col-sm-12 mb-1">
+                        <label for="role" class="form-label">Role</label>
+                        <select class="form-select" id="role" name="role">
+                          <option value="" disabled>-- Select One --</option>
+                        </select>
+                    </div>
+                    <div class="col-sm-12 mt-3 mb-2">
+                        <div class="form-check form-switch mb-0">
+                            <input class="form-check-input" type="checkbox" id="IsLDAP" checked="">
+                            <label class="form-check-label" for="IsLDAP">LDAP</label>
+                        </div>
+                        <div class="form-text mt-0">
+                            Check if user from LDAP
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>*@
+
+	@section Scripts {
+	<script src="~/assets/vendor/datatables/jquery.dataTables.min.js"></script>
+	<script src="~/lib/datatables-bs5/dataTables.bootstrap5.min.js"></script>
+	<script src="~/lib/datatables-responsive-bs5/responsive.bootstrap5.min.js"></script>
+
+	<!-- Page level custom scripts -->
+	<script src="~/js/pages/user-management.js"></script>
+}

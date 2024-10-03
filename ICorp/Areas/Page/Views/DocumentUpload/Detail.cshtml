@@ -1,0 +1,108 @@
+﻿@using Microsoft.AspNetCore.Http;
+
+@{
+    ViewData["Title"] = "Document Upload Detail";
+}
+
+@section Styles {
+}
+
+<div id="loadingContent" class="container-xxl flex-grow-1 container-p-y">
+    <div class="card">
+        <div class="card-body text-center">
+            <div class="spinner-grow text-primary" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+            <div class="spinner-grow text-primary" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+            <div class="spinner-grow text-primary" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="contentPage" class="container-xxl flex-grow-1 container-p-y d-none">
+    <h4 class="fw-bold py-3 mb-4">
+        <span class="text-muted fw-light">Page /</span> 
+        <span class="text-muted fw-light">Document Upload /</span> 
+        Detail <span id="year">2012</span>
+    </h4>
+    <div class="card">
+        <div class="card-header d-flex align-items-center justify-content-between">
+            <h5 class="card-title m-0 me-2">Ducument Upload</h5>
+            @*<div class="dropdown">
+                <button class="btn p-0" type="button" id="employeeList" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="bx bx-dots-vertical-rounded"></i>
+                </button>
+                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="employeeList">
+                    <a class="dropdown-item" href="javascript:void(0);">Featured Employees</a>
+                    <a class="dropdown-item" href="javascript:void(0);">Based on Task</a>
+                    <a class="dropdown-item" href="javascript:void(0);">See All</a>
+                </div>
+            </div>*@
+        </div>
+        <div class="card-datatable table-responsive">
+            <table id="dataTable" class="table compact table-bordered dataTable no-footer"></table>
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal Assignment  -->
+<div class="modal fade" id="uploadDokumen" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="uploadDokumen" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form name="form-upload-dokumen" class="upload-dokumen pt-0 row g-2 fv-plugins-bootstrap5 fv-plugins-framework need-validation" id="form-add-new-record" novalidate="novalidate">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="addModalLabel">
+                        <i class="bx bx-document me-1"></i>
+                        Upload Dokumen
+                    </h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" id="Id" name="Id" class="form-control" />
+                    <input type="hidden" id="FukId" name="FukId" class="form-control" />
+                    <div class="col-sm-12 mb-2">
+                        <label class="form-label" for="Year">Year</label>
+                        <input type="text" id="Year" name="Year" class="form-control" readonly />
+                    </div>
+                    <div class="col-sm-12 mb-2">
+                        <label class="form-label" for="Parameter">Parameter</label>
+                        <textarea cols="5" id="Parameter" name="Parameter" class="form-control" readonly></textarea>
+                    </div>
+                    <div class="col-sm-12 mb-2">
+                        <label class="form-label" for="FUK">Faktor Uji Kesesuaian</label>
+                        <textarea cols="5" id="FUK" name="FUK" class="form-control" readonly></textarea>
+                    </div>
+                    <div class="col-sm-12 mb-2">
+                        <label class="form-label" for="UP">Unsur Pemenuhan</label>
+                        <textarea cols="5" id="UP" name="UP" class="form-control" readonly></textarea>
+                    </div>
+                    <div id="showFile" class="col-sm-12 mb-2">
+                        <label for="formFile" class="form-label">Import File</label>
+                        <input class="form-control" type="file" id="formFile" name="formFile" required>
+                    </div>
+                     <div class="col-sm-12 mb-2">
+                        <label class="form-label" for="Remarks">Review</label>
+                        <textarea cols="5" id="DocumentReview" name="DocumentReview" class="form-control" readonly></textarea>
+                    </div>
+                    <div class="col-sm-12 mb-2">
+                        <label class="form-label" for="Remarks">Remarks</label>
+                        <textarea cols="5" id="Remarks" name="Remarks" class="form-control" required></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" id="btnUploadDocument" class="btn btn-primary">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/js/pages/UploadDokumen/document-up.js"></script>
+}

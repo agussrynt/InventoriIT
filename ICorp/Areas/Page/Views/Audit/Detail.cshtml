@@ -1,0 +1,227 @@
+﻿@using Microsoft.AspNetCore.Http;
+
+@{
+    ViewData["Title"] = "Audit Process Detail";
+}
+
+@section Styles {
+}
+
+<div id="loadingContent" class="container-xxl flex-grow-1 container-p-y d-none">
+    <div class="card">
+        <div class="card-body text-center">
+            <div class="spinner-grow text-primary" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+            <div class="spinner-grow text-primary" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+            <div class="spinner-grow text-primary" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="contentPage" class="container-xxl flex-grow-1 container-p-y">
+    <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Page /</span> <span class="text-muted fw-light">Audit Process /</span> Detail <span id="yearData"></span></h4>
+    @*<div class="row">
+        <div class="col-lg-3 col-md-6 col-sm-6 mb-4">
+            <div class="card bg-info">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between">
+                        <div class="card-info">
+                            <p class="card-text text-white">No Responded</p>
+                            <div class="d-flex align-items-end mb-2">
+                                <h3 class="card-title mb-0 me-2">2</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-6 col-sm-6 mb-4">
+            <div class="card bg-danger">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between">
+                        <div class="card-info">
+                            <p class="card-text text-white">Reject</p>
+                            <div class="d-flex align-items-end mb-2">
+                                <h3 class="card-title mb-0 me-2">2</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>*@
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-datatable table-responsive">
+                    <table id="dataTable" class="table compact table-bordered dataTable no-footer"></table>
+                </div>
+                <div class="card-body border-top text-center">
+                    @*<button class="btn btn-primary me-1">Preview</button>*@
+                    <button class="btn btn-success me-1" id="btn-finish" style="display: none;">Finish Audit</button>
+                    @*<button class="btn btn-primary btn-sm me-1">Preview</button>*@
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal Review  -->
+<div class="modal fade" id="uploadDokumen" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="uploadDokumen" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form name="form-upload-dokumen" class="upload-dokumen pt-0 row g-2 fv-plugins-bootstrap5 fv-plugins-framework need-validation" id="form-add-new-record" novalidate="novalidate">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="addModalLabel">
+                        <i class="bx bx-document me-1"></i>
+                        Upload Dokumen
+                    </h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" id="Id" name="Id" class="form-control" />
+                    <input type="hidden" id="FukId" name="FukId" class="form-control" />
+                    <div class="col-sm-12 mb-2">
+                        <label class="form-label" for="Year">Year</label>
+                        <input type="text" id="Year" name="Year" class="form-control" readonly />
+                    </div>
+                    <div class="col-sm-12 mb-2">
+                        <label class="form-label" for="Parameter">Parameter</label>
+                        <textarea cols="5" id="Parameter" name="Parameter" class="form-control" readonly></textarea>
+                    </div>
+                    <div class="col-sm-12 mb-2">
+                        <label class="form-label" for="FUK">Faktor Uji Kesesuaian</label>
+                        <textarea cols="5" id="FUK" name="FUK" class="form-control" readonly></textarea>
+                    </div>
+                    <div class="col-sm-12 mb-2">
+                        <label class="form-label" for="UP">Unsur Pemenuhan</label>
+                        <textarea cols="5" id="UP" name="UP" class="form-control" readonly></textarea>
+                    </div>
+                    <div id="showFile" class="col-sm-12 mb-2"></div>
+                    <div id="showNote" class="col-sm-12 mb-2">
+                        <label class="form-label" for="UP">Note from auditee</label>
+                        <textarea cols="5" id="Note" name="Note" class="form-control" readonly></textarea>
+                    </div>
+                    <div class="col-sm-12 mb-2">
+                        <label class="form-label" for="Score">Score</label>
+                        <input type="text" id="Score" name="Score" class="form-control" required min="0.01" />
+                    </div>
+                    <div class="col-sm-12 mb-2">
+                        <label class="form-label" for="Remarks">Review</label>
+                        <textarea cols="5" id="Remarks" name="Remarks" class="form-control" required></textarea>
+                    </div>
+                    <div class="col-sm-12 mb-2">
+                        <div class="form-check form-switch mb-2">
+                            <input class="form-check-input" type="checkbox" id="setRecommendation">
+                            <label class="form-check-label" for="setRecommendation">Recommendation from Auditor</label>
+                        </div>
+                    </div>
+                    <div id="formRecommendation" class="col-sm-12 mb-2">
+                        <label class="form-label" for="Recommendation">Recommendation</label>
+                        <textarea cols="5" id="Recommendation" name="Recommendation" class="form-control" required></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" id="btnUploadDocument" class="btn btn-primary">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Response Author  -->
+<div class="modal fade" id="statusAuditModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="statusAuditModal" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <form name="form-response-author" class="response-author pt-0 row g-2 fv-plugins-bootstrap5 fv-plugins-framework need-validation" id="form-add-new-record" novalidate="novalidate">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="addModalLabel">
+                        Reject Document
+                    </h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" id="Id" name="Id" class="form-control" />
+                    <input type="hidden" id="FukId" name="FukId" class="form-control" />
+                    @*<div class="col-sm-12 mb-2 text-center">
+                        <img src="~/assets/img/illustrations/questions-mark.png" class="img-fluid" width="370" />
+                    </div>*@
+                    <div class="col-sm-12 mb-2">
+                        <label class="form-label" for="Remarks">Reason of Reject</label>
+                        <textarea cols="5" id="Remarks" name="Remarks" class="form-control"></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" id="btnResponseAuthor" class="btn btn-primary">Yes, Reject</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Edit  -->
+<div class="modal fade" id="editDokumen" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="editDokumen" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form name="form-edit-dokumen" class="edit-dokumen pt-0 row g-2 fv-plugins-bootstrap5 fv-plugins-framework need-validation" id="form-add-new-record" novalidate="novalidate">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="addModalLabel">
+                        <i class="bx bx-document me-1"></i>
+                        Edit Dokumen
+                    </h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" id="Id" name="Id" class="form-control" />
+                    <input type="hidden" id="FukId" name="FukId" class="form-control" />
+                    <div class="col-sm-12 mb-2">
+                        <label class="form-label" for="Year">Year</label>
+                        <input type="text" id="Year" name="Year" class="form-control" readonly />
+                    </div>
+                    <div class="col-sm-12 mb-2">
+                        <label class="form-label" for="Parameter">Parameter</label>
+                        <textarea cols="5" id="Parameter" name="Parameter" class="form-control" readonly></textarea>
+                    </div>
+                    <div class="col-sm-12 mb-2">
+                        <label class="form-label" for="FUK">Faktor Uji Kesesuaian</label>
+                        <textarea cols="5" id="FUK" name="FUK" class="form-control" readonly></textarea>
+                    </div>
+                    <div class="col-sm-12 mb-2">
+                        <label class="form-label" for="UP">Unsur Pemenuhan</label>
+                        <textarea cols="5" id="UP" name="UP" class="form-control" readonly></textarea>
+                    </div>
+                    <div id="showFile" class="col-sm-12 mb-2"></div>
+                    <div id="showNote" class="col-sm-12 mb-2">
+                        <label class="form-label" for="Note">Note from auditee</label>
+                        <textarea cols="5" id="Note" name="Note" class="form-control" readonly></textarea>
+                    </div>
+                    <div class="col-sm-12 mb-2">
+                        <label class="form-label" for="Score">Score</label>
+                        <input type="text" id="Score" name="Score" class="form-control" required />
+                    </div>
+                    <div class="col-sm-12 mb-2">
+                        <label class="form-label" for="Remarks">Review</label>
+                        <textarea cols="5" id="Remarks" name="Remarks" class="form-control" readonly></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" id="btnEditDocument" class="btn btn-primary">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    <script src="~/js/pages/AuditProcess/audit-detail.js"></script>
+}
