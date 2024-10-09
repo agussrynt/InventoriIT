@@ -56,6 +56,18 @@
 					</li>
 				</ul>
 			</li>
+			<li class="menu-item">
+				<a class="menu-link" asp-area="Page" asp-controller="MasterKertasKerja" asp-action="List">
+					<i class="menu-icon tf-icons bx bx-file"></i>
+					<div data-i18n="Basic">Cost Center</div>
+				</a>
+			</li>
+			<li class="menu-item">
+				<a class="menu-link" asp-area="Page" asp-controller="MasterKertasKerja" asp-action="List">
+					<i class="menu-icon tf-icons bx bx-file"></i>
+					<div data-i18n="Basic">GL Account</div>
+				</a>
+			</li>
 		}
 
 
@@ -65,12 +77,12 @@
 		</li>
 		@if (User.IsInRole("Admin") || User.IsInRole("Auditor"))
 		{
-			<li class="menu-item">
+			@* <li class="menu-item">
 				<a class="menu-link" asp-area="Page" asp-controller="MasterKertasKerja" asp-action="List">
 					<i class="menu-icon tf-icons bx bx-file"></i>
-					<div data-i18n="Basic">Master Kertas Kerja</div>
+					<div data-i18n="Basic">Cost Center</div>
 				</a>
-			</li>
+			</li> *@
 		}
 
 
@@ -106,26 +118,30 @@
 			<li class="menu-item">
 				<a href="javascript:void(0);" class="menu-link menu-toggle">
 					<i class="menu-icon tf-icons bx bx-check-shield"></i>
-					<div data-i18n="Basic">Audits</div>
+					<div data-i18n="Basic">RKAP</div>
 				</a>
 				<ul class="menu-sub">
 					<li class="menu-item">
 						<a class="menu-link" asp-area="Page" asp-controller="Audit" asp-action="List">
-							<div data-i18n="Basic">Audit Process</div>
+							<div data-i18n="Basic">Revenue</div>
 						</a>
 					</li>
-					@*<li class="menu-item">
-				<a class="menu-link" asp-area="Page" asp-controller="Audit" asp-action="Review">
-				<div data-i18n="Basic">Audit Review</div>
-				</a>
-				</li>*@
+					<li class="menu-item">
+						<a class="menu-link" asp-area="Page" asp-controller="Audit" asp-action="Review">
+							<div data-i18n="Basic">Profit</div>
+						</a>
+					</li><li class="menu-item">
+						<a class="menu-link" asp-area="Page" asp-controller="Audit" asp-action="Review">
+							<div data-i18n="Basic">Loss</div>
+						</a>
+					</li>
 				</ul>
 			</li>
 
 			<li class="menu-item">
 				<a class="menu-link" asp-area="Page" asp-controller="Monitoring" asp-action="List">
 					<i class='menu-icon tf-icons bx bx-desktop'></i>
-					<div data-i18n="Basic">Monitoring</div>
+					<div data-i18n="Basic">RJPP</div>
 				</a>
 			</li>
 		}
@@ -133,7 +149,7 @@
 
 
 
-		<li class="menu-item">
+		@* <li class="menu-item">
 			<a href="javascript:void(0);" class="menu-link menu-toggle">
 				<i class="menu-icon tf-icons bx bx-check-shield"></i>
 				<div data-i18n="Basic">Audit External</div>
@@ -168,23 +184,23 @@
 
 			</ul>
 		</li>
-
+ *@
 		<!-- Pages -->
-		<li class="menu-header small text-uppercase">
+		@* <li class="menu-header small text-uppercase">
 			<span class="menu-header-text">Access</span>
-		</li>
+		</li> *@
 		@*		<li class="menu-item">
 		<a class="menu-link">
 		<i class="menu-icon tf-icons bx bx-plus-medical"></i>
 		<div data-i18n="Basic">SIDOKTER</div>
 		</a>
 		</li>*@
-		<li class="menu-item">
+		@* <li class="menu-item">
 			<a class="menu-link" asp-controller="Home" asp-action="accessSIHP" target="_blank">
 				<i class="menu-icon tf-icons bx bx-collection"></i>
 				<div data-i18n="Basic">SIHP</div>
 			</a>
-		</li>
+		</li> *@
 		@*<script type="text/javascript">
 		function movePage() {
 		var
