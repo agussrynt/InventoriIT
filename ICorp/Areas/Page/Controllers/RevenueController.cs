@@ -12,5 +12,12 @@ namespace PlanCorp.Areas.Page.Controllers
         {
             return View();
         }
+
+        [HttpGet]
+        [Route("edit")]
+        public IActionResult Edit()
+        {
+            return View();
+        }
     }
 }
