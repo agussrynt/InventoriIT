@@ -120,6 +120,7 @@ namespace PlanCorp.Areas.Master.Controllers
         {
             try
             {
+                param.CreatedBy = HttpContext.Session.GetString("username");
                 var r = _assetService.SaveOrUpdate(param);
                 return Json(new
                 {

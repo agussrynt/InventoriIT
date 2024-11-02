@@ -20,8 +20,9 @@ builder.Services.AddIdentity<IdentityUser, IdentityRole>(options => options.Sign
 //.AddDefaultUI();
 
 // Add collection services to project
-builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IAssetService, AssetService>();
+builder.Services.AddScoped<IWorkService, WorkService>();
+builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IYearService, YearService>();
 builder.Services.AddScoped<IFungsiService, FungsiService>();
 builder.Services.AddScoped<IMasterKertasKerjaService, MasterKertasKerjaService>();
