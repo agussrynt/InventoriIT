@@ -17,10 +17,11 @@ builder.Services.AddDbContext<PlanCorpDbContext>(options =>
 builder.Services.AddIdentity<IdentityUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = false)
     .AddEntityFrameworkStores<PlanCorpDbContext>()
     .AddDefaultTokenProviders();
-    //.AddDefaultUI();
+//.AddDefaultUI();
 
 // Add collection services to project
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IAssetService, AssetService>();
 builder.Services.AddScoped<IYearService, YearService>();
 builder.Services.AddScoped<IFungsiService, FungsiService>();
 builder.Services.AddScoped<IMasterKertasKerjaService, MasterKertasKerjaService>();
@@ -50,7 +51,6 @@ builder.Services.AddControllersWithViews(options =>
 {
     options.Filters.Add(typeof(ExceptionHandlerAttribute));
 }).AddRazorRuntimeCompilation();
-
 
 builder.Services.Configure<IdentityOptions>(options =>
 {

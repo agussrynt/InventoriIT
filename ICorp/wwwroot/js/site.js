@@ -333,7 +333,7 @@ function loadingFormAccount(flag, inputID, inputText) {
 //}
 
 //comment on 031122
-async function fillSelect(url, id, elem) {
+async function fillSelect(url, id, elem, idParent) {
     var groups_array = [];
 
     $.getJSON(url, {},
@@ -354,9 +354,8 @@ async function fillSelect(url, id, elem) {
 
                 $("select" + id).select2({
                     placeholder: "Please select one",
-                    minimumResultsForSearch: -1,
-                    allowClear: false,
-                    data: groups_array,
+                    dropdownParent: idParent,
+                    data: groups_array
                 });
             }
         }
