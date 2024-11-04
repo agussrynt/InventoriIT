@@ -33,7 +33,7 @@
                     </button>
                     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addRevenue">
                         <i class="bx bx-plus me-sm-2"></i>
-                        <span class="d-none d-sm-inline-block">Add Project Revenue</span>
+                        <span class="d-none d-sm-inline-block"><a></a>Add Project Revenue</span>
                     </button>
                 </div>
             </div>
@@ -67,7 +67,114 @@
         </div>
     </div>
 </div>
+<div class="modal fade" id="addRevenue" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form name="addRevenue-modal" class="addRevenue-modal pt-0 row g-2 fv-plugins-bootstrap5 fv-plugins-framework need-validation" novalidate="novalidate">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="addRevenue">
+                        Input Project Revenue
+                    </h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" name="revenueId" />
+                    <div class="col-sm-12 mb-2">
+                        <label class="form-label" for="segmenRev">Segmen</label>
 
+                        <select id="segmenRev" class="form-control" name="segmen" required>
+                            <option>Pilih Segmen</option>
+                        </select>
+
+                        <div class="invalid-feedback"></div>
+                    </div>
+                    <div class="col-sm-12 mb-2">
+                        <label class="form-label" for="assetRev">Asset</label>
+
+                        <select id="assetRev" class="form-control" name="asset" required>
+                            <option>Pilih Asset</option>
+                        </select>
+
+                    </div>
+                    <div class="col-sm-12 mb-2">
+                        <label class="form-label" for="costCenterRev">Cost Center</label>
+
+                        <input type="text" id="costCenterRev" name="costCenter" class="form-control" required />
+
+                    </div>
+                    <div class="col-sm-12 mb-2">
+                        <label class="form-label" for="customerRev">Costumer</label>
+
+                        <select id="customerRev" class="form-control" name="customer" required>
+                            <option>Pilih Costumer</option>
+                        </select>
+
+                    </div>
+                    <div class="col-sm-12 mb-2">
+                        <label class="form-label" for="regionalRev">Regional</label>
+
+                        <input type="text" id="regionalRev" name="regional" class="form-control" required />
+
+                    </div>
+                    <div class="col-sm-12 mb-2">
+                        <label class="form-label" for="contractRev">Contract</label>
+
+                        <select id="contractRev" class="form-control" name="contract" required>
+                            <option>Pilih Contract</option>
+                        </select>
+
+                    </div>
+                    <div class="col-sm-12 mb-2">
+                        <label class="form-label" for="probabilityRev">Probability</label>
+
+                        <input type="text" id="probabilityRev" name="probability" class="form-control" required />
+
+                    </div>
+                    <div class="col-sm-12 mb-2">
+                        <label class="form-label" for="sumurRev">Sumur</label>
+
+                        <input type="text" id="sumurRev" name="sumur" class="form-control" required />
+
+                    </div>
+                    <div class="col-sm-12 mb-2">
+                        <label class="form-label" for="ctrProjectRev">Ctr Project</label>
+
+                        <input type="text" id="ctrProjectRev" name="regional" class="form-control" required />
+
+                    </div>
+                    <div class="col-sm-12 mb-2">
+                        <label class="form-label" for="pekerjaanRev">Pekerjaan</label>
+                        <div class="row">
+                            <div class="col-sm-10">
+                                <select id="pekerjaanRev" class="form-control" name="contract" required>
+                                    <option>Pilih Pekerjaan</option>
+                                </select>
+                            </div>
+                            <div class="col-sm-2">
+                                <a href="">Add New</a>
+                            </div>
+                        </div>
+
+
+                    </div>
+                    <div class="col-sm-12 mb-2">
+                        <label class="form-label" for="sbtRev">SBT</label>
+
+                        <select id="sbtRev" class="form-control" name="contract" required>
+                            <option>Pilih SBT</option>
+                        </select>
+
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" id="submitRole" class="btn btn-primary">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 
 @section Scripts {
 
