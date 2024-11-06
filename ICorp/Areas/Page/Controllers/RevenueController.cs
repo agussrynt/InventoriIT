@@ -31,21 +31,19 @@ namespace PlanCorp.Areas.Page.Controllers
             return View();
         }
 
-        [AllowAnonymous]
+        
         [HttpPost]
         [Route("get-header-revenue")]
         public JsonResult GetDataHeaderRevenue()
         {
             try
             {
-                var list = _revenueService.GetHeaderRevenue();
+                var list = _revenueService.GetAllHeader();
                 return Json(new
                 {
                     Success = true,
-                    Data = list.Result.Data
+                    Data = list
                 });
-
-
 
             }
             catch (Exception ex)

@@ -51,5 +51,41 @@ namespace PlanCorp.Areas.Page.Services
             }
             return response;
         }
+
+        public async Task<BaseResponseJson> GetAllHeader()
+        {
+            BaseResponseJson response = new BaseResponseJson();
+            List<HeaderView> HeaderList = new List<HeaderView>();
+
+            try
+            {
+                using (IDbConnection conn = _connectionDB.Connection)
+                {
+                    var parameters = new DynamicParameters();
+                    parameters.Add("@p", null);
+
+                    conn.Open();
+                    HeaderList = (List<HeaderView>)await conn.QueryAsync<HeaderView>("usp_Get_Data_Header", parameters, commandType: CommandType.StoredProcedure);
+                    conn.Close();
+
+                    if (HeaderList.Count > 0)
+                    {
+                        response.Success = true;
+                        response.Data = HeaderList;
+                    }
+                    else
+                    {
+                        response.Success = false;
+                        response.Message = "Data Not Found";
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                response.Success = true;
+                response.Message = ex.Message;
+            }
+            return response;
+        }
     }
 }

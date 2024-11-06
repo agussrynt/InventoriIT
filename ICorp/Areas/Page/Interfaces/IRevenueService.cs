@@ -5,6 +5,6 @@ namespace PlanCorp.Areas.Page.Interfaces
 {
     public interface IRevenueService
     {
-        Task<BaseResponseJson> GetHeaderRevenue();
+        Task<BaseResponseJson> GetAllHeader();
     }
 }
