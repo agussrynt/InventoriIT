@@ -1,7 +1,6 @@
 ﻿@{
-
-    ViewData["Title"] = "Asset List";
-
+    ViewData["Title"] = "Project Revenue List";
+}
 
 @section Styles {
     @*<link href="~/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">*@
@@ -26,37 +25,39 @@
 </div>
 
 <div id="contentPage" class="container-xxl flex-grow-1 container-p-y d-none">
-
-    <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light"></span> Master Data Asset</h4>
+    <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light"></span> Master Data Project</h4>
     <div class="card">
         <div class="card-header d-flex justify-content-between">
             <div class="head-label text-center my-auto">
-                <h5 class="card-title mb-0">List Asset</h5>
+                <h5 class="card-title mb-0">List Project</h5>
             </div>
             <div class="dt-action-buttons text-end pt-3 pt-md-0">
                 <div class="dt-buttons">
-                    <button id="btnNewAsset" class="dt-button create-new btn btn-primary" type="button">
+                    <button id="btnNewProject" class="dt-button create-new btn btn-primary" type="button">
                         <span>
                             <i class="bx bx-plus me-sm-2"></i>
-                            <span class="d-none d-sm-inline-block">Add New Data Asset</span>
+                            <span class="d-none d-sm-inline-block">Add New Data Project</span>
                         </span>
                     </button>
                 </div> 
             </div>
-
         </div>
-        <div class="card-datatable table-responsive text-nowrap">
+        <div class="card-datatable table-responsive">
             <table id="dataTable" class="table no-footer">
                 <thead>
                     <tr class="text-nowrap">
                         <th>#</th>
-
-                        <th>AssetID</th>
+                        <th>ID</th>
+                        <th>Nama Project</th>
+                        <th>Segmen</th>
                         <th>Asset</th>
-                        <th>Cost Center</th>
-                        <th>Keterangan</th>
-                        <th>Tipe Asset</th>
-
+                        <th>Customer</th>
+                        <th>Contract</th>
+                        <th>Probability</th>
+                        <th>Sumur</th>
+                        <th>Control Project</th>
+                        <th>Pekerjaan</th>
+                        <th>SBT</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -66,9 +67,7 @@
 </div>
 
 
-
-@Html.Partial("_ModalAsset")
-
+@Html.Partial("_ModalProject")
 
 @section Scripts {
     <script src="~/assets/vendor/datatables/jquery.dataTables.min.js"></script>
@@ -76,7 +75,6 @@
     <script src="~/lib/datatables-responsive-bs5/responsive.bootstrap5.min.js"></script>
 
     <!-- Page level custom scripts -->
-
-    <script src="~/js/pages/Masterdata/asset.js"></script>
+    <script src="~/js/pages/Masterdata/project.js"></script>
 
 }
