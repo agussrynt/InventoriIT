@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -10,6 +11,7 @@ using PlanCorp.Areas.Master.Service;
 using PlanCorp.Data;
 using PlanCorp.Models;
 using System.Linq;
+
 
 namespace PlanCorp.Areas.Master.Controllers
 {
@@ -215,3 +217,4 @@ namespace PlanCorp.Areas.Master.Controllers
         }
     }
 }
+
