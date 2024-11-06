@@ -22,6 +22,7 @@ builder.Services.AddIdentity<IdentityUser, IdentityRole>(options => options.Sign
 // Add collection services to project
 builder.Services.AddScoped<IAssetService, AssetService>();
 builder.Services.AddScoped<IWorkService, WorkService>();
+builder.Services.AddScoped<IProjectService, ProjectService>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IYearService, YearService>();
 builder.Services.AddScoped<IFungsiService, FungsiService>();

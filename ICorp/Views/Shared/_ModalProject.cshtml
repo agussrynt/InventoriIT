@@ -1,0 +1,95 @@
+﻿@{
+}
+
+<!-- Modal Actions -->
+<div class="modal fade" id="projectModal" tabindex="-1" role="dialog" aria-labelledby="projectModal" data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form name="project-modal" class="project-modal">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="projectModal"></h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" name="ID" id="ID" />
+                    <div class="row mb-3">
+                        <div class="col-12 mb-3">
+                            <label for="project" class="form-label form-required">Nama Project</label>
+                            <input type="text" class="form-control" id="NamaProject" name="NamaProject" required />
+                        </div>
+                    </div>
+                    <div class="row mb-3" id="ddSegmen">
+                        <div class="col-12 mb-3">
+                            <label class="form-label" for="Segmen">Segmen</label>
+                            <div class="position-relative">
+                                <select class="form-select" id="Segmen" name="Segmen" style="width: 100%;" required></select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mb-3" id="ddAsset">
+                        <div class="col-12 mb-3">
+                            <label class="form-label" for="Asset">Asset</label>
+                            <div class="position-relative">
+                                <select class="form-select" id="Asset" name="Asset" style="width: 100%;" required></select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mb-3" id="ddCustomer">
+                        <div class="col-12 mb-3">
+                            <label class="form-label" for="Customer">Customer</label>
+                            <div class="position-relative">
+                                <select class="form-select" id="Customer" name="Customer" style="width: 100%;" required></select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mb-3" id="ddContract">
+                        <div class="col-12 mb-3">
+                            <label class="form-label" for="Contract">Contract</label>
+                            <div class="position-relative">
+                                <select class="form-select" id="Contract" name="Contract" style="width: 100%;" required></select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-12 mb-3">
+                            <label for="Probability" class="form-label form-required">Probability</label>
+                            <input type="text" class="form-control" id="Probability" name="Probability" />
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-12 mb-3">
+                            <label for="Sumur" class="form-label form-required">Sumur</label>
+                            <input type="text" class="form-control" id="Sumur" name="Sumur" />
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-12 mb-3">
+                            <label for="ControlProject" class="form-label form-required">Control Project</label>
+                            <input type="text" class="form-control" id="ControlProject" name="ControlProject" />
+                        </div>
+                    </div>
+                    <div class="row mb-3" id="ddPekerjaan">
+                        <div class="col-12 mb-3">
+                            <label class="form-label" for="Pekerjaan">Pekerjaan</label>
+                            <div class="position-relative">
+                                <select class="form-select" id="Pekerjaan" name="Pekerjaan" style="width: 100%;" required></select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mb-3" id="ddSBT">
+                        <div class="col-12 mb-3">
+                            <label class="form-label" for="Tipeproject">SBT</label>
+                            <div class="position-relative">
+                                <select class="form-select" id="SBT" name="SBT" style="width: 100%;"></select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" id="submitProject" class="btn btn-primary">Submit</button>
+                    <button type="button" class="btn btn-secondary" id="btnCancel" data-bs-dismiss="modal">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

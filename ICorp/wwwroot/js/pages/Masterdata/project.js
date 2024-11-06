@@ -2,42 +2,64 @@
     /** Initiate variable awal */
     var
         ifEdit = false,
-        submitAsset = "submitAsset",
-        formAsset = $("form.asset-modal"),
-        modalDialog = $("#assetModal"),
+        submitProject = "submitProject",
+        formProject = $("form.project-modal"),
+        modalDialog = $("#projectModal"),
         modalTitle = modalDialog.find("h4.modal-title"),
-        idAsset = '',
-        ddCCParent = $("#ddCostCenter"),
-        ddAssetParent = $("#ddAssetType")
+        idproject = '',
+
+        //Parent Dropdown
+        ddSegmenParent = $("#ddSegmen"),
+        ddContractParent = $("#ddContract"),
+        ddCostumerParent = $("#ddCustomer"),
+        ddSBTParent = $("#ddSBT"),
+        ddPekerjaanParent = $("#ddPekerjaan"),
+        ddAssetParent = $("#ddAsset")
 
     ///** Fill dropdown select */
-    var costCenterDD = { key: 'fundsCenter', value: 'fundsCenter' };
-    await fillSelect(baseUrl + "/master/asset-revenue/get-CostCenterDD-ajax", "#CostCenter", costCenterDD, ddCCParent);
+    var segmenDD = { key: 'id', value: 'segmen' };
+    await fillSelect(baseUrl + "/master/project-revenue/get-segmenDD-ajax", "#Segmen", segmenDD, ddSegmenParent);
 
-    var assetTypeDD = { key: 'id', value: 'tipeAsset' };
-    await fillSelect(baseUrl + "/master/asset-revenue/get-assetType-ajax", "#TipeAsset", assetTypeDD, ddAssetParent);
+    var contractDD = { key: 'id', value: 'contract' };
+    await fillSelect(baseUrl + "/master/project-revenue/get-contractTypeDD-ajax", "#Contract", contractDD, ddContractParent);
 
-    $('#CostCenter').on('change', await onChangeCostCenter);
+    var custumerDD = { key: 'id', value: 'customer' };
+    await fillSelect(baseUrl + "/master/project-revenue/get-customerDD-ajax", "#Customer", custumerDD, ddCostumerParent);
+
+    var SBTDD = { key: 'id', value: 'sbtIndex' };
+    await fillSelect(baseUrl + "/master/project-revenue/get-SBTDD-ajax", "#SBT", SBTDD, ddSBTParent);
+
+    var pekerjaanDD = { key: 'id', value: 'pekerjaan' };
+    await fillSelect(baseUrl + "/master/project-revenue/get-pekerjaanDD-ajax", "#Pekerjaan", pekerjaanDD, ddPekerjaanParent);
+
+    var assetDD = { key: 'id', value: 'asset' };
+    await fillSelect(baseUrl + "/master/project-revenue/get-assetDD-ajax", "#Asset", assetDD, ddAssetParent);
+
+    //$('#CostCenter').on('change', await onChangeCostCenter);
 
     /** Open Modal Add User */
-    $('#btnNewAsset').click(await openModalAsset);
+    $('#btnNewProject').click(await openModalProject);
 
     /** Create New User Modal with validation jquery */
-    formAsset.submit(function (e) {
+    formProject.submit(function (e) {
         e.preventDefault();
     }).validate({
         rules: {
-            Asset: "required",
-            Keterangan: "required",
+            NamaProject: "required",
+            Probability: "required",
+            Sumur: "required",
+            ControlProject: "required"
         },
         messages: {
-            Asset: "Asset / Alat is required!",
-            Keterangan: "Keterangan Asset is required!",
+            NamaProject: "is required",
+            Probability: "is required",
+            Sumur: "is required",
+            ControlProject: "is required"
         },
         submitHandler: async function (form) {
             var
-                url = !ifEdit ? "/master/asset-revenue/create-asset-ajax" : "/master/asset-revenue/update-asset-ajax";
-            loadingForm(true, submitAsset);
+                url = !ifEdit ? "/master/project-revenue/create-project-ajax" : "/master/project-revenue/update-project-ajax";
+            loadingForm(true, submitProject);
             await asyncAjax(url, "POST", new FormData(form))
                 .then(async function successCallBack(response) {
                     console.log(response);
@@ -52,11 +74,11 @@
                         console.log(response.message);
                         swallAllert.Error("Oops...!", response.message);
                     }
-                    loadingForm(false, submitAsset, "Save Asset!");
+                    loadingForm(false, submitproject, "Save project!");
                 })
                 .catch(async function errorCallBack(err) {
                     swallAllert.error("oops...!", "something wrong when login!");
-                    loadingform(false, submitAsset, "Save Asset!");
+                    loadingform(false, submitproject, "Save project!");
                 });
 
             return false;
@@ -65,7 +87,7 @@
 
     async function Load() {
         /** Fetch data user*/
-        await asyncAjax("/master/asset-revenue/get-asset-list", "POST")
+        await asyncAjax("/master/project-revenue/get-project-list", "POST")
             .then(async function successCallBack(response) {
                 if (response.success) {
                     await OnSuccess(response.data);
@@ -94,10 +116,16 @@
                         }
                     },
                     { data: 'id', defaultcontent: "", visible: false },
-                    { data: 'asset', defaultcontent: "" },
-                    { data: 'costCenter', defaultContent: "" },
-                    { data: 'keterangan', defaultContent: "" },
-                    { data: 'tipeAsset', defaultContent: "" },
+                    { data: 'namaProject', defaultcontent: "" },
+                    { data: 'segmen', defaultContent: "" },
+                    { data: 'asset', defaultContent: "" },
+                    { data: 'customer', defaultContent: "" },
+                    { data: 'contract', defaultContent: "" },
+                    { data: 'probability', defaultcontent: "" },
+                    { data: 'sumur', defaultContent: "" },
+                    { data: 'controlProject', defaultContent: "" },
+                    { data: 'pekerjaan', defaultContent: "" },
+                    { data: 'sbtIndex', defaultContent: "" },
                     {
                         data: null,
                         render: function (data, type, full, meta) {
@@ -126,13 +154,9 @@
                     },
                     {
                         className: "text-center",
-                        targets: 3,
-                    },
-                    {
-                        className: "text-center",
                         searchable: false,
                         orderable: false,
-                        targets: 5,
+                        targets: 12,
                     }
                 ],
                 lengthMenu: [[5, 10, 50, 100, -1], [5, 10, 50, 100, "All"]],
@@ -159,13 +183,13 @@
                 var
                     table = $('#dataTable').DataTable(),
                     data = table.row($(this).parents('tr')).data();
-                swallAllert.Confirm.Delete('Are you sure?', "Are You Sure Want to Delete This Asset").then(async (result) => {
+                swallAllert.Confirm.Delete('Are you sure?', "Are You Sure Want to Delete This Project").then(async (result) => {
                     console.log(result)
                     if (result.isConfirmed) {
                         var formData = new FormData();
-                        formData.append('IdAsset', data.id);
+                        formData.append('idProject', data.id);
 
-                        await asyncAjax("/master/asset-revenue/delete-asset-ajax", "POST", formData)
+                        await asyncAjax("/master/project-revenue/delete-project-ajax", "POST", formData)
                             .then(async function successCallBack(response) {
                                 Load();
                             })
@@ -185,8 +209,8 @@
                 var
                     table = $('#dataTable').DataTable(),
                     data = table.row($(this).parents('tr')).data();
-                idAsset = data.id;
-                await openModalAsset(data, true);
+                idproject = data.id;
+                await openModalProject(data, true);
             }
         }
     }
@@ -197,40 +221,50 @@
      * @param {Object} data => data edit modal user
      * @param {Boolean} status => kondisi modal saat dibuka jika true berarti modal edit
      */
-    async function openModalAsset(data, status = false) {
+    async function openModalProject(data, status = false) {
         // Kondisi awal saat open modal dialog
-        formAsset[0].reset(); // Reset fill input
-
+        formProject[0].reset(); // Reset fill input
+        console.log(data)
         ifEdit = status; // Set status modal berdasarkan parameter yang diterima, secara default itu false
         var title = !ifEdit ? "Add" : "Edit";
 
         // Jika modal edit
         if (ifEdit) {
             // Fill modal input form edit
-            formAsset.find('input[name="ID"]').val(data.id);
-            formAsset.find('input[name="Asset"]').val(data.asset);
-            formAsset.find('textarea[name="Keterangan"]').val(data.keterangan);
-            formAsset.find('select[name="CostCenter"]').val(data.costCenter).trigger("change");
-            formAsset.find('select[name="TipeAsset"]').val(data.idAssetType).trigger("change");
+            formProject.find('input[name="ID"]').val(data.id);
+            formProject.find('input[name="NamaProject"]').val(data.namaProject);
+            formProject.find('input[name="Probability"]').val(data.probability);
+            formProject.find('input[name="Sumur"]').val(data.sumur);
+            formProject.find('input[name="ControlProject"]').val(data.controlProject);
+            formProject.find('select[name="Segmen"]').val(data.idSegmen).trigger("change");
+            formProject.find('select[name="Asset"]').val(data.idAsset).trigger("change");
+            formProject.find('select[name="Customer"]').val(data.idCustomer).trigger("change");
+            formProject.find('select[name="Contract"]').val(data.idContract).trigger("change");
+            formProject.find('select[name="Pekerjaan"]').val(data.idPekerjaan).trigger("change");
+            formProject.find('select[name="SBT"]').val(data.idsbt).trigger("change");
         }
         else {
-            formAsset.find('select[name="CostCenter"]').val('').trigger('change');
-            formAsset.find('select[name="TipeAsset"]').val('').trigger('change');
+            formProject.find('select[name="CostCenter"]').val('').trigger('change');
+            formProject.find('select[name="Tipeproject"]').val('').trigger('change');
+            formProject.find('select[name="CostCenter"]').val('').trigger('change');
+            formProject.find('select[name="Tipeproject"]').val('').trigger('change');
+            formProject.find('select[name="CostCenter"]').val('').trigger('change');
+            formProject.find('select[name="Tipeproject"]').val('').trigger('change');
         }
 
-        $('#submitAsset').removeAttr('hidden');
+        $('#submitProject').removeAttr('hidden');
 
-        modalTitle.html(`Modal ${title} Data Asset`);
+        modalTitle.html(`Modal ${title} Data Project`);
         modalDialog.modal("show");
     }
 
     async function onChangeCostCenter() {
-        var costCenterDD = formAsset.find('select[name="CostCenter"]').val();
+        var costCenterDD = formProject.find('select[name="CostCenter"]').val();
         if (costCenterDD != '') {
-            await asyncAjax("/master/asset-revenue/get-CostCenter-ajax?FundsCenter=" + costCenterDD, "GET")
+            await asyncAjax("/master/project-revenue/get-CostCenter-ajax?FundsCenter=" + costCenterDD, "GET")
                 .then(async function successCallBack(response) {
                     if (response.data.length > 0) {
-                        formAsset.find('input[name="Asset"]').val(response.data[0].name);
+                        formProject.find('input[name="project"]').val(response.data[0].name);
                     }
                 })
                 .catch(async function errorCallBack(err) {

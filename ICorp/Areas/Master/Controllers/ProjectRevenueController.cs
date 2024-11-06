@@ -15,26 +15,26 @@ namespace PlanCorp.Areas.Master.Controllers
 {
     [Authorize(Roles = "Admin")]
     [Area("Master")]
-    [Route("master/asset-revenue")]
-    public class AssetController : Controller
+    [Route("master/project-revenue")]
+    public class ProjectRevenue : Controller
     {
         private readonly PlanCorpDbContext _context;
-        private readonly IAssetService _assetService;
+        private readonly IProjectService _projectService;
 
-        public AssetController(PlanCorpDbContext context, IAssetService assetService)
+        public ProjectRevenue(PlanCorpDbContext context, IProjectService projectService)
         {
             _context = context;
-            _assetService = assetService;
+            _projectService = projectService;
         }
 
         [AllowAnonymous]
         [HttpPost]
-        [Route("get-asset-list")]
-        public JsonResult GetDataAssets()
+        [Route("get-project-list")]
+        public JsonResult GetDataProjects()
         {
             try
             {
-                var list = _assetService.GetAllAsset();
+                var list = _projectService.GetAllProject();
 
                 return Json(new
                 {
@@ -61,12 +61,12 @@ namespace PlanCorp.Areas.Master.Controllers
         }
 
         [HttpGet]
-        [Route("get-assetType-ajax")]
-        public JsonResult GetAssetType()
+        [Route("get-segmenDD-ajax")]
+        public JsonResult GetSegmenDD()
         {
             try
             {
-                var list = _assetService.GetAssetTypeDropdown();
+                var list = _projectService.GetSegmenProject();
 
                 return Json(new
                 {
@@ -88,12 +88,12 @@ namespace PlanCorp.Areas.Master.Controllers
         }
 
         [HttpGet]
-        [Route("get-CostCenterDD-ajax")]
-        public JsonResult GetCostCenterDD()
+        [Route("get-assetDD-ajax")]
+        public JsonResult GetAssetDD()
         {
             try
             {
-                var list = _assetService.GetCostCenterDropdown();
+                var list = _projectService.GetAssetProject();
 
                 return Json(new
                 {
@@ -115,12 +115,93 @@ namespace PlanCorp.Areas.Master.Controllers
         }
 
         [HttpGet]
-        [Route("get-CostCenter-ajax")]
-        public JsonResult GetCostCenterByFC(string FundsCenter)
+        [Route("get-customerDD-ajax")]
+        public JsonResult GetCustomerDD()
         {
             try
             {
-                var list = _assetService.GetCostCenterDropdown().Where(x => x.FundsCenter == FundsCenter);
+                var list = _projectService.GetCustomerProject();
+
+                return Json(new
+                {
+                    Success = true,
+                    Data = list
+                });
+            }
+            catch (Exception ex)
+            {
+                // Info
+                Console.Write(ex);
+
+                return Json(new
+                {
+                    Success = false,
+                    Message = ex.InnerException
+                });
+            }
+        }
+
+        [HttpGet]
+        [Route("get-pekerjaanDD-ajax")]
+        public JsonResult GetPekerjaanDD()
+        {
+            try
+            {
+                var list = _projectService.GetPekerjaanProject();
+
+                return Json(new
+                {
+                    Success = true,
+                    Data = list
+                });
+            }
+            catch (Exception ex)
+            {
+                // Info
+                Console.Write(ex);
+
+                return Json(new
+                {
+                    Success = false,
+                    Message = ex.InnerException
+                });
+            }
+        }
+
+        [HttpGet]
+        [Route("get-contractTypeDD-ajax")]
+        public JsonResult GetContractTypeDD()
+        {
+            try
+            {
+                var list = _projectService.GetContractTypeProject();
+
+                return Json(new
+                {
+                    Success = true,
+                    Data = list
+                });
+            }
+            catch (Exception ex)
+            {
+                // Info
+                Console.Write(ex);
+
+                return Json(new
+                {
+                    Success = false,
+                    Message = ex.InnerException
+                });
+            }
+        }
+
+        [HttpGet]
+        [Route("get-SBTDD-ajax")]
+        public JsonResult GetSBTDD()
+        {
+            try
+            {
+                var list = _projectService.GetSBTProject();
 
                 return Json(new
                 {
@@ -143,13 +224,13 @@ namespace PlanCorp.Areas.Master.Controllers
 
         [HttpPost]
         [Authorize(Roles = "Admin")]
-        [Route("create-asset-ajax")]
-        public JsonResult CreateAsset(Assets param)
+        [Route("create-project-ajax")]
+        public JsonResult CreateProject(Projects param)
         {
             try
             {
                 param.CreatedBy = HttpContext.Session.GetString("username");
-                var r = _assetService.SaveOrUpdate(param);
+                var r = _projectService.SaveOrUpdate(param);
                 return Json(new
                 {
                     Success = r.Success,
@@ -168,12 +249,12 @@ namespace PlanCorp.Areas.Master.Controllers
 
         [HttpPost]
         [Authorize(Roles = "Admin")]
-        [Route("update-asset-ajax")]
-        public JsonResult UpdateAsset(Assets param)
+        [Route("update-project-ajax")]
+        public JsonResult UpdateProject(Projects param)
         {
             try
             {
-                var r = _assetService.SaveOrUpdate(param);
+                var r = _projectService.SaveOrUpdate(param);
                 return Json(new
                 {
                     Success = r.Success,
@@ -192,12 +273,12 @@ namespace PlanCorp.Areas.Master.Controllers
 
         [HttpPost]
         [Authorize(Roles = "Admin")]
-        [Route("delete-asset-ajax")]
-        public JsonResult DeleteDataAsset(int IdAsset)
+        [Route("delete-project-ajax")]
+        public JsonResult DeleteDataProject(int idProject)
         {
             try
             {
-                var r = _assetService.DeleteAsset(IdAsset);
+                var r = _projectService.DeleteProject(idProject);
                 return Json(new
                 {
                     Success = r.Success,
