@@ -41,4 +41,11 @@
     <Folder Include="wwwroot\template\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Update="Areas\Master\Views\ProjectRevenue\Display.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+  </ItemGroup>
+
 </Project>

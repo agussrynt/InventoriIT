@@ -49,7 +49,6 @@ $(document).ready(function () {
     })
 });
 
-
 var
     swallAllert = {
         Success: function (title, message) {
@@ -185,7 +184,7 @@ var
             const blob = this.Base64toBlob(base64String);
             window.navigator.msSaveBlob(blob, fileName);
         } else {
-            const extension = fileName.split('.').pop().toLowerCase(); // Get uploaded file extension  
+            const extension = fileName.split('.').pop().toLowerCase(); // Get uploaded file extension
             const linkSource = "data:application/" + extension + ";base64," + base64String;
             const downloadLink = document.createElement("a");
             downloadLink.href = linkSource;
@@ -333,7 +332,7 @@ function loadingFormAccount(flag, inputID, inputText) {
 //}
 
 //comment on 031122
-async function fillSelect(url, id, elem, idParent) {
+async function fillSelect(url, id, elem) {
     var groups_array = [];
 
     $.getJSON(url, {},
@@ -348,20 +347,19 @@ async function fillSelect(url, id, elem, idParent) {
                             text: response.data[index][elem.value],
                         });
                     } else {
-                        let opt = `<option value="${response.data[index].id}" ${index == 0 ? "selected" : ""}>${response.data[index].name}</option>`
+                        let opt = `<option value="${response.data[index].id}" ${index == 0 ? "selected" : ""}>${response.data[index].name}</option>`;
+                        $(id).append(opt);
                     }
                 });
 
                 $("select" + id).select2({
                     placeholder: "Please select one",
-                    dropdownParent: idParent,
                     data: groups_array
                 });
             }
         }
     );
 }
-
 
 function fillSelect2(elem, url = null) {
     if (url) {
@@ -408,6 +406,6 @@ var DateFunction = {
         const d = new Date(dateTime);
         const dt = d.getDate() < 10 ? '0' + d.getDate() : d.getDate();
         const m = (d.getMonth() + 1) < 10 ? '0' + (d.getMonth() + 1) : (d.getMonth() + 1);
-        return dt + '/' + m+ '/' + d.getFullYear();
+        return dt + '/' + m + '/' + d.getFullYear();
     }
 } 

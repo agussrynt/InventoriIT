@@ -63,9 +63,9 @@
 				</a>
 			</li>
 			<li class="menu-item">
-				<a class="menu-link" asp-area="Master" asp-controller="GLAccount" asp-action="Index">
+				<a class="menu-link" asp-area="Master" asp-controller="SBT" asp-action="Index">
 					<i class="menu-icon tf-icons bx bx-file"></i>
-					<div data-i18n="Basic">GL Account</div>
+					<div data-i18n="Basic">SBT</div>
 				</a>
 			</li>
 			<li class="menu-item">
@@ -83,7 +83,7 @@
 			<li class="menu-item">
 				<a class="menu-link" asp-area="Master" asp-controller="ProjectRevenue" asp-action="Index">
 					<i class="menu-icon tf-icons bx bx-chalkboard"></i>
-					<div data-i18n="Basic">Project Revenue</div>
+					<div data-i18n="Basic">Project</div>
 				</a>
 			</li>
 		}
@@ -157,10 +157,22 @@
 				</a>
 			</li> *@
 			<li class="menu-item">
-				<a class="menu-link" asp-area="Page" asp-controller="Monitoring" asp-action="List">
-					<i class='menu-icon tf-icons bx bx-desktop'></i>
+				<a href="javascript:void(0);" class="menu-link menu-toggle">
+					<i class="menu-icon tf-icons bx bx-spreadsheet"></i>
 					<div data-i18n="Basic">RJPP</div>
 				</a>
+				<ul class="menu-sub">
+					<li class="menu-item">
+						<a class="menu-link" asp-area="Page" asp-controller="RevHPPGA" asp-action="Index">
+							<div data-i18n="Basic">Revenue, HPP GA</div>
+						</a>
+					</li>
+					<li class="menu-item">
+						<a class="menu-link" asp-area="Page" asp-controller="ProfitLoss" asp-action="Index">
+							<div data-i18n="Basic">Profit & Loss</div>
+						</a>
+					</li>
+				</ul>
 			</li>
 		}
 

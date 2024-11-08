@@ -1,0 +1,166 @@
+﻿@{
+    ViewData["Title"] = "RJPP";
+}
+
+@section Styles {
+    @*<link href="~/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">*@
+    <link rel="stylesheet" href="~/lib/datatables-bs5/dataTables.bootstrap5.min.css">
+    <link rel="stylesheet" href="~/lib/datatables-responsive-bs5/responsive.bootstrap5.min.css">
+
+    <style>
+        /* CSS untuk mengatur tampilan tabel */
+        .table_header th {
+            position: sticky;
+            top: 0;
+            background-color: #f8f9fa;
+            z-index: 10;
+        }
+
+        .table_header td:first-child {
+            position: sticky;
+            left: 0;
+            background-color: #f8f9fa;
+            z-index: 10;
+        }
+    </style>
+
+}
+
+<div id="loadingContent" class="container-xxl flex-grow-1 container-p-y">
+    <div class="card">
+        <div class="card-body text-center">
+            <div class="spinner-grow text-primary" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+            <div class="spinner-grow text-primary" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+            <div class="spinner-grow text-primary" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="contentPage" class="container-xxl flex-grow-1 container-p-y d-none">
+    <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light"></span>Revenue, HPP GA</h4>
+    
+    <div class="card mb-5 mt-3">
+        <div class="table-responsive">
+            <table id="myTable" class="table table-bordered text-nowrap">
+                <thead>
+                    <tr>
+                        <th>Total</th> <!-- Header kosong untuk kolom pertama -->
+                        <!-- Generate header tahun -->
+                        <script>
+                            const currentYear = new Date().getFullYear();
+                            for (let i = 0; i <= 10; i++) {
+                                document.write(`<th>${currentYear + i}</th>`);
+                            }
+                        </script>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th>Revenue</th>
+                        <script>
+                            for (let i = 0; i <= 10; i++) {
+                                document.write(`<td>3000${i}</td>`);
+                            }
+                        </script>
+                    </tr>
+                    <tr>
+                        <th>HPP</th>
+                        <script>
+                            for (let i = 0; i <= 10; i++) {
+                                document.write(`<td>4000${i}</td>`);
+                            }
+                        </script>
+                    </tr>
+                    <tr>
+                        <th>GA</th>
+                        <script>
+                            for (let i = 0; i <= 10; i++) {
+                                document.write(`<td>2000${i}</td>`);
+                            }
+                        </script>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-header d-flex justify-content-between">
+            <div class="head-label text-center my-auto">
+                <h5 class="card-title mb-0">Detail Revenue, HPP GA</h5>
+            </div>
+            <div class="dt-action-buttons text-end pt-3 pt-md-0">
+                <div class="dt-buttons">
+                    <button id="btnNewWork" class="dt-button create-new btn btn-primary" type="button">
+                        <span>
+                            <i class="bx bx-plus me-sm-2"></i>
+                            <span class="d-none d-sm-inline-block">Add Data</span>
+                        </span>
+                    </button>
+                    <button id="btnNewWork" class="dt-button create-new btn btn-primary" type="button">
+                        <span>
+                            <i class="bx bx-pencil me-sm-2"></i>
+                            <span class="d-none d-sm-inline-block">Edit Data</span>
+                        </span>
+                    </button>
+                </div> 
+            </div>
+        </div>
+        <div class="card-datatable table-responsive text-nowrap mb-5">
+            <table id="dataTable" class="table no-footer">
+                <thead>
+                    <tr class="text-nowrap">
+                        <th>Segment</th>
+                        <th>Cost Center</th>
+                        <th>HP</th>
+                        <th>Unique Code</th>
+                        <th>Kategori RIG</th>
+                        <th>Cost Center</th>
+                        <th>PIC</th>
+                        <th>Customer</th>
+                        <th>Project</th>
+                        <th>HPP/Sales</th>
+                        <th style="border-right:double">GA/Sales</th>
+                        <script>
+                            const currentYears = new Date().getFullYear();
+                            for (let i = 0; i <= 10; i++) {
+                                document.write(`<th>${currentYears + i}</th>`);
+                            }
+                        </script>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <script>
+                            for (let i = 0; i <= 10; i++) {
+                                document.write(`<td>Dummy ${i}</th>`);
+                            }
+                        </script>
+                        <script>
+                            for (let i = 0; i <= 10; i++) {
+                                document.write(`<td>${2373 + i}</th>`);
+                            }
+                        </script>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+    </div>
+</div>
+
+
+@section Scripts {
+    <script src="~/assets/vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="~/lib/datatables-bs5/dataTables.bootstrap5.min.js"></script>
+    <script src="~/lib/datatables-responsive-bs5/responsive.bootstrap5.min.js"></script>
+
+    <!-- Page level custom scripts -->
+   <script src="~/js/pages/Masterdata/work.js"></script>
+}
