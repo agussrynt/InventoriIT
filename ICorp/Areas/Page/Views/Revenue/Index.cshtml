@@ -35,18 +35,7 @@
 
         </div>
         <div class="card-datatable table-responsive text-nowrap">
-            <table id="dataTable" class="table no-footer">
-               @*  <thead>
-                    <tr class="text-nowrap">
-                        <th>Tahun</th>
-                        <th>RJPPNextSta</th>
-                        <th>RKAPYearSta</th>
-                        <th>Prognosa</th>
-                        <th>Realisasi Back Year</th>
-                        <th>Total Project</th>
-                        <th>Action</th>
-                    </tr>
-                </thead> *@
+            <table id="dataTable" class="table no-footer nowrap">
                
             </table>
         </div>
@@ -64,51 +53,50 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <input type="hidden" name="revenueId" />
                     <div class="col-sm-12 mb-2">
-                        <label class="form-label" for="segmenRev">Tahun Berjalan</label>
+                        <label class="form-label" for="tahunBerjalan">Tahun Berjalan</label>
                         
-                            <select id="segmenRev" class="form-control" name="segmen" required>
-                                <option>2024</option>
-                                <option>2025</option>
-                                <option>2026</option>
-                                <option>2027</option>
+                            <select id="tahunBerjalan" class="form-control" name="tahunBerjalan" required>
+                                <option value="2024">2024</option>
+                                <option value="2025">2025</option>
+                                <option value="2026">2026</option>
+                                <option value="2027">2027</option>
                             </select>
                        
                         <div class="invalid-feedback"></div>
                     </div>
                    
                     <div class="col-sm-12 mb-2">
-                        <label class="form-label" for="rjppNextYearStaRev">RJPP Next Year Sta</label>
+                        <label class="form-label" for="rjppNextStaRev">RJPP Next Year Sta</label>
 
-                        <input type="text" id="rjppNextYearStaRev" name="rjppNextYearSta" class="form-control" required />
+                        <input type="text" id="rjppNextStaRev" name="rjppNextSta" class="form-control" required />
                        
                     </div>
             
                     <div class="col-sm-12 mb-2">
-                        <label class="form-label" for="rkapStaRev">RKAP Sta</label>
+                        <label class="form-label" for="rkapYeaeStaRev">RKAP Sta</label>
 
-                        <input type="text" id="rkapStaRev" name="rkapSta" class="form-control" required />
+                        <input type="number" id="rkapYearStaRev" name="rkapYearSta" class="form-control" required />
                         
                     </div>
                   
                     <div class="col-sm-12 mb-2">
                         <label class="form-label" for="prognosaRev">Prognosa</label>
 
-                        <input type="text" id="prognosaRev" name="prognosa" class="form-control" required />
+                        <input type="number" id="prognosaRev" name="prognosa" class="form-control" required />
                         
                     </div>
                     <div class="col-sm-12 mb-2">
                         <label class="form-label" for="realisasiBackYearRev">Realsiasi Back Year</label>
 
-                        <input type="text" id="realisasiBackYearRev" name="realisasiBackYear" class="form-control" required />
+                        <input type="number" id="realisasiBackYearRev" name="realisasiBackYear" class="form-control" required />
                         
                     </div>
                     
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" id="submitRole" class="btn btn-primary">Submit</button>
+                    <button type="submit" id="submitHeader" class="btn btn-primary">Submit</button>
                 </div>
             </form>
         </div>

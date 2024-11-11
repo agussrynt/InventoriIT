@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using PlanCorp.Areas.Master.Models;
 using PlanCorp.Areas.Page.Interfaces;
+using PlanCorp.Areas.Page.Models;
 using PlanCorp.Data;
 
 namespace PlanCorp.Areas.Page.Controllers
@@ -42,7 +44,7 @@ namespace PlanCorp.Areas.Page.Controllers
                 return Json(new
                 {
                     Success = true,
-                    Data = list
+                    Data = list.Result.Data
                 });
 
             }
@@ -54,6 +56,32 @@ namespace PlanCorp.Areas.Page.Controllers
                 {
                     Success = false,
                     Message = ex.InnerException
+                });
+            }
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "Admin")]
+        [Route("create-header-ajax")]
+        public JsonResult CreateHeader([FromBody] HeaderRevenue param)
+        {
+            try
+            {
+                param.CreatedBy = HttpContext.Session.GetString("username");
+                param.CreatedTime = DateTime.Now;
+                var r = _revenueService.SaveOrUpdate(param);
+                return Json(new
+                {
+                    Success = r.Success,
+                    Message = r.Message
+                });
+            }
+            catch (Exception ex)
+            {
+                return Json(new
+                {
+                    Success = false,
+                    Message = ex.Message
                 });
             }
         }

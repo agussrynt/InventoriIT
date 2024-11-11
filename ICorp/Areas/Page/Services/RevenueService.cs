@@ -87,5 +87,40 @@ namespace PlanCorp.Areas.Page.Services
             }
             return response;
         }
+
+        public ResponseJson SaveOrUpdate (HeaderRevenue headerRevenue)
+        {
+            ResponseJson responseJson = new ResponseJson();
+            try
+            {
+                using (IDbConnection conn = _connectionDB.Connection)
+                {
+                    conn.Open();
+                    responseJson = conn.QueryFirst<ResponseJson>("usp_Post_HeaderRevenue", new
+                    {
+                        @ID = headerRevenue.ID,
+                        @Tahun = headerRevenue.Tahun,
+                        @RJPPNextSta = headerRevenue.RJPPNextSta,
+                        @RKAPYearSta = headerRevenue.RKAPYearSta,
+                        @Prognosa = headerRevenue.Prognosa,
+                        @RealisasiBackYear = headerRevenue.RealisasiBackYear,
+                        @CreatedTime = headerRevenue.CreatedTime,
+                        @CreatedBy = headerRevenue.CreatedBy,
+                    }, commandType: CommandType.StoredProcedure);
+                    conn.Close();
+
+                    return responseJson;
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine(ex.Message);
+                responseJson.Success = false;
+                responseJson.Message = ex.Message;
+
+                return responseJson;
+            }
+        }
+
     }
 }

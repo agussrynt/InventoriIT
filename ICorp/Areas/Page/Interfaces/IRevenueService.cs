@@ -6,5 +6,7 @@ namespace PlanCorp.Areas.Page.Interfaces
     public interface IRevenueService
     {
         Task<BaseResponseJson> GetAllHeader();
+        ResponseJson SaveOrUpdate(HeaderRevenue headerRevenue);
+        //ResponseJson DeleteHeader(int headerId);
     }
 }
