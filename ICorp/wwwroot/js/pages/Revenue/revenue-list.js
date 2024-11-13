@@ -113,14 +113,17 @@
             //Edit Row
             $('#dataTable').on('click', '.editButton', await movePage);
             async function movePage() {
-                var
-                    tb = $('#dataTable').DataTable(),
-                    dt = tb.row($(this).parents('tr')).data(),
-                    urldetail = decodeURIComponent(baseUrl + "/page/revenue/edit"),
-                    url = decodeURIComponent(urldetail);
-                url = url.replace("Params", window.btoa(dt.year));
+                //var
+                //    tb = $('#dataTable').DataTable(),
+                //    dt = tb.row($(this).parents('tr')).data(),
+                //    urldetail = decodeURIComponent(baseUrl + "/page/revenue/edit"),
+                //    url = decodeURIComponent(urldetail);
+                //url = url.replace("Params", window.btoa(dt.year));
 
-                window.location.href = url;
+                //window.location.href = url;
+
+                const urldetail = `${baseUrl}/page/revenue/edit`;
+                window.location.href = urldetail;
             }
         }
         
