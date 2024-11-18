@@ -1,57 +1,49 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using PlanCorp.Areas.Page.Interfaces;
+using PlanCorp.Areas.Master.Interface;
 using PlanCorp.Data;
 
-namespace PlanCorp.Areas.Page.Controllers
+namespace PlanCorp.Areas.Master.Controllers
 {
-    [Authorize]
-    [Area("Page")]
-    [Route("page/revenue")]
-    public class RevenueController : Controller
+    [Authorize(Roles = "Admin")]
+    [Area("Master")]
+    [Route("master/SBT")]
+    public class SBTController : Controller
     {
-
         private readonly PlanCorpDbContext _context;
-        private readonly IRevenueService _revenueService;
+        private readonly IProjectService _projectService;
 
-        public RevenueController(PlanCorpDbContext context, IRevenueService revenueService)
+        public SBTController(PlanCorpDbContext context, IProjectService projectService)
         {
             _context = context;
-            _revenueService = revenueService;
-        }
-        public IActionResult Index()
-        {
-            return View();
+            _projectService = projectService;
         }
 
-        [HttpGet]
-        [Route("edit")]
-        public IActionResult Edit()
+        public IActionResult Index()
         {
             return View();
         }
 
         [AllowAnonymous]
         [HttpPost]
-        [Route("get-header-revenue")]
-        public JsonResult GetDataHeaderRevenue()
+        [Route("get-SBT-list")]
+        public JsonResult GetSBTDD()
         {
             try
             {
-                var list = _revenueService.GetHeaderRevenue();
+                var list = _projectService.GetSBTProject();
+
                 return Json(new
                 {
                     Success = true,
-                    Data = list.Result.Data
+                    Data = list
                 });
-
-
-
             }
             catch (Exception ex)
             {
                 // Info
                 Console.Write(ex);
+
                 return Json(new
                 {
                     Success = false,

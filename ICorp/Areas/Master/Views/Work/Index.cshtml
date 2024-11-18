@@ -1,0 +1,72 @@
+﻿@{
+    ViewData["Title"] = "Work List";
+}
+
+@section Styles {
+    @*<link href="~/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">*@
+    <link rel="stylesheet" href="~/lib/datatables-bs5/dataTables.bootstrap5.min.css">
+    <link rel="stylesheet" href="~/lib/datatables-responsive-bs5/responsive.bootstrap5.min.css">
+}
+
+<div id="loadingContent" class="container-xxl flex-grow-1 container-p-y">
+    <div class="card">
+        <div class="card-body text-center">
+            <div class="spinner-grow text-primary" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+            <div class="spinner-grow text-primary" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+            <div class="spinner-grow text-primary" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="contentPage" class="container-xxl flex-grow-1 container-p-y d-none">
+    <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light"></span>Master Data Pekerjaan</h4>
+    
+    <div class="card">
+        <div class="card-header d-flex justify-content-between">
+            <div class="head-label text-center my-auto">
+                <h5 class="card-title mb-0">List Pekerjaan</h5>
+            </div>
+            <div class="dt-action-buttons text-end pt-3 pt-md-0">
+                <div class="dt-buttons">
+                    <button id="btnNewWork" class="dt-button create-new btn btn-primary" type="button">
+                        <span>
+                            <i class="bx bx-plus me-sm-2"></i>
+                            <span class="d-none d-sm-inline-block">Add New Work</span>
+                        </span>
+                    </button>
+                </div> 
+            </div>
+        </div>
+        <div class="card-datatable table-responsive text-nowrap">
+            <table id="dataTable" class="table no-footer">
+                <thead>
+                    <tr class="text-nowrap">
+                        <th>#</th>
+                        <th>WorkId</th>
+                        <th>Pekerjaan</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+</div>
+
+@Html.Partial("_ModalPekerjaan")
+
+
+@section Scripts {
+    <script src="~/assets/vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="~/lib/datatables-bs5/dataTables.bootstrap5.min.js"></script>
+    <script src="~/lib/datatables-responsive-bs5/responsive.bootstrap5.min.js"></script>
+
+    <!-- Page level custom scripts -->
+    <script src="~/js/pages/Masterdata/work.js"></script>
+}

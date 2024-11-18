@@ -1,0 +1,51 @@
+﻿@{
+}
+
+<!-- Modal Actions -->
+<div class="modal fade" id="assetModal" tabindex="-1" role="dialog" aria-labelledby="assetModal" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form name="asset-modal" class="asset-modal">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="assetModal"></h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" name="ID" id="ID" />
+                    <div class="row mb-3" id="ddCostCenter">
+                        <div class="col-12 mb-3">
+                            <label class="form-label" for="CostCenter">Cost Center</label>
+                            <div class="position-relative">
+                                <select class="form-select" id="CostCenter" name="CostCenter" style="width: 100%;" required></select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-12 mb-3">
+                            <label for="asset" class="form-label form-required">Asset / Alat</label>
+                            <input type="text" class="form-control" id="Asset" name="Asset" required readonly />
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-12 mb-3">
+                            <label for="keterangan" class="form-label form-required">Keterangan Asset</label>
+                            <textarea class="form-control" id="Keterangan" name="Keterangan" required></textarea>
+                        </div>
+                    </div>
+                    <div class="row mb-3" id="ddAssetType">
+                        <div class="col-12 mb-3">
+                            <label class="form-label" for="TipeAsset">Tipe Asset</label>
+                            <div class="position-relative">
+                                <select class="form-select" id="TipeAsset" name="TipeAsset" style="width: 100%;" required></select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" id="submitAsset" class="btn btn-primary">Submit</button>
+                    <button type="button" class="btn btn-secondary" id="btnCancel" data-bs-dismiss="modal">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

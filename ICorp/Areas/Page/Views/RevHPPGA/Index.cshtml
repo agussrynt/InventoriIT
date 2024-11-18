@@ -1,18 +1,39 @@
-﻿@using Microsoft.AspNetCore.Http;
+@using Microsoft.AspNetCore.Http;
 
 @{
     ViewData["Title"] = "InputRevHPPGA";
 }
 
 @section Styles {
+    @*<link href="~/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">*@
+    <link rel="stylesheet" href="~/lib/datatables-bs5/dataTables.bootstrap5.min.css">
+    <link rel="stylesheet" href="~/lib/datatables-responsive-bs5/responsive.bootstrap5.min.css">
+
     <style>
+        /* CSS untuk mengatur tampilan tabel */
+
         .indented-row th {
             padding-left: 40px; /* Atur nilai sesuai keinginan untuk memberi efek tab */
         }
+
+        .table_header th {
+            position: sticky;
+            top: 0;
+            background-color: #f8f9fa;
+            z-index: 10;
+        }
+
+        .table_header td:first-child {
+            position: sticky;
+            left: 0;
+            background-color: #f8f9fa;
+            z-index: 10;
+        }
     </style>
+
 }
 
-<div id="loadingContent" class="container-xxl flex-grow-1 container-p-y d-none">
+<div id="loadingContent" class="container-xxl flex-grow-1 container-p-y">
     <div class="card">
         <div class="card-body text-center">
             <div class="spinner-grow text-primary" role="status">
@@ -323,9 +344,13 @@
     </div>
 </div>
 
-
-
 @section Scripts {
     <script src="~/js/demo/dataTable-demos.js"></script>
     <script src="~/js/pages/RevHPPGA/RevHPPGA.js"></script>
+    <script src="~/assets/vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="~/lib/datatables-bs5/dataTables.bootstrap5.min.js"></script>
+    <script src="~/lib/datatables-responsive-bs5/responsive.bootstrap5.min.js"></script>
+
+    <!-- Page level custom scripts -->
+   <script src="~/js/pages/Masterdata/work.js"></script>
 }
