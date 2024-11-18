@@ -1,4 +1,4 @@
-﻿@using Microsoft.AspNetCore.Http;
+@using Microsoft.AspNetCore.Http;
 
 <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme position-fixed" data-bg-class="bg-menu-theme">
 	<div class="app-brand demo">
@@ -163,14 +163,21 @@
 				</a>
 				<ul class="menu-sub">
 					<li class="menu-item">
-						<a class="menu-link" asp-area="Page" asp-controller="RevHPPGA" asp-action="Index">
-							<div data-i18n="Basic">Revenue, HPP GA</div>
+						<a href="javascript:void(0);" class="menu-link menu-toggle">
+							<i class='menu-icon tf-icons bx bx-merge'></i>
+							<div data-i18n="Basic">Konsolidasi</div>
 						</a>
-					</li>
-					<li class="menu-item">
-						<a class="menu-link" asp-area="Page" asp-controller="ProfitLoss" asp-action="Index">
-							<div data-i18n="Basic">Profit & Loss</div>
-						</a>
+						<ul class="menu-sub">
+							<a class="menu-link" asp-area="Page" asp-controller="Konsolidasi" asp-action="Overview">
+								<div data-i18n="Basic">Overview</div>
+							</a>
+							<a class="menu-link" asp-area="Page" asp-controller="LaporanLabaRugiKomprehensif" asp-action="LaporanLabaRugiKomprehensif">
+								<div data-i18n="Basic">Laporan Laba Rugi Komprehensif</div>
+							</a>
+							<a class="menu-link" asp-area="Page" asp-controller="RevHPPGA" asp-action="Index">
+								<div>Add New Record</div>
+							</a>
+						</ul>
 					</li>
 				</ul>
 			</li>
