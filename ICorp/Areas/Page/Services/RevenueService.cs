@@ -1,4 +1,5 @@
 ﻿using Dapper;
+using PlanCorp.Areas.Master.Models;
 using PlanCorp.Areas.Page.Interfaces;
 using PlanCorp.Areas.Page.Models;
 using PlanCorp.Data;
@@ -122,5 +123,151 @@ namespace PlanCorp.Areas.Page.Services
             }
         }
 
+        public async Task<BaseResponseJson> GetProjectRevenue(int idHeader)
+        {
+            BaseResponseJson response = new BaseResponseJson();
+            List<ProjectRevenue> projectRevenues = new List<ProjectRevenue>();
+            // Validasi awal parameter
+            if (idHeader <= 0)
+            {
+                response.Success = false;
+                response.Message = "Invalid idHeader value di service.";
+                return response;
+            }
+            try
+            {
+                using (IDbConnection conn = _connectionDB.Connection)
+                {
+                    var parameters = new DynamicParameters();
+                    parameters.Add("@IDHeader", idHeader);
+
+                    conn.Open();
+                    projectRevenues = (List<ProjectRevenue>)await conn.QueryAsync<ProjectRevenue>("usp_Get_Data_ProjectRevenue", parameters, commandType: CommandType.StoredProcedure);
+                    conn.Close();
+
+                    if (projectRevenues.Count > 0)
+                    {
+                        response.Success = true;
+                        response.Data = projectRevenues;
+                    }
+                    else
+                    {
+                        response.Success = false;
+                        response.Message = "Data Not Found";
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                response.Success = false;
+                response.Message = $"Error: {ex.Message}";
+            }
+            return response;
+        }
+
+        public async Task<BaseResponseJson> GetDetailHeaderRevenue(int idHeader)
+        {
+            BaseResponseJson response = new BaseResponseJson();
+            List<HeaderRevenue> projectRevenues = new List<HeaderRevenue>();
+            // Validasi awal parameter
+            if (idHeader <= 0)
+            {
+                response.Success = false;
+                response.Message = "Invalid idHeader value di service.";
+                return response;
+            }
+            try
+            {
+                using (IDbConnection conn = _connectionDB.Connection)
+                {
+                    var parameters = new DynamicParameters();
+                    parameters.Add("@p", idHeader);
+
+                    conn.Open();
+                    projectRevenues = (List<HeaderRevenue>)await conn.QueryAsync<HeaderRevenue>("usp_Get_Data_Header", parameters, commandType: CommandType.StoredProcedure);
+                    conn.Close();
+
+                    if (projectRevenues.Count > 0)
+                    {
+                        response.Success = true;
+                        response.Data = projectRevenues;
+                    }
+                    else
+                    {
+                        response.Success = false;
+                        response.Message = "Data Not Found";
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                response.Success = false;
+                response.Message = $"Error: {ex.Message}";
+            }
+            return response;
+        }
+
+        public List<ProjectDD> GetProjectExist()
+        {
+            List<ProjectDD> projectList = new List<ProjectDD>();
+            var result = false;
+
+            try
+            {
+                using (IDbConnection conn = _connectionDB.Connection)
+                {
+                    conn.Open();
+                    string sql = "SELECT [ID] ,[NamaProject] FROM [PDSI_PLANCORP].[dbo].[TblT_ProjectRevenue]";
+                    projectList = (List<ProjectDD>)conn.Query<ProjectDD>(sql);
+                    conn.Close();
+
+                    result = projectList.Count > 0;
+
+                    return projectList;
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine(ex.Message);
+                return projectList;
+            }
+        }
+
+        public async Task<BaseResponseJson> GetProjectExistById(int ProjectID)
+        {
+            BaseResponseJson response = new BaseResponseJson();
+            List<ProjectExist> ProjectList = new List<ProjectExist>();
+
+            try
+            {
+                using (IDbConnection conn = _connectionDB.Connection)
+                {
+                    var parameters = new DynamicParameters();
+                    parameters.Add("@pID", ProjectID);
+
+                    conn.Open();
+                    ProjectList = (List<ProjectExist>)await conn.QueryAsync<ProjectExist>("usp_Get_Data_Project", parameters, commandType: CommandType.StoredProcedure);
+                    conn.Close();
+
+                    if (ProjectList.Count > 0)
+                    {
+                        response.Success = true;
+                        response.Data = ProjectList;
+                    }
+                    else
+                    {
+                        response.Success = false;
+                        response.Message = "Data Not Found";
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                response.Success = true;
+                response.Message = ex.Message;
+            }
+            return response;
+        }
     }
+
 }

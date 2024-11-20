@@ -1,0 +1,167 @@
+﻿@{
+    ViewData["Title"] = "Revenue List";
+}
+@section Styles {
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.1.8/css/dataTables.dataTables.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/fixedcolumns/5.0.4/css/fixedColumns.dataTables.css">
+    <style>
+        th, td {
+            white-space: nowrap;
+        }
+
+        div.dataTables_wrapper {
+            width: 800px;
+            margin: 0 auto;
+        }
+    </style>
+}
+
+<div id="contentPage" class="container-xxl flex-grow-1 container-p-y">
+    <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Page /</span> <span class="text-muted fw-light">Revenue /</span> Input Amount</h4>
+    <div class="card">
+
+        <div class="card-body p-3">
+            <div class="row align-items-center mb-3">
+                <input type="hidden" id="idHeader" name="IDHeader" />
+
+                <!-- Kolom untuk label dan input Tahun -->
+                <div class="col-sm-12 col-md-4 d-flex align-items-center">
+                    <label class="form-label me-6" for="tahunBerjalanRev">Tahun RKAP</label>
+                    <input type="text" id="tahunBerjalanRev" name="tahunBerjalan" class="form-control" required />
+                </div>
+            </div>
+            <div class="text-end mt-3">
+                <button type="submit" class="btn btn-primary">Submit Amount</button>
+            </div>
+            <table id="fixedTable">
+                <thead>
+                    <tr>
+                        <th>Project</th>
+                        <th>Januari</th>
+                        <th>Februari</th>
+                        <th>Maret</th>
+                        <th>April</th>
+                        <th>Mei</th>
+                        <th>Juni</th>
+                        <th>Juli</th>
+                        <th>Agustus</th>
+                        <th>September</th>
+                        <th>Oktober</th>
+                        <th>November</th>
+                        <th>Desember</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Project 1</td>
+                        <td><input type="number" name="" placeholder="0" class="form-control" style="width: 150px;" /></td>
+                        <td><input type="number" name="" placeholder="0" class="form-control" style="width: 150px;" /></td>
+                        <td><input type="number" name="" placeholder="0" class="form-control" style="width: 150px;" /></td>
+                        <td><input type="number" name="" placeholder="0" class="form-control" style="width: 150px;" /></td>
+                        <td><input type="number" name="" placeholder="0" class="form-control" style="width: 150px;" /></td>
+                        <td><input type="number" name="" placeholder="0" class="form-control" style="width: 150px;" /></td>
+                        <td><input type="number" name="" placeholder="0" class="form-control" style="width: 150px;" /></td>
+                        <td><input type="number" name="" placeholder="0" class="form-control" style="width: 150px;" /></td>
+                        <td><input type="number" name="" placeholder="0" class="form-control" style="width: 150px;" /></td>
+                        <td><input type="number" name="" placeholder="0" class="form-control" style="width: 150px;" /></td>
+                        <td><input type="number" name="" placeholder="0" class="form-control" style="width: 150px;" /></td>
+                        <td><input type="number" name="" placeholder="0" class="form-control" style="width: 150px;" /></td>
+                        <td>0</td>
+                    </tr>
+                    <tr>
+                        <td>Project 2</td>
+                        <td><input type="number" name="" placeholder="0" class="form-control" /></td>
+                        <td><input type="number" name="" placeholder="0" class="form-control" /></td>
+                        <td><input type="number" name="" placeholder="0" class="form-control" /></td>
+                        <td><input type="number" name="" placeholder="0" class="form-control" /></td>
+                        <td><input type="number" name="" placeholder="0" class="form-control" /></td>
+                        <td><input type="number" name="" placeholder="0" class="form-control" /></td>
+                        <td><input type="number" name="" placeholder="0" class="form-control" /></td>
+                        <td><input type="number" name="" placeholder="0" class="form-control" /></td>
+                        <td><input type="number" name="" placeholder="0" class="form-control" /></td>
+                        <td><input type="number" name="" placeholder="0" class="form-control" /></td>
+                        <td><input type="number" name="" placeholder="0" class="form-control" /></td>
+                        <td><input type="number" name="" placeholder="0" class="form-control" /></td>
+                        <td>2700</td>
+                    </tr>
+                    <tr>
+                        <td>Project 3</td>
+                        <td><input type="number" name="" placeholder="0" class="form-control" /></td>
+                        <td><input type="number" name="" placeholder="0" class="form-control" /></td>
+                        <td><input type="number" name="" placeholder="0" class="form-control" /></td>
+                        <td><input type="number" name="" placeholder="0" class="form-control" /></td>
+                        <td><input type="number" name="" placeholder="0" class="form-control" /></td>
+                        <td><input type="number" name="" placeholder="0" class="form-control" /></td>
+                        <td><input type="number" name="" placeholder="0" class="form-control" /></td>
+                        <td><input type="number" name="" placeholder="0" class="form-control" /></td>
+                        <td><input type="number" name="" placeholder="0" class="form-control" /></td>
+                        <td><input type="number" name="" placeholder="0" class="form-control" /></td>
+                        <td><input type="number" name="" placeholder="0" class="form-control" /></td>
+                        <td><input type="number" name="" placeholder="0" class="form-control" /></td>
+                        <td>5400</td>
+                    </tr>
+                    <tr>
+                        <td>Project 4</td>
+                        <td><input type="number" name="" placeholder="0" class="form-control" /></td>
+                        <td><input type="number" name="" placeholder="0" class="form-control" /></td>
+                        <td><input type="number" name="" placeholder="0" class="form-control" /></td>
+                        <td><input type="number" name="" placeholder="0" class="form-control" /></td>
+                        <td><input type="number" name="" placeholder="0" class="form-control" /></td>
+                        <td><input type="number" name="" placeholder="0" class="form-control" /></td>
+                        <td><input type="number" name="" placeholder="0" class="form-control" /></td>
+                        <td><input type="number" name="" placeholder="0" class="form-control" /></td>
+                        <td><input type="number" name="" placeholder="0" class="form-control" /></td>
+                        <td><input type="number" name="" placeholder="0" class="form-control" /></td>
+                        <td><input type="number" name="" placeholder="0" class="form-control" /></td>
+                        <td><input type="number" name="" placeholder="0" class="form-control" /></td>
+                        <td>2700</td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <th>Sub Total</th>
+                        <th>400</th>
+                        <th>800</th>
+                        <th>1200</th>
+                        <th>1200</th>
+                        <th>1200</th>
+                        <th>1200</th>
+                        <th>1200</th>
+                        <th>1200</th>
+                        <th>1200</th>
+                        <th>1200</th>
+                        <th></th>
+                        <th></th>
+                        <th>10800</th>
+                    </tr>
+                </tfoot>
+            </table>
+            
+        </div>
+
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+    <script src="https://cdn.datatables.net/2.1.8/js/dataTables.js"></script>
+    <script src="https://cdn.datatables.net/fixedcolumns/5.0.4/js/dataTables.fixedColumns.js"></script>
+    <script src="https://cdn.datatables.net/fixedcolumns/5.0.4/js/fixedColumns.dataTables.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#fixedTable').DataTable({
+                fixedColumns: {
+                    start: 1,
+                    end: 1
+                },
+                searching: false,
+                paging: false,
+                scrollCollapse: true,
+                scrollX: true,
+                scrollY: 300
+            });
+        });
+    </script>
+}

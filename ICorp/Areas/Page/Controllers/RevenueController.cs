@@ -4,6 +4,7 @@ using PlanCorp.Areas.Master.Models;
 using PlanCorp.Areas.Page.Interfaces;
 using PlanCorp.Areas.Page.Models;
 using PlanCorp.Data;
+using System.Diagnostics;
 
 namespace PlanCorp.Areas.Page.Controllers
 {
@@ -33,7 +34,20 @@ namespace PlanCorp.Areas.Page.Controllers
             return View();
         }
 
-        
+        [HttpGet]
+        [Route("amount")]
+        public IActionResult Amount()
+        {
+            return View();
+        }
+
+        [HttpGet]
+        [Route("amount-input")]
+        public IActionResult AmountInput()
+        {
+            return View();
+        }
+
         [HttpPost]
         [Route("get-header-revenue")]
         public JsonResult GetDataHeaderRevenue()
@@ -82,6 +96,114 @@ namespace PlanCorp.Areas.Page.Controllers
                 {
                     Success = false,
                     Message = ex.Message
+                });
+            }
+        }
+
+        [HttpPost]
+        [Route("get-project-revenue")]
+        public JsonResult GetDataProjectRevenue(int idHeader)
+        {
+            Debug.WriteLine("id Headernya"+idHeader);
+            if (idHeader <= 0)
+            {
+                return Json(new
+                {
+                    Success = false,
+                    Message = "Invalid idHeader value di Controller."
+                });
+            }
+
+            try
+            {
+                var list = _revenueService.GetProjectRevenue(idHeader);
+                var headerEdit = _revenueService.GetDetailHeaderRevenue(idHeader);
+                return Json(new
+                {
+                    Success = true,
+                    Data = new
+                    {
+                        list = list.Result.Data,
+                        headerEdit = headerEdit.Result.Data,
+                    }
+                    //Data = list.Result.Data
+                });
+
+            }
+            catch (Exception ex)
+            {
+                // Info
+                Console.Write(ex);
+                return Json(new
+                {
+                    Success = false,
+                    Message = ex.InnerException
+                });
+            }
+        }
+
+
+        [HttpGet]
+        [Route("get-projectDD-ajax")]
+        public JsonResult GetProjectDD()
+        {
+            try
+            {
+                var list = _revenueService.GetProjectExist();
+
+                return Json(new
+                {
+                    Success = true,
+                    Data = list
+                });
+            }
+            catch (Exception ex)
+            {
+                // Info
+                Console.Write(ex);
+
+                return Json(new
+                {
+                    Success = false,
+                    Message = ex.InnerException
+                });
+            }
+        }
+
+        [HttpPost]
+        [Route("get-project-exist")]
+        public JsonResult GetProjectExistByID(int ProjectID)
+        {
+            Debug.WriteLine("id Headernya" + ProjectID);
+            if (ProjectID <= 0)
+            {
+                return Json(new
+                {
+                    Success = false,
+                    Message = "Invalid idHeader value di Controller."
+                });
+            }
+
+            try
+            {
+                var list = _revenueService.GetProjectRevenue(ProjectID);
+                
+                return Json(new
+                {
+                    Success = true,
+                    Data = list.Result.Data,
+            
+                });
+
+            }
+            catch (Exception ex)
+            {
+                // Info
+                Console.Write(ex);
+                return Json(new
+                {
+                    Success = false,
+                    Message = ex.InnerException
                 });
             }
         }
