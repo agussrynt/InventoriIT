@@ -50,6 +50,20 @@
         public String? NamaProject { get; set;}
     }
 
+    public class CostCenterFill
+    {
+        public string? FundsCenter { get; set; }
+        public string? Name { get; set; }
+    }
+
+    public class RegionalFill
+    {
+        public int ID { get; set;}
+        public string? Customer { get; set; }
+        public string? Regional { get; set; }
+
+    }
+
     public class ProjectExist
     {
         public int ID { get; set; }
@@ -58,8 +72,10 @@
         public int IDSegmen { get; set; }
         public string? Asset { get; set; }
         public int IDAsset { get; set; }
+        public string? CostCenter { get; set; }
         public string? Customer { get; set; }
         public int IDCustomer { get; set; }
+        public string? Regional { get; set; }
         public string? Contract { get; set; }
         public int IDContract { get; set; }
         public string? Probability { get; set; }
@@ -69,5 +85,23 @@
         public string? Pekerjaan { get; set; }
         public int IDSBT { get; set; }
         public string? SbtIndex { get; set; }
+    }
+
+    public class MappingProjectRevenue
+    {
+        public int IDHeader { get; set; }
+        public int IDProject { get; set; }
+        public string? NamaProject { get; set; }
+        public int Segmen { get; set; }
+        public int Asset { get; set; }
+        public int Customer { get; set; }
+        public int Contract { get; set; }
+        public string? Probability { get; set; }
+        public string? Sumur { get; set; }
+        public string? ControlProject { get; set; }
+        public int Pekerjaan { get; set; }
+        public int SBT { get; set; }
+        public DateTime CreatedTime { get; set; }
+        public string? CreatedBy { get; set; }
     }
 }

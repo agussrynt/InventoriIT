@@ -174,19 +174,19 @@ namespace PlanCorp.Areas.Page.Controllers
         [Route("get-project-exist")]
         public JsonResult GetProjectExistByID(int ProjectID)
         {
-            Debug.WriteLine("id Headernya" + ProjectID);
+            Debug.WriteLine("id Projectnya" + ProjectID);
             if (ProjectID <= 0)
             {
                 return Json(new
                 {
                     Success = false,
-                    Message = "Invalid idHeader value di Controller."
+                    Message = "Invalid idProject value di Controller."
                 });
             }
 
             try
             {
-                var list = _revenueService.GetProjectRevenue(ProjectID);
+                var list = _revenueService.GetProjectExistById(ProjectID);
                 
                 return Json(new
                 {
@@ -207,5 +207,107 @@ namespace PlanCorp.Areas.Page.Controllers
                 });
             }
         }
+
+        [HttpPost]
+        [Route("get-costcenter-fill")]
+        public JsonResult GetCostCenterFill(int AssetID)
+        {
+            Debug.WriteLine("id Projectnya" + AssetID);
+            if (AssetID <= 0)
+            {
+                return Json(new
+                {
+                    Success = false,
+                    Message = "Invalid ID Asset value di Controller."
+                });
+            }
+
+            try
+            {
+                var list = _revenueService.GetCostCenterFill(AssetID);
+
+                return Json(new
+                {
+                    Success = true,
+                    Data = list.Result.Data,
+
+                });
+
+            }
+            catch (Exception ex)
+            {
+                // Info
+                Console.Write(ex);
+                return Json(new
+                {
+                    Success = false,
+                    Message = ex.InnerException
+                });
+            }
+        }
+
+        [HttpPost]
+        [Route("get-regional-fill")]
+        public JsonResult GetRegionalFill(int CustomerID)
+        {
+            Debug.WriteLine("id Projectnya" + CustomerID);
+            if (CustomerID <= 0)
+            {
+                return Json(new
+                {
+                    Success = false,
+                    Message = "Invalid ID Customer value di Controller."
+                });
+            }
+
+            try
+            {
+                var list = _revenueService.GetRegionalFill(CustomerID);
+
+                return Json(new
+                {
+                    Success = true,
+                    Data = list.Result.Data,
+
+                });
+
+            }
+            catch (Exception ex)
+            {
+                // Info
+                Console.Write(ex);
+                return Json(new
+                {
+                    Success = false,
+                    Message = ex.InnerException
+                });
+            }
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "Admin")]
+        [Route("create-mapping-project")]
+        public JsonResult CrateMappingProject([FromBody] MappingProjectRevenue param)
+        {
+            try
+            {
+                param.CreatedBy = HttpContext.Session.GetString("username");
+                var r = _revenueService.SaveMappingProject(param);
+                return Json(new
+                {
+                    Success = r.Success,
+                    Message = r.Message
+                });
+            }
+            catch (Exception ex)
+            {
+                return Json(new
+                {
+                    Success = false,
+                    Message = ex.Message
+                });
+            }
+        }
+
     }
 }

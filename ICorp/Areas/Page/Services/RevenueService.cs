@@ -1,10 +1,14 @@
 ﻿using Dapper;
+using NuGet.ContentModel;
 using PlanCorp.Areas.Master.Models;
 using PlanCorp.Areas.Page.Interfaces;
 using PlanCorp.Areas.Page.Models;
 using PlanCorp.Data;
 using PlanCorp.Models;
+using System.Collections.Generic;
 using System.Data;
+using System.Diagnostics.Contracts;
+using System.Reflection.PortableExecutable;
 
 namespace PlanCorp.Areas.Page.Services
 {
@@ -268,6 +272,117 @@ namespace PlanCorp.Areas.Page.Services
             }
             return response;
         }
+
+        public async Task<BaseResponseJson> GetCostCenterFill(int AssetID)
+        {
+            BaseResponseJson response = new BaseResponseJson();
+            List<CostCenterFill>  costCenterList = new List<CostCenterFill>();
+
+            try
+            {
+                using (IDbConnection conn = _connectionDB.Connection)
+                {
+                    var parameters = new DynamicParameters();
+                    parameters.Add("@pAssetID", AssetID);
+
+                    conn.Open();
+                    costCenterList = (List<CostCenterFill>)await conn.QueryAsync<CostCenterFill>("usp_Get_Fill_CostCenter", parameters, commandType: CommandType.StoredProcedure);
+                    conn.Close();
+
+                    if (costCenterList.Count > 0)
+                    {
+                        response.Success = true;
+                        response.Data = costCenterList;
+                    }
+                    else
+                    {
+                        response.Success = false;
+                        response.Message = "Data Not Found";
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                response.Success = true;
+                response.Message = ex.Message;
+            }
+            return response;
+        }
+
+        public async Task<BaseResponseJson> GetRegionalFill(int CustomerID)
+        {
+            BaseResponseJson response = new BaseResponseJson();
+            List<RegionalFill> regionalResult = new List<RegionalFill>();
+
+            try
+            {
+                using (IDbConnection conn = _connectionDB.Connection)
+                {
+                    string sql = @"SELECT [ID],[Customer] ,[Regional] FROM [PDSI_PLANCORP].[dbo].[TblM_Customer] WHERE [ID] = @CustomerID";
+                    var parameters = new { CustomerID = CustomerID };
+                    conn.Open();
+                    regionalResult = (List<RegionalFill>)await conn.QueryAsync<RegionalFill>(sql, parameters);
+                    conn.Close();
+
+                    if (regionalResult.Count > 0)
+                    {
+                        response.Success = true;
+                        response.Data = regionalResult;
+                    }
+                    else
+                    {
+                        response.Success = false;
+                        response.Message = "Data Not Found";
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                response.Success = true;
+                response.Message = ex.Message;
+            }
+            return response;
+        }
+
+        public ResponseJson SaveMappingProject(MappingProjectRevenue mappingProjectRevenue)
+        {
+            ResponseJson responseJson = new ResponseJson();
+            try
+            {
+                using (IDbConnection conn = _connectionDB.Connection)
+                {
+                    conn.Open();
+                    responseJson = conn.QueryFirst<ResponseJson>("usp_Post_Mapping_ProjectRevenue", new
+                    {
+                        @pIDHeader = mappingProjectRevenue.IDHeader,
+                        @pIDProject = mappingProjectRevenue.IDProject,
+                        @pSegmen = mappingProjectRevenue.Segmen,
+                        @pAsset = mappingProjectRevenue.Asset,
+                        @pCustomer = mappingProjectRevenue.Customer,
+                        @pContract = mappingProjectRevenue.Contract,
+                        @pPekerjaan = mappingProjectRevenue.Pekerjaan,
+                        @pSBT = mappingProjectRevenue.SBT,
+                        @pNamaProject = mappingProjectRevenue.NamaProject,
+                        @pProbability = mappingProjectRevenue.Probability,
+                        @pSumur = mappingProjectRevenue.Sumur,
+                        @pControlProject = mappingProjectRevenue.ControlProject,
+                        @pCreated_by = mappingProjectRevenue.CreatedBy
+                    }, commandType: CommandType.StoredProcedure);
+                    conn.Close();
+
+                    return responseJson;
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine(ex.Message);
+                responseJson.Success = false;
+                responseJson.Message = ex.Message;
+
+                return responseJson;
+            }
+        }
+
     }
 
 }
