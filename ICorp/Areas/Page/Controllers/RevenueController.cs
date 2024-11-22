@@ -309,5 +309,41 @@ namespace PlanCorp.Areas.Page.Controllers
             }
         }
 
+        [HttpPost]
+        [Route("get-detail-revenue")]
+        public JsonResult GetDetailRevenue(int idHeader)
+        {
+            Debug.WriteLine("id Headernya" + idHeader);
+            if (idHeader <= 0)
+            {
+                return Json(new
+                {
+                    Success = false,
+                    Message = "Invalid idHeader value di Controller."
+                });
+            }
+
+            try
+            {
+                var list = _revenueService.GetDetailRevenue(idHeader);
+                return Json(new
+                {
+                    Success = true,
+                    Data = list.Result.Data,
+             
+                });
+
+            }
+            catch (Exception ex)
+            {
+                // Info
+                Console.Write(ex);
+                return Json(new
+                {
+                    Success = false,
+                    Message = ex.InnerException
+                });
+            }
+        }
     }
 }

@@ -104,4 +104,23 @@
         public DateTime CreatedTime { get; set; }
         public string? CreatedBy { get; set; }
     }
+
+    public class DetailRevenue
+    {
+        public int IDHeader { get; set;}
+        public string? Project { get; set;}
+        public Decimal? Januari { get; set; }
+        public Decimal? Februari { get; set;}
+        public Decimal? Maret { get; set; }
+        public Decimal? April { get; set; }
+        public Decimal? Mei { get; set; }
+        public Decimal? Juni { get; set; }
+        public Decimal? Juli { get; set; }
+        public Decimal? Agustus { get; set; }
+        public Decimal? September { get; set; }
+        public Decimal? Oktober { get; set; }
+        public Decimal? November { get; set; }
+        public Decimal? Desember { get; set; }
+        public Decimal? Total { get; set; }
+    }
 }

@@ -383,6 +383,48 @@ namespace PlanCorp.Areas.Page.Services
             }
         }
 
+        public async Task<BaseResponseJson> GetDetailRevenue(int idHeader)
+        {
+            BaseResponseJson response = new BaseResponseJson();
+            List<DetailRevenue> detailRevenues = new List<DetailRevenue>();
+            // Validasi awal parameter
+            if (idHeader <= 0)
+            {
+                response.Success = false;
+                response.Message = "Invalid idHeader value di service.";
+                return response;
+            }
+            try
+            {
+                using (IDbConnection conn = _connectionDB.Connection)
+                {
+                    var parameters = new DynamicParameters();
+                    parameters.Add("@pIDHeader", idHeader);
+
+                    conn.Open();
+                    detailRevenues = (List<DetailRevenue>)await conn.QueryAsync<DetailRevenue>("usp_Get_Detail_Revenue", parameters, commandType: CommandType.StoredProcedure);
+                    conn.Close();
+
+                    if (detailRevenues.Count > 0)
+                    {
+                        response.Success = true;
+                        response.Data = detailRevenues;
+                    }
+                    else
+                    {
+                        response.Success = false;
+                        response.Message = "Data Not Found";
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                response.Success = false;
+                response.Message = $"Error: {ex.Message}";
+            }
+            return response;
+        }
+
     }
 
 }
