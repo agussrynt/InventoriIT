@@ -222,5 +222,54 @@
 
         return split[1] !== undefined ? rupiah + ',' + split[1] : rupiah;
     }
+
+
+    //let changes = []; // Array untuk menyimpan perubahan
+
+    // Tangkap perubahan saat input diubah
+    //$('#fixedTable').on('change', 'input.editable', function () {
+    //    const $input = $(this);
+    //    const column = $input.data('column'); // Nama bulan dari atribut data-column
+    //    const value = parseFloat($input.val().replace(/,/g, '')) || 0; // Pastikan nilai numerik
+    //    const project = $input.closest('tr').find('td:first').text(); // Ambil nama project dari kolom pertama
+
+    //    // Cari apakah project sudah ada dalam daftar perubahan
+    //    let projectChange = changes.find(c => c.project === project);
+
+    //    if (!projectChange) {
+    //        projectChange = { project, changes: {} };
+    //        changes.push(projectChange);
+    //    }
+
+    //    projectChange.changes[column] = value; // Simpan perubahan
+    //});
+
+    // Tombol untuk menyimpan semua perubahan
+    //$('#saveChangesButton').on('click', function () {
+    //    if (changes.length === 0) {
+    //        alert('Tidak ada perubahan yang perlu disimpan.');
+    //        return;
+    //    }
+
+    //    $.ajax({
+    //        url: '/Revenue/SaveChanges',
+    //        type: 'POST',
+    //        contentType: 'application/json',
+    //        data: JSON.stringify(changes), // Kirim data dalam format JSON
+    //        success: function (response) {
+    //            if (response.success) {
+    //                alert('Perubahan berhasil disimpan.');
+    //                changes = []; // Reset perubahan
+    //            } else {
+    //                alert('Gagal menyimpan perubahan: ' + response.message);
+    //            }
+    //        },
+    //        error: function (xhr, status, error) {
+    //            console.error('Error:', error);
+    //            alert('Terjadi kesalahan saat menyimpan perubahan.');
+    //        }
+    //    });
+    //});
+
     await Load(idHeader);
 })

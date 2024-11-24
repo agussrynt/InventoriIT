@@ -355,10 +355,10 @@
 
                 //iSI Dropdown SBT
                 let sbtOption = document.createElement('option');
-                sbtOption.velue = project.idsbt;
+                sbtOption.value = project.idsbt;
                 sbtOption.textContent = project.sbtIndex;
                 sbtDropdown.appendChild(sbtOption);
-                sbtDropdown.value = project.sbtIndex;
+                sbtDropdown.value = project.idsbt;
 
 
                 // Isi input Cost Center
