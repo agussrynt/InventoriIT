@@ -104,12 +104,11 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <input type="hidden" name="revenueId" />
                     <a href="~/template/Template_Upload_Project_RKAP.xlsx">Download Template</a>
                     <div class="col-sm-12 mb-2">
                         <label class="form-label" for="costCenterRev">Upload</label>
 
-                        <input type="file" id="fileUpload" name="fileUploadProject" class="form-control" required />
+                        <input type="file" id="fileUploadProject" class="form-control" required />
 
                     </div>
                     
@@ -117,7 +116,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" id="submitRole" class="btn btn-primary">Submit</button>
+                    <button id="submitImportButton" class="btn btn-primary">Submit</button>
                 </div>
             </form>
         </div>

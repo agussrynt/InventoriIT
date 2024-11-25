@@ -105,6 +105,23 @@
         public string? CreatedBy { get; set; }
     }
 
+    public class ImportProject
+    {
+        public int IDHeader { get; set; }
+        public string? NamaProject { get; set; }
+        public string? Segmen { get; set; }
+        public string? Asset { get; set; }
+        public string? Customer { get; set; }
+        public string? Contract { get; set; }
+        public string? Probability { get; set; }
+        public string? Sumur { get; set; }
+        public string? ControlProject { get; set; }
+        public string? Pekerjaan { get; set; }
+        public string? SBT { get; set; }
+        public DateTime CreatedTime { get; set; }
+        public string? CreatedBy { get; set; }
+    }
+
     public class DetailRevenue
     {
         public int IDHeader { get; set;}
@@ -123,4 +140,13 @@
         public Decimal? Desember { get; set; }
         public Decimal? Total { get; set; }
     }
+
+    public class ImportLog
+    {
+        public int RowNumber { get; set; }
+        public string? NamaProject { get; set; }
+        public string? Status { get; set; }
+        public string? Message { get; set; }
+    }
+
 }

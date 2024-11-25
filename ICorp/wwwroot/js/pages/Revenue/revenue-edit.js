@@ -33,6 +33,7 @@
     //Get IdHeader
     const urlParams = new URLSearchParams(window.location.search);
     const encodedParam = urlParams.get('idHeader');
+    console.log("Current URL:", window.location.href);
 
     if (!encodedParam) {
         console.error("idHeader tidak ditemukan di URL");
@@ -165,7 +166,6 @@
             
         }
     }
-
 
     async function submitRevenueData(e) {
         e.preventDefault();
@@ -494,6 +494,60 @@
 
 
         }
+    }
+
+
+    $("#submitImportButton").on('click', function (e) {
+        e.preventDefault();
+        console.log("button clicked")// Mencegah reload halaman
+        importProject();
+    });
+    async function importProject() {
+        var idata = new FormData();
+        var fileInput = $("#fileUploadProject").get(0);
+        var file = fileInput?.files[0];
+
+        // Validasi file
+        if (!file) {
+            console.error("File not selected or input is empty.");
+            alert("Please select a file to upload.");
+            return;
+        }
+
+        idata.append("FileUpload", file); // Tambahkan file ke FormData
+        console.log("File added to FormData:", file.name);
+
+        if (idHeader) {
+            idata.append("IDHeader", idHeader); // Tambahkan IDHeader ke FormData
+            console.log("IDHeader added to FormData:", idHeader);
+        } else {
+            console.error("IDHeader is missing.");
+            alert("IDHeader is required.");
+            return;
+        }
+
+        // Debug isi FormData
+        console.log("FormData entries before sending:");
+        for (let pair of idata.entries()) {
+            console.log(pair[0] + ":", pair[1]);
+        }
+
+        await asyncAjax("/page/revenue/upload-project-ajax", "POST", idata)
+            .then(async function successCallBack(response) {
+
+                console.log(response);
+                if (response.success) {
+                    console.log(response);
+                    swallAllert.Success("Success", response.message);
+                    
+
+                } else {
+                    swallAllert.Error("Error!", response.message || "Something went wrong on the server.");
+                }
+            })
+            .catch(async function errorCallBack(err) {
+                swallAllert.Error("Fetch Data Failed!", err.message);
+            });
     }
 
     await Load(idHeader);

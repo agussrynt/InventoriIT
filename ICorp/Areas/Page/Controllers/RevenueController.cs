@@ -1,9 +1,13 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Dapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using OfficeOpenXml;
 using PlanCorp.Areas.Master.Models;
 using PlanCorp.Areas.Page.Interfaces;
 using PlanCorp.Areas.Page.Models;
 using PlanCorp.Data;
+using System.Data;
+using System.Data.SqlClient;
 using System.Diagnostics;
 
 namespace PlanCorp.Areas.Page.Controllers
@@ -16,11 +20,13 @@ namespace PlanCorp.Areas.Page.Controllers
 
         private readonly PlanCorpDbContext _context;
         private readonly IRevenueService _revenueService;
+        private readonly ConnectionDB _connectionDB;
 
-        public RevenueController(PlanCorpDbContext context, IRevenueService revenueService)
+        public RevenueController(PlanCorpDbContext context, IRevenueService revenueService, ConnectionDB connectionDB)
         {
             _context = context;
             _revenueService = revenueService;
+            _connectionDB = connectionDB;
         }
         public IActionResult Index()
         {
@@ -77,28 +83,32 @@ namespace PlanCorp.Areas.Page.Controllers
         [HttpPost]
         [Authorize(Roles = "Admin")]
         [Route("create-header-ajax")]
-        public JsonResult CreateHeader([FromBody] HeaderRevenue param)
-        {
-            try
+            public JsonResult CreateHeader([FromBody] HeaderRevenue param)
             {
-                param.CreatedBy = HttpContext.Session.GetString("username");
+                try
+                {
+                    param.CreatedBy = HttpContext.Session.GetString("username");
+                    if (string.IsNullOrEmpty(HttpContext.Session.GetString("username")))
+                    {
+                        throw new InvalidOperationException("Username is not found in session.");
+                    }
                 param.CreatedTime = DateTime.Now;
-                var r = _revenueService.SaveOrUpdate(param);
-                return Json(new
+                    var r = _revenueService.SaveOrUpdate(param);
+                    return Json(new
+                    {
+                        Success = r.Success,
+                        Message = r.Message
+                    });
+                }
+                catch (Exception ex)
                 {
-                    Success = r.Success,
-                    Message = r.Message
-                });
+                    return Json(new
+                    {
+                        Success = false,
+                        Message = ex.Message
+                    });
+                }
             }
-            catch (Exception ex)
-            {
-                return Json(new
-                {
-                    Success = false,
-                    Message = ex.Message
-                });
-            }
-        }
 
         [HttpPost]
         [Route("get-project-revenue")]
@@ -342,6 +352,129 @@ namespace PlanCorp.Areas.Page.Controllers
                 {
                     Success = false,
                     Message = ex.InnerException
+                });
+            }
+        }
+
+        [HttpPost]
+        [Route("upload-project-ajax")]
+        public async Task<JsonResult> UploadProjectAjax(IFormFile FileUpload, int IDHeader)
+        {
+            List<ImportLog> importLogs = new List<ImportLog>();
+            try
+            {
+                if (FileUpload != null && FileUpload.Length > 0 && IDHeader != 0)
+                {
+                    var stream = FileUpload.OpenReadStream();
+                    
+
+                    using (var package = new ExcelPackage(stream))
+                    {
+                        ExcelWorksheet workSheetProject = package.Workbook.Worksheets["Input Data Project"];
+                        int totalRowsProject = workSheetProject.Dimension.Rows;
+                        using(IDbConnection conn = _connectionDB.Connection)
+                        {
+                            conn.Open();
+                            for (int i = 2; i <= totalRowsProject; i++)
+                            {
+                                int idHeader = IDHeader;
+                                string? namaProject = workSheetProject.Cells[i, 2]?.Value?.ToString();
+                                string? pekerjaan = workSheetProject.Cells[i, 3]?.Value?.ToString();
+                                string? sumur = workSheetProject.Cells[i, 4]?.Value?.ToString();
+                                string? controlProject = workSheetProject.Cells[i, 5]?.Value?.ToString();
+                                string? probability = workSheetProject.Cells[i, 6]?.Value?.ToString();
+                                string? segmen = workSheetProject.Cells[i, 7]?.Value?.ToString();
+                                string? asset = workSheetProject.Cells[i, 8]?.Value?.ToString();
+                                string? customer = workSheetProject.Cells[i, 9]?.Value?.ToString();
+                                string? contract = workSheetProject.Cells[i, 10]?.Value?.ToString();
+                                string? sbt = workSheetProject.Cells[i, 11]?.Value?.ToString();
+                                if ( string.IsNullOrEmpty(namaProject) 
+                                    && string.IsNullOrEmpty(pekerjaan) 
+                                    && string.IsNullOrEmpty(sumur) 
+                                    && string.IsNullOrEmpty(controlProject) 
+                                    && string.IsNullOrEmpty(probability)
+                                    && string.IsNullOrEmpty(segmen)
+                                    && string.IsNullOrEmpty(asset)
+                                    && string.IsNullOrEmpty(customer)
+                                    && string.IsNullOrEmpty(contract)
+                                    && string.IsNullOrEmpty(sbt)
+                                ) continue;
+                            //int idProject = 0;
+
+                            var log = new ImportLog
+                                {
+                                    RowNumber = i,
+                                    NamaProject = namaProject
+                                };
+
+                                try
+                                {
+                                    // Step 1: Upsert Project
+                                    var projectParams = new DynamicParameters();
+                                    projectParams.Add("@IDHeader", IDHeader);
+                                    projectParams.Add("@NamaProject", namaProject);
+                                    projectParams.Add("@Pekerjaan", pekerjaan);
+                                    projectParams.Add("@Sumur", sumur);
+                                    projectParams.Add("@ControlProject", controlProject);
+                                    projectParams.Add("@Probability", probability);
+                                    projectParams.Add("@Segmen", segmen);
+                                    projectParams.Add("@Asset", asset);
+                                    projectParams.Add("@Customer", customer);
+                                    projectParams.Add("@Contract", contract);
+                                    projectParams.Add("@SBT", sbt);
+                                    projectParams.Add("@Success", dbType: DbType.Boolean, direction: ParameterDirection.Output);
+                                    
+              
+
+                                    conn.Execute("usp_Post_ImportProjectMapping", projectParams, commandType: CommandType.StoredProcedure);
+                                    //idProject = projectParams.Get<int>("@IDProject");
+
+                                    // Step 2: Insert Mapping
+                                    //var mappingParams = new DynamicParameters();
+                                    //mappingParams.Add("@IDHeader", IDHeader);
+                                    //mappingParams.Add("@IDProject", idProject);
+                                    //
+
+                                    //conn.Execute("usp_InsertMapping", mappingParams, commandType: CommandType.StoredProcedure);
+                                    bool success = projectParams.Get<bool>("@Success");
+
+                                    // Logging results
+                                    log.Status = success ? "Success" : "Duplicate";
+                                    log.Message = success
+                                        ? $"Project '{namaProject}' successfully mapped."
+                                        : $"Project '{namaProject}' mapping already exists.";
+                                }
+                                catch( Exception ex ) 
+                                {
+                                    log.Status = "Error";
+                                    log.Message = $"Error processing project '{namaProject}': {ex.Message}";
+                                }
+                                importLogs.Add(log);
+
+                            }
+                        }
+
+                    }
+                    return Json(new
+                    {
+                        Success = true,
+                        Message = "Processing completed.",
+                        Logs = importLogs
+                    });
+                }
+                return Json(new
+                {
+                    Success = false,
+                    Message = "File not found or empty.",
+                    Logs = importLogs
+                });
+            }
+            catch (Exception ex)
+            {
+                return Json(new
+                {
+                    Success = false,
+                    Message = ex.Message
                 });
             }
         }
