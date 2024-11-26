@@ -125,6 +125,7 @@
     public class DetailRevenue
     {
         public int IDHeader { get; set;}
+        public int IDProject { get; set;}
         public string? Project { get; set;}
         public Decimal? Januari { get; set; }
         public Decimal? Februari { get; set;}
@@ -149,4 +150,18 @@
         public string? Message { get; set; }
     }
 
+    public class AmountLog
+    {
+        public int idProject { get; set; }
+        public string? Month { get; set; }
+        public string? Status { get; set; }
+        public string? Message { get; set; }
+    }
+
+    public class AmountRevenue
+    {
+        public int Project { get; set; }
+        public int IDHeader { get; set; }
+        public Dictionary<string, decimal> Changes { get; set; }
+    }
 }

@@ -16,5 +16,6 @@ namespace PlanCorp.Areas.Page.Interfaces
         Task<BaseResponseJson> GetRegionalFill(int CustomerID);
         ResponseJson SaveMappingProject(MappingProjectRevenue mappingProjectRevenue);
         Task<BaseResponseJson> GetDetailRevenue(int idHeader);
+        //ResponseJson SaveAmountRevenue(AmountRevenue amountRevenue);
     }
 }

@@ -38,21 +38,27 @@
 
             listData.forEach(item => {
                 if (item.project === null || item.project === "Subtotal") {
+
                     dataTfoot.push(item); // Tambahkan ke footer
                 } else {
                     dataTbody.push(item); // Tambahkan ke body
                 }
             });
 
+            console.log(dataTbody);
+            console.log(dataTfoot)
+
             if ($.fn.DataTable.isDataTable('#fixedTable')) {
                 $('#fixedTable').DataTable().destroy();
             }
             $('#fixedTable tbody').empty();
-            $('#fixedTable').DataTable({
+            table = $('#fixedTable').DataTable({
                 //width: "100%",
+                debug: true,
                 data: dataTbody,
                 columns: [
-                    { data: 'project', defaultContent: "" }, // Kolom project tidak diedit
+                    
+                    { data: 'project', defaultContent: "" }, 
                     {
                         data: 'januari',
                         defaultContent: "",
@@ -157,7 +163,7 @@
                             return '<b>' + formattedValue + '</b>';
                         }
                     },
-
+                    { data: 'idProject', defaultContent: "" , visible:false, name: 'IDProject' },
                     
                 ],
                 initComplete: function () {
@@ -185,7 +191,8 @@
                 },
                 responsive: true,
                 columnDefs: [
-                    { targets: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12], width: "120px" }
+                    { targets: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12], width: "120px" },
+                    //{ targets: 0, visible: false }
                 ],
                 paging: false, 
                 searching: false, 
@@ -224,52 +231,59 @@
     }
 
 
-    //let changes = []; // Array untuk menyimpan perubahan
+    let changes = []; // Array untuk menyimpan perubahan
 
     // Tangkap perubahan saat input diubah
-    //$('#fixedTable').on('change', 'input.editable', function () {
-    //    const $input = $(this);
-    //    const column = $input.data('column'); // Nama bulan dari atribut data-column
-    //    const value = parseFloat($input.val().replace(/,/g, '')) || 0; // Pastikan nilai numerik
-    //    const project = $input.closest('tr').find('td:first').text(); // Ambil nama project dari kolom pertama
+    $('#fixedTable').on('change', 'input.table-input', function () {
+        const $input = $(this);
+        const column = $input.data('column'); // Nama bulan dari atribut data-column
+        const value = parseFloat($input.val().replace(/,/g, '')) || 0; // Pastikan nilai numerik
+       
+        const rowData = table.row($input.closest('tr')).data(); // Mengambil data row terkait
 
-    //    // Cari apakah project sudah ada dalam daftar perubahan
-    //    let projectChange = changes.find(c => c.project === project);
+        // Ambil idProject dari rowData
+        const project = rowData.idProject;
 
-    //    if (!projectChange) {
-    //        projectChange = { project, changes: {} };
-    //        changes.push(projectChange);
-    //    }
+        // Cari apakah project sudah ada dalam daftar perubahan
+        let projectChange = changes.find(c => c.project === project);
 
-    //    projectChange.changes[column] = value; // Simpan perubahan
-    //});
+        if (!projectChange) {
+            projectChange = { idHeader, project, changes: {} };
+            changes.push(projectChange);
+        }
+
+        // Simpan perubahan
+        projectChange.changes[column] = value; // Simpan perubahan kolom
+    });
 
     // Tombol untuk menyimpan semua perubahan
-    //$('#saveChangesButton').on('click', function () {
-    //    if (changes.length === 0) {
-    //        alert('Tidak ada perubahan yang perlu disimpan.');
-    //        return;
-    //    }
+    $('#saveChangesButton').on('click', function () {
+        console.log(changes);
+        if (changes.length === 0) {
+            alert('Tidak ada perubahan yang perlu disimpan.');
+            return;
+        }
 
-    //    $.ajax({
-    //        url: '/Revenue/SaveChanges',
-    //        type: 'POST',
-    //        contentType: 'application/json',
-    //        data: JSON.stringify(changes), // Kirim data dalam format JSON
-    //        success: function (response) {
-    //            if (response.success) {
-    //                alert('Perubahan berhasil disimpan.');
-    //                changes = []; // Reset perubahan
-    //            } else {
-    //                alert('Gagal menyimpan perubahan: ' + response.message);
-    //            }
-    //        },
-    //        error: function (xhr, status, error) {
-    //            console.error('Error:', error);
-    //            alert('Terjadi kesalahan saat menyimpan perubahan.');
-    //        }
-    //    });
-    //});
+        $.ajax({
+            url: 'page/revenue/save-change-amount',
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify(changes), // Kirim data dalam format JSON
+            success: function (response) {
+                if (response.success) {
+                    console.log(response);
+                    alert('Perubahan berhasil disimpan.');
+                    changes = []; // Reset perubahan
+                } else {
+                    alert('Gagal menyimpan perubahan: ' + response.message);
+                }
+            },
+            error: function (xhr, status, error) {
+                console.error('Error:', error);
+                alert('Terjadi kesalahan saat menyimpan perubahan.');
+            }
+        });
+    });
 
     await Load(idHeader);
 })

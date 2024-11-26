@@ -1,6 +1,7 @@
 ﻿using Dapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using NuGet.ContentModel;
 using OfficeOpenXml;
 using PlanCorp.Areas.Master.Models;
 using PlanCorp.Areas.Page.Interfaces;
@@ -9,6 +10,8 @@ using PlanCorp.Data;
 using System.Data;
 using System.Data.SqlClient;
 using System.Diagnostics;
+using System.Diagnostics.Contracts;
+using System.Reflection.PortableExecutable;
 
 namespace PlanCorp.Areas.Page.Controllers
 {
@@ -466,6 +469,79 @@ namespace PlanCorp.Areas.Page.Controllers
                 {
                     Success = false,
                     Message = "File not found or empty.",
+                    Logs = importLogs
+                });
+            }
+            catch (Exception ex)
+            {
+                return Json(new
+                {
+                    Success = false,
+                    Message = ex.Message
+                });
+            }
+        }
+
+        [HttpPost]
+        [Route("save-change-amount")]
+        public async Task<JsonResult> SaveAmountRevenue([FromBody] List<AmountRevenue> changes)
+        {
+            List<AmountLog> importLogs = new List<AmountLog>();
+            try
+            {
+                using (IDbConnection conn = _connectionDB.Connection)
+                {
+                    conn.Open();
+                    foreach (var change in changes)
+                    {
+                        int idProject = change.Project;
+                        int idHeader = change.IDHeader;
+
+                        foreach (var columnChange in change.Changes)
+                        {
+                            string month = columnChange.Key;
+                            decimal value = columnChange.Value;
+
+                            var log = new AmountLog
+                            {
+                                idProject = idProject,
+                                Month = month
+                            };
+
+                            try
+                            {
+                                // Step 1: Upsert Project
+                                var projectParams = new DynamicParameters();
+                                projectParams.Add("@pIDHeader", idHeader);
+                                projectParams.Add("@pIDProject", idProject);
+                                projectParams.Add("@pMonth", month);
+                                projectParams.Add("@pAmount", value);
+                                projectParams.Add("@Success", dbType: DbType.Boolean, direction: ParameterDirection.Output);
+
+                                conn.Execute("usp_Post_AmountRevenue", projectParams, commandType: CommandType.StoredProcedure);
+                                
+                                bool success = projectParams.Get<bool>("@Success");
+
+                                // Logging results
+                                log.Status = success ? "Success" : "Failed";
+                                log.Message = success
+                                    ? $"Project '{idProject}' successfully update."
+                                    : $"Project '{idProject}' failed to update.";
+                            }
+                            catch (Exception ex)
+                            {
+                                log.Status = "Error";
+                                log.Message = $"Error processing project '{idProject}': {ex.Message}";
+                            }
+                            importLogs.Add(log);
+                        }  
+                    }
+                }
+
+                return Json(new
+                {
+                    Success = true,
+                    Message = "Processing completed.",
                     Logs = importLogs
                 });
             }
