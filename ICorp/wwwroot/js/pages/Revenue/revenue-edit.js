@@ -106,9 +106,7 @@
                         title: "Aksi",
                         orderable: false,
                         render: function (data, type, row, meta) {
-                            return `<button type="button" class="btn text-info col btn-link btn-icon editButton" data-bs-toggle="tooltip" data-bs-html="true" data-bs-original-title="Edit">
-                                                <i class="bx bx-pen"></i>
-                                            </button> | <button type="button" class="btn text-danger col btn-link btn-icon deleteButton" data-bs-toggle="tooltip" data-bs-html="true" data-bs-original-title="Delete">
+                            return `<button type="button" class="btn text-danger col btn-link btn-icon deleteButton" data-bs-toggle="tooltip" data-bs-html="true" data-bs-original-title="Delete">
                                                 <i class="bx bx-trash"></i>
                                             </button>`;
                         }
@@ -139,16 +137,24 @@
                     console.log(result)
                     if (result.isConfirmed) {
                         var formData = new FormData();
-                        formData.append('idProject', data.id);
+                        formData.append('IDProject', data.idMapping);
+                        formData.append('IDHeader', idHeader);
 
-                        await asyncAjax("/page/revenue/delete-header-ajax", "POST", formData)
+                        await asyncAjax("/page/revenue/delete-project-mapping", "POST", formData)
                             .then(async function successCallBack(response) {
-                                Load();
+                                if (response.success) {
+                                    console.log(response);
+                                    swallAllert.Success("Project Berhasil Dihapus");
+                                } else {
+                                    console.log(response);
+                                    swallAllert.Error(response.message);
+                                }
+                                
                             })
                             .catch(async function errorCallBack(err) {
                                 console.log("err : ");
                                 console.log(err);
-                                swallAllert.Error("Fetch Data Failed!", err.data);
+                                swallAllert.Error("Project gagal dihapus", err.data);
                             })
                     }
                 })
@@ -221,13 +227,13 @@
 
             const result = await response.json();
             if (result.success) {
-                alert("Data berhasil disimpan!");
+                swallAllert.Success("Project Berhasil Ditambhakan");
             } else {
-                alert("Gagal menyimpan data: " + result.message);
+                swallAllert.Error("Gagal menyimpan data: " + result.message);
             }
         } catch (error) {
             console.error("Error:", error);
-            alert("Terjadi kesalahan saat menyimpan data.", error);
+            swallAllert.Error("Terjadi kesalahan saat menyimpan data.", error);
         }
     }
 
@@ -258,13 +264,13 @@
 
             const result = await response.json();
             if (result.success) {
-                alert("Data berhasil disimpan!");
+                swallAllert.Success("Data berhasil disimpan!");
             } else {
-                alert("Gagal menyimpan data: " + result.message);
+                swallAllert.Error("Gagal menyimpan data: " + result.message);
             }
         } catch (error) {
             console.error("Error:", error);
-            alert("Terjadi kesalahan saat menyimpan data.", error);
+            swallAllert.Error("Terjadi kesalahan saat menyimpan data.", error);
         }
     }
 
@@ -285,7 +291,7 @@
                     console.log(response.data);
                     await fillFormProjectExist(response.data);
                 } else {
-                    swallAllert.Error("Data ngga ada woy, ", response.data);
+                    swallAllert.Error("Data ngga ada ", response.data);
                 }
             })
             .catch(async function errorCallBack(err) {
@@ -433,7 +439,7 @@
                     }
                    
                 } else {
-                    swallAllert.Error("Data ngga ada woy, ", response.data);
+                    swallAllert.Error("Data ngga ada ", response.data);
                 }
             })
             .catch(async function errorCallBack(err) {
@@ -474,7 +480,7 @@
                     }
 
                 } else {
-                    swallAllert.Error("Data ngga ada woy, ", response.data);
+                    swallAllert.Error("Data ngga ada ", response.data);
                 }
             })
             .catch(async function errorCallBack(err) {
@@ -510,7 +516,7 @@
         // Validasi file
         if (!file) {
             console.error("File not selected or input is empty.");
-            alert("Please select a file to upload.");
+            swallAllert.Error("Please select a file to upload.");
             return;
         }
 
@@ -522,7 +528,7 @@
             console.log("IDHeader added to FormData:", idHeader);
         } else {
             console.error("IDHeader is missing.");
-            alert("IDHeader is required.");
+            swallAllert.Error("IDHeader is required.");
             return;
         }
 
@@ -548,6 +554,21 @@
             .catch(async function errorCallBack(err) {
                 swallAllert.Error("Fetch Data Failed!", err.message);
             });
+    }
+
+    function formatRupiah(value) {
+        let numberString = value.toString().replace(/[^,\d]/g, ''), // Hilangkan karakter non-angka
+            split = numberString.split(','),
+            sisa = split[0].length % 3,
+            rupiah = split[0].substr(0, sisa),
+            ribuan = split[0].substr(sisa).match(/\d{3}/gi);
+
+        if (ribuan) {
+            let separator = sisa ? '.' : '';
+            rupiah += separator + ribuan.join('.');
+        }
+
+        return split[1] !== undefined ? rupiah + ',' + split[1] : rupiah;
     }
 
     await Load(idHeader);

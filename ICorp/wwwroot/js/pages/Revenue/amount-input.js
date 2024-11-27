@@ -211,10 +211,10 @@
 
         }
     }
-    $(document).on('input', '.table-input', function () {
-        let rawValue = $(this).val().replace(/[^,\d]/g, ''); // Hanya ambil angka
-        $(this).val(formatRupiah(rawValue)); // Format ulang ke rupiah
-    });
+    //$(document).on('input', '.table-input', function () {
+    //    let rawValue = $(this).val().replace(/[^,\d]/g, ''); // Hanya ambil angka
+    //    $(this).val(formatRupiah(rawValue)); // Format ulang ke rupiah
+    //});
     function formatRupiah(value) {
         let numberString = value.toString().replace(/[^,\d]/g, ''), // Hilangkan karakter non-angka
             split = numberString.split(','),
@@ -237,8 +237,14 @@
     $('#fixedTable').on('change', 'input.table-input', function () {
         const $input = $(this);
         const column = $input.data('column'); // Nama bulan dari atribut data-column
-        const value = parseFloat($input.val().replace(/,/g, '')) || 0; // Pastikan nilai numerik
-       
+        const value = $input.val(); // Pastikan nilai numerik
+
+        // Konversi format rupiah ke angka desimal
+        //value = value.replace(/\./g, ''); // Hapus titik sebagai pemisah ribuan
+        //value = value.replace(',', '.'); // Ganti koma menjadi titik sebagai pemisah desimal
+        //value = parseFloat(value) || 0;
+
+        console.log('Parsed value:', value);
         const rowData = table.row($input.closest('tr')).data(); // Mengambil data row terkait
 
         // Ambil idProject dari rowData

@@ -30,27 +30,44 @@
                         {
                             data: 'tahun',
                             defaultcontent: "",
-                            title: "Tahun"
+                            title: "Tahun",
+
                         },
                         {
                             data: 'rjppNextSta',
                             defaultContent: "-",
-                            title: "RJPPNextSta"
+                            title: "RJPPNextSta",
+                            render: function (data, type, row) {
+                                let formattedValue = formatRupiah(data || 0);
+                                return '<div>Rp. ' + formattedValue + '</div>';
+                            }
                         },
                         {
                             data: 'rkapYearSta',
                             defaultContent: "-",
-                            title: "RKAPYearSta"
+                            title: "RKAPYearSta",
+                            render: function (data, type, row) {
+                                let formattedValue = formatRupiah(data || 0);
+                                return '<div>Rp. ' + formattedValue + '</div>';
+                            }
                         },
                         {
                             data: 'prognosa',
                             defaultContent: "-",
-                            title: "Prognosa"
+                            title: "Prognosa",
+                            render: function (data, type, row) {
+                                let formattedValue = formatRupiah(data || 0);
+                                return '<div>Rp. ' + formattedValue + '</div>';
+                            }
                         },
                         {
                             data: 'realisasiBackYear',
                             defaultContent: "-",
-                            title: "Realisasi Back Year"
+                            title: "Realisasi Back Year",
+                            render: function (data, type, row) {
+                                let formattedValue = formatRupiah(data || 0);
+                                return '<div>Rp. ' + formattedValue + '</div>';
+                            }
                         },
                         {
                             data: 'totalProject',
@@ -96,16 +113,17 @@
                         console.log(result)
                         if (result.isConfirmed) {
                             var formData = new FormData();
-                            formData.append('idProject', data.id);
+                            formData.append('IDHeader', data.id);
 
-                            await asyncAjax("/page/revenue/delete-header-ajax", "POST", formData)
+                            await asyncAjax("/page/revenue/delete-header-revenue", "POST", formData)
                                 .then(async function successCallBack(response) {
+                                    swallAllert.Success("Header Revenue Berhasil Dihapus");
                                     Load();
                                 })
                                 .catch(async function errorCallBack(err) {
                                     console.log("err : ");
                                     console.log(err);
-                                    swallAllert.Error("Fetch Data Failed!", err.data);
+                                    swallAllert.Error("Header Revenue Gagal Dihapus!", err.data);
                                 })
                         }
                     })
@@ -160,21 +178,35 @@
 
             const result = await response.json();
             if (result.success) {
-                alert("Data berhasil disimpan!");
-                $('#dataTable').DataTable().ajax.reload(); // Reload tabel
+                swallAllert.Success("Data berhasil disimpan!"); // Reload tabel
                 $('#addRevenue').modal('hide'); // Tutup modal
+                location.reload();
             } else {
-                alert("Gagal menyimpan data: " + result.message);
+                swallAllert.Error("Gagal menyimpan data: " + result.message);
+                location.reload();
             }
         } catch (error) {
             console.error("Error:", error);
-            alert("Terjadi kesalahan saat menyimpan data." , error);
+            swallAllert.Error("Terjadi kesalahan saat menyimpan data.", error);
         }
     }
 
     // Event listener untuk submit modal form
     $('.addRevenue-modal').on('submit', submitRevenueData);
+    function formatRupiah(value) {
+        let numberString = value.toString().replace(/[^,\d]/g, ''), // Hilangkan karakter non-angka
+            split = numberString.split(','),
+            sisa = split[0].length % 3,
+            rupiah = split[0].substr(0, sisa),
+            ribuan = split[0].substr(sisa).match(/\d{3}/gi);
 
+        if (ribuan) {
+            let separator = sisa ? '.' : '';
+            rupiah += separator + ribuan.join('.');
+        }
+
+        return split[1] !== undefined ? rupiah + ',' + split[1] : rupiah;
+    }
 
     await Load();
 })

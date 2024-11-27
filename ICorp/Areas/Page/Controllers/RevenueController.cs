@@ -12,6 +12,7 @@ using System.Data.SqlClient;
 using System.Diagnostics;
 using System.Diagnostics.Contracts;
 using System.Reflection.PortableExecutable;
+using System.Threading.Channels;
 
 namespace PlanCorp.Areas.Page.Controllers
 {
@@ -86,32 +87,32 @@ namespace PlanCorp.Areas.Page.Controllers
         [HttpPost]
         [Authorize(Roles = "Admin")]
         [Route("create-header-ajax")]
-            public JsonResult CreateHeader([FromBody] HeaderRevenue param)
+        public JsonResult CreateHeader([FromBody] HeaderRevenue param)
+        {
+            try
             {
-                try
+                param.CreatedBy = HttpContext.Session.GetString("username");
+                if (string.IsNullOrEmpty(HttpContext.Session.GetString("username")))
                 {
-                    param.CreatedBy = HttpContext.Session.GetString("username");
-                    if (string.IsNullOrEmpty(HttpContext.Session.GetString("username")))
-                    {
-                        throw new InvalidOperationException("Username is not found in session.");
-                    }
+                    throw new InvalidOperationException("Username is not found in session.");
+                }
                 param.CreatedTime = DateTime.Now;
-                    var r = _revenueService.SaveOrUpdate(param);
-                    return Json(new
-                    {
-                        Success = r.Success,
-                        Message = r.Message
-                    });
-                }
-                catch (Exception ex)
+                var r = _revenueService.SaveOrUpdate(param);
+                return Json(new
                 {
-                    return Json(new
-                    {
-                        Success = false,
-                        Message = ex.Message
-                    });
-                }
+                    Success = r.Success,
+                    Message = r.Message
+                });
             }
+            catch (Exception ex)
+            {
+                return Json(new
+                {
+                    Success = false,
+                    Message = ex.Message
+                });
+            }
+        }
 
         [HttpPost]
         [Route("get-project-revenue")]
@@ -501,6 +502,7 @@ namespace PlanCorp.Areas.Page.Controllers
                         {
                             string month = columnChange.Key;
                             decimal value = columnChange.Value;
+                            decimal valueUsd = value/15000;
 
                             var log = new AmountLog
                             {
@@ -516,6 +518,7 @@ namespace PlanCorp.Areas.Page.Controllers
                                 projectParams.Add("@pIDProject", idProject);
                                 projectParams.Add("@pMonth", month);
                                 projectParams.Add("@pAmount", value);
+                                projectParams.Add("@pAmountUSD", valueUsd);
                                 projectParams.Add("@Success", dbType: DbType.Boolean, direction: ParameterDirection.Output);
 
                                 conn.Execute("usp_Post_AmountRevenue", projectParams, commandType: CommandType.StoredProcedure);
@@ -554,5 +557,54 @@ namespace PlanCorp.Areas.Page.Controllers
                 });
             }
         }
+
+        [HttpPost]
+        [Route("delete-header-revenue")]
+        public JsonResult DeleteHeaderRevenue(int IDHeader)
+        {
+            try
+            {
+                var result = _revenueService.DeleteHeaderRevenue(IDHeader);
+                return Json(new
+                {
+                    Success = result.Success,
+                    Message = result.Message
+                });
+            }
+            catch (Exception ex)
+            {
+                return Json(new
+                {
+                    Success = false,
+                    Message = ex.Message
+                });
+            }
+        }
+
+        [HttpPost]
+        [Route("delete-project-mapping")]
+        public JsonResult DeleteProjectMapping(int IDHeader, int IDProject)
+        {
+            Debug.WriteLine("id Headernya " + IDHeader + " " + IDProject);
+            try
+            {
+                var result = _revenueService.DeleteProjectMapping(IDHeader, IDProject);
+                return Json(new
+                {
+                    Success = result.Success,
+                    Message = result.Message
+                });
+            }
+            catch (Exception ex)
+            {
+                return Json(new
+                {
+                    Success = false,
+                    Message = ex.Message
+                });
+            }
+        }
+
+        
     }
 }

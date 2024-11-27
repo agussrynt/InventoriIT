@@ -17,5 +17,7 @@ namespace PlanCorp.Areas.Page.Interfaces
         ResponseJson SaveMappingProject(MappingProjectRevenue mappingProjectRevenue);
         Task<BaseResponseJson> GetDetailRevenue(int idHeader);
         //ResponseJson SaveAmountRevenue(AmountRevenue amountRevenue);
+        ResponseJson DeleteHeaderRevenue(int idHeader);
+        ResponseJson DeleteProjectMapping(int idHeader, int idProject);
     }
 }

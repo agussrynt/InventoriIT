@@ -7,6 +7,7 @@ using PlanCorp.Data;
 using PlanCorp.Models;
 using System.Collections.Generic;
 using System.Data;
+using System.Diagnostics;
 using System.Diagnostics.Contracts;
 using System.Reflection.PortableExecutable;
 
@@ -425,6 +426,63 @@ namespace PlanCorp.Areas.Page.Services
             return response;
         }
 
+        public ResponseJson DeleteHeaderRevenue(int idHeader)
+        {
+            ResponseJson responseJson = new ResponseJson();
+            try
+            {
+                using (IDbConnection conn = _connectionDB.Connection)
+                {
+                    conn.Open();
+                    responseJson = conn.QueryFirst<ResponseJson>("usp_Delete_HeaderRevenue", new
+                    {
+                        @pIDHeader = idHeader,
+                        
+                    }, commandType: CommandType.StoredProcedure);
+                    conn.Close();
+
+                    return responseJson;
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine(ex.Message);
+                responseJson.Success = false;
+                responseJson.Message = ex.Message;
+
+                return responseJson;
+            }
+        }
+
+        public ResponseJson DeleteProjectMapping(int idHeader, int idProject)
+        {
+            Debug.WriteLine("id Headernya di service " + idHeader + " " + idProject);
+            ResponseJson responseJson = new ResponseJson();
+            try
+            {
+                using (IDbConnection conn = _connectionDB.Connection)
+                {
+                    conn.Open();
+                    responseJson = conn.QueryFirst<ResponseJson>("usp_Delete_MappingProject", new
+                    {
+                        @pIDHeader = idHeader,
+                        @pIDProject = idProject
+
+                    }, commandType: CommandType.StoredProcedure);
+                    conn.Close();
+
+                    return responseJson;
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine(ex.Message);
+                responseJson.Success = false;
+                responseJson.Message = ex.Message;
+
+                return responseJson;
+            }
+        }
 
     }
 
