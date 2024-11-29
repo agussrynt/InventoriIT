@@ -69,6 +69,15 @@ var
                 //confirmButtonColor: '#d33',
             })
         },
+        Warning: function (title, message) {
+            Swal.fire({
+                icon: 'warning',
+                title: title,
+                text: message,
+                timer: 3500,
+                //confirmButtonColor: '#d33',
+            })
+        },
         ConfirmDelete: function () {
             Swal.fire({
                 title: 'Are you sure?',
@@ -205,6 +214,33 @@ var
 function convertDate(dateTime) {
     const d = new Date(dateTime);
     return d.getDate() + ' ' + monthNames[d.getMonth()] + ' ' + d.getFullYear();
+}
+
+function formatNumberToThousands(value, pemisah = '', currency = '') {
+    // Pastikan input adalah angka
+    if (isNaN(value)) {
+        throw new Error('Input harus berupa angka');
+    }
+
+    let formattedValue = value.toLocaleString("id-ID"); // Gunakan format lokal Indonesia
+    if (pemisah === ",") {
+        formattedValue = formattedValue.replace(/\./g, ",").replace(/,/g, ".");
+    }
+
+    // Tambahkan imbuhan sesuai pilihan
+    switch (currency) {
+        case 'USD':
+            return 'USD ' + formattedValue;
+        case 'Rp':
+            return 'Rp. ' + formattedValue;
+        default:
+            return formattedValue; // Tanpa imbuhan
+    }
+
+    // Contoh penggunaan
+    //console.log(formatNumberToThousands(1234567));        // Output: "1,234,567"
+    //console.log(formatNumberToThousands(1234567,",", 'USD')); // Output: "USD 1,234,567"
+    //console.log(formatNumberToThousands(1234567, 'Rp'));  // Output: "Rp. 1,234,567"
 }
 
 function urlAction() {

@@ -50,199 +50,22 @@
 </div>
 
 <div id="contentPage" class="container-xxl flex-grow-1 container-p-y">
-    <h4 class="fw-bold py-3 mb-4"><span>RJPP /</span><span class="text-muted fw-light"> Konsolidasi /</span><span class="text-muted fw-light"> Input Konsolidasi /</span> Revenue HPP GA</h4>
+    <h4 class="fw-bold py-3 mb-4"><span>RJPP /</span> Revenue HPP GA</h4>
     <div class="card">
         <div class="card-header d-flex justify-content-between">
             <div class="head-label text-center my-auto">
-                <h5 class="card-title mb-0"></h5>
-            </div>
-            <div class="dt-action-buttons text-end pt-3 pt-md-0">
-                <div class="dt-buttons">
-                    @* <a id="btnModalUploadFile" class="dt-button create-new btn btn-primary"
-                    asp-area="Page"
-                    asp-controller="InputKonsolidasi"
-                    asp-action="LaporanLabaRugiKomprehensif">
-                    <span>
-                    <i class="bx bx-plus me-sm-2"></i>
-                    <span class="d-none d-sm-inline-block">Add New Record</span>
-                    </span>
-                    </a> *@
-
-                    <button id="btnModalUploadFile" class="dt-button create-new btn btn-primary" type="button">
-                        <span>
-                            <i class='bx bx-cloud-upload'></i>
-                            <span class="d-none d-sm-inline-block">Upload Excel</span>
-                        </span>
-                    </button>
-                </div>
+                <h5 class="card-title mb-0 fw-bold-">Summary Of Revenue, HPP GA</h5>
             </div>
         </div>
         <div class="card-body">
             <div class="card-datatable table-responsive text-nowrap">
-                <table id="dataTable" class="table no-footer">
+                <table id="dataTableSUM" class="table no-footer">
                     <thead>
-                        <tr class="text-nowrap">
-                            <th>Segement RJPP</th>
-                            <th>Alat / Nama Cost Center</th>
-                            <th>HP</th>
-                            <th>Unique Code</th>
-                            <th>PIC</th>
-                            <th>Customer</th>
-                            <th>Project</th>
-                            <th>HPP/Sales</th>
-                            <th>GA/Sales</th>
-                            <th>Ownership</th>
-                            <th>Probability</th>
-                            <th>RKAP 2024</th>
-                            <th>RJPP 2025</th>
-                            <th>RJPP 2026</th>
-                            <th>RJPP 2027</th>
-                            <th>RJPP 2028</th>
-                            <th>RJPP 2029</th>
-                            <th>RJPP 2030</th>
+                        <tr class="text-nowrap" id="headerSUM">
+                            <th>Total</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -252,94 +75,55 @@
 
 <div id="contentPage" class="container-xxl flex-grow-1 container-p-y">
     <div class="card">
+        <div class="card-header d-flex justify-content-between">
+            <div class="head-label text-center my-auto">
+                <h5 class="card-title mb-0"></h5>
+            </div>
+            <div class="dt-action-buttons text-end me-auto pt-3 pt-md-0">
+                <div class="dt-buttons">
+                    <a id="btnNew" class="dt-button inport-new btn btn-primary text-white" asp-area="Page" asp-controller="RevHPPGA" asp-action="ImportRevHPPGA">
+                        <span>
+                            <i class="bx bx-plus me-sm-2"></i>
+                            <span class="d-none d-sm-inline-block">Add Data Rev, HPP GA</span>
+                        </span>
+                    </a>
+                    <button id="btnEdit" type="button" class="dt-button inport-new btn btn-success text-white">
+                        <span>
+                            <i class="bx bx-edit me-sm-2"></i>
+                            <span class="d-none d-sm-inline-block">Edit Data Rev, HPP GA</span>
+                        </span>
+                    </button>
+                </div>
+            </div>
+        </div>
         <div class="card-body">
             <div class="card-datatable table-responsive text-nowrap">
-                <table id="dataTable" class="table no-footer">
+                <table id="dataTableRevHPP" class="table no-footer">
                     <thead>
-                        <tr class="text-nowrap">
-                            <th>Total</th>
-                            <th>RKAP 2024</th>
-                            <th>RJPP 2025</th>
-                            <th>RJPP 2026</th>
-                            <th>RJPP 2027</th>
-                            <th>RJPP 2028</th>
-                            <th>RJPP 2029</th>
-                            <th>RJPP 2030</th>
+                        <tr class="text-nowrap" id="headerRevHPPGA">
+                            <th>No.</th>
+                            <th>Id</th>
+                            <th>Segment RJPP</th>
+                            <th>Alat / Nama Cost Center</th>
+                            <th>HP</th>
+                            <th>Unique Code</th>
+                            <th>Kategori RIG</th>
+                            <th>PIC</th>
+                            <th>Customer</th>
+                            <th>Project</th>
+                            <th>HPP/Sales</th>
+                            <th>GA/Sales</th>
+
+                            @* <th>Ownership</th>
+                            <th>Probability</th> *@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <th>Revenue</th>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <th>HPP</th>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <th>GA</th>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <th><b><a style="color : black">Summary</a></b></th>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
+                       
                     </tbody>
                 </table>
             </div>
-        </div>
-    </div>
-</div>
 
-@* modal upload excel *@
-<div class="modal fade" id="uploadFileModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="uploadFileLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <form id="uploadFileForm" name="role-modal" class="role-modal pt-0 row g-2 fv-plugins-bootstrap5 fv-plugins-framework need-validation" novalidate="novalidate">
-                <div class="modal-header">
-                    <h4 class="modal-title" id="uploadFileLabel">
-                        <i class='bx bx-cloud-upload'></i>
-                        Upload Excel
-                    </h4>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <label for="uploadFile" class="form-label">Upload Data File Excel</label>
-                            <input type="file" class="form-control" id="submitFile" accept=".xlsx, .xls" required>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Submit</button>
-                </div>
-            </form>
         </div>
     </div>
 </div>
@@ -351,6 +135,4 @@
     <script src="~/lib/datatables-bs5/dataTables.bootstrap5.min.js"></script>
     <script src="~/lib/datatables-responsive-bs5/responsive.bootstrap5.min.js"></script>
 
-    <!-- Page level custom scripts -->
-   <script src="~/js/pages/Masterdata/work.js"></script>
 }
