@@ -74,7 +74,7 @@
                 width: "100%",
                 data: listData,
                 columns: [
-                    { data: 'idMapping', defaultcontent: "", visible: false },
+                    { data: 'idProject', defaultcontent: "", visible: false },
                     {
                         data: 'segmen',
                         defaultcontent: "",
@@ -137,8 +137,9 @@
                     console.log(result)
                     if (result.isConfirmed) {
                         var formData = new FormData();
-                        formData.append('IDProject', data.idMapping);
+                        formData.append('IDProject', data.idProject);
                         formData.append('IDHeader', idHeader);
+                        console.log(formData);
 
                         await asyncAjax("/page/revenue/delete-project-mapping", "POST", formData)
                             .then(async function successCallBack(response) {

@@ -59,6 +59,10 @@ var
                 text: message,
                 timer: 3500,
                 //confirmButtonColor: '#d33',
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    location.reload();
+                }
             })
         },
         Error: function (title, message) {
@@ -68,6 +72,10 @@ var
                 text: message,
                 timer: 3500,
                 //confirmButtonColor: '#d33',
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    location.reload();
+                }
             })
         },
         ConfirmDelete: function () {

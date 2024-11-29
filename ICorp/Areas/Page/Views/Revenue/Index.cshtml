@@ -1,7 +1,9 @@
 ﻿@{
     ViewData["Title"] = "Revenue List";
 }
-
+@section Styles {
+    @*<link href="~/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">*@
+}
 
 <div id="loadingContent" class="container-xxl flex-grow-1 container-p-y d-none">
     <div class="card">
@@ -35,7 +37,7 @@
 
         </div>
         <div class="card-body table-responsive text-nowrap">
-            <table id="dataTable" class="table no-footer nowrap">
+            <table id="dataTable" class="table no-footer">
                
             </table>
         </div>

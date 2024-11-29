@@ -98,7 +98,6 @@
                     info: true,
                     scrollX: true,
                     bScrollCollapse: true,
-                    fixedHeader: true,
                     order: [[1, 'desc']],
                 });
 
@@ -118,7 +117,6 @@
                             await asyncAjax("/page/revenue/delete-header-revenue", "POST", formData)
                                 .then(async function successCallBack(response) {
                                     swallAllert.Success("Header Revenue Berhasil Dihapus");
-                                    Load();
                                 })
                                 .catch(async function errorCallBack(err) {
                                     console.log("err : ");
@@ -179,11 +177,9 @@
             const result = await response.json();
             if (result.success) {
                 swallAllert.Success("Data berhasil disimpan!"); // Reload tabel
-                $('#addRevenue').modal('hide'); // Tutup modal
-                location.reload();
+                $('#addRevenue').modal('hide'); 
             } else {
                 swallAllert.Error("Gagal menyimpan data: " + result.message);
-                location.reload();
             }
         } catch (error) {
             console.error("Error:", error);
