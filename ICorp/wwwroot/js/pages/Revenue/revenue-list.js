@@ -168,7 +168,7 @@
         console.log(headerData);
 
         try {
-            const response = await fetch("/page/revenue/create-header-ajax", {
+            const response = await fetch(baseUrl+"/page/revenue/create-header-ajax", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(headerData),

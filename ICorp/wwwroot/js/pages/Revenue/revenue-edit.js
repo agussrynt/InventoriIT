@@ -220,7 +220,7 @@
         console.log(headerData);
 
         try {
-            const response = await fetch("/page/revenue/create-mapping-project", {
+            const response = await fetch(baseUrl+"/page/revenue/create-mapping-project", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(headerData),
@@ -257,7 +257,7 @@
         console.log(headerData);
 
         try {
-            const response = await fetch("/page/revenue/create-mapping-project", {
+            const response = await fetch(baseUrl+"/page/revenue/create-mapping-project", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(headerData),
