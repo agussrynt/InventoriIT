@@ -1,0 +1,29 @@
+﻿@{
+}
+
+<!-- Modal Actions -->
+<div class="modal fade" id="workModal" tabindex="-1" aria-labelledby="workModal" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form name="work-modal" class="work-modal">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="titleModal"></h4>
+                    <button type="button" class="btn-close" id="btnClose" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" name="ID" id="ID" />
+                    <div class="row mb-3">
+                        <div class="col-12 mb-3">
+                            <label for="pekerjaan" class="form-label form-required">Pekerjaan</label>
+                            <input type="text" class="form-control" id="Pekerjaan" name="Pekerjaan" required />
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" id="submitWork" class="btn btn-primary">Submit</button>
+                    <button type="button" class="btn btn-secondary" id="btnCancel" data-bs-dismiss="modal">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
