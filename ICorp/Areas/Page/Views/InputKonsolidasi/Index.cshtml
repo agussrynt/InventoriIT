@@ -9,6 +9,18 @@
         .indented-row th {
             padding-left: 40px; /* Atur nilai sesuai keinginan untuk memberi efek tab */
         }
+
+        th.sorting_asc {
+            display: none;
+        }
+
+        td.dataTables_empty{
+            display: none;
+        }
+
+        .dataTable_length{
+            display: none;
+        }
     </style>
 }
 
@@ -38,10 +50,16 @@
             </div>
             <div class="dt-action-buttons text-end pt-3 pt-md-0">
                 <div class="dt-buttons">
+                    <button id="btnModalUploadFile" class="dt-button create-new btn btn-primary" type="button">
+                        <span>
+                            <i class='bx bx-cloud-upload'></i>
+                            <span class="d-none d-sm-inline-block">Upload Excel</span>
+                        </span>
+                    </button>
                     <a id="btnNew" class="dt-button create-new btn btn-primary" asp-area="Page" asp-controller="RevHPPGA" asp-action="Index">
                         <span>
-                            <i class="bx bx-plus me-sm-2"></i>
-                            <span class="d-none d-sm-inline-block">Add New Record</span>
+                            @* <i class="bx bx-plus me-sm-2"></i> *@
+                            <span class="d-none d-sm-inline-block">Rev HPP GA</span>
                         </span>
                     </a>
                 </div>
@@ -49,98 +67,49 @@
         </div>
         <div class="card-body">
             <div class="card-datatable table-responsive text-nowrap">
-                <table id="dataTable" class="table no-footer">
-                    <thead>
-                        <tr class="text-nowrap">
-                            <th></th>
-                            <th>RKAP 2024</th>
-                            <th>RJPP 2025</th>
-                            <th>RJPP 2026</th>
-                            <th>RJPP 2027</th>
-                            <th>RJPP 2028</th>
-                            <th>RJPP 2029</th>
-                            <th>RJPP 2030</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <th><b><a style="color : black"> Pendapatan Usaha Aktivitas Operasi Lainnya</a></b></th>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr class="indented-row">
-                            <th>PDSI : Pendapatan Usaha Aktivitas Lainnya</th>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr class="indented-row">
-                            <th>PDC : Pendapatan Usaha Aktivitas Lainnya</th>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr class="indented-row">
-                            <th>PDC : Eliminasi </th>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr class="indented-row">
-                            <th>M&A : Jumlah Penjualan dan Pendapatan Usaha Lainnya</th>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr class="indented-row">
-                            <th>M&A: Eliminasi</th>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr class="indented-row">
-                            <th>Total</th>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                    </tbody>
+                <div class="loader" style="display: none;">Loading...</div>
+
+                <table id="dataTable" class="table table-bordered" style="width: 100%;">
+                    
+                    
                 </table>
             </div>
         </div>
     </div>
 </div>
 
+@* modal upload excel *@
+<div class="modal fade" id="uploadFileModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="uploadFileLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form id="uploadFileForm" enctype="multipart/form-data" method="POST">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="uploadFileLabel">
+                        <i class='bx bx-cloud-upload'></i>
+                        Upload Excel
+                    </h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="uploadFile" class="form-label">Upload Data File Excel</label>
+                            <input type="file" class="form-control" id="uploadFile" name="file" accept=".xlsx, .xls">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary" id="btnSubmit">Submit</button>
+                </div>
+                <div class="loader" style="display: none;">Loading...</div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
 @section Scripts {
-    @*<script src="~/js/demo/dataTable-demos.js"></script>*@
-    @* <script src="~/js/pages/AuditProcess/audit-list.js"></script> *@
+    <script src="~/js/demo/dataTable-demos.js"></script>
+    <script src="~/js/pages/InputKonsolidasi/InputKonsolidasi.js"></script>
 }

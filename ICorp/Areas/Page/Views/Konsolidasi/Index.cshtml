@@ -5,6 +5,23 @@
 }
 
 @section Styles {
+    <style>
+        .indented-row th {
+            padding-left: 40px; /* Atur nilai sesuai keinginan untuk memberi efek tab */
+        }
+
+        th.sorting_asc {
+            display: none;
+        }
+
+        td.dataTables_empty {
+            display: none;
+        }
+
+        .dataTable_length {
+            display: none;
+        }
+    </style>
 }
 
 <div id="loadingContent" class="container-xxl flex-grow-1 container-p-y d-none">
@@ -27,36 +44,33 @@
     @* <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Page /</span> <span class="text-muted fw-light">Konsolidasi /</span> Overview</h4> *@
     <h4 class="fw-bold py-3 mb-4"><span>RJPP /</span> Konsolidasi</h4>
     <div class="card">
-        <div class="card-datatable table-responsive text-nowrap">
-            <table id="dataTable" class="table no-footer">
-                <thead>
-                    <tr class="text-nowrap">
-                        <th>Id</th>
-                        <th>Year</th>
-                        <th>Created By</th>
-                        <th>Created Date</th>
-                        <th>Follow Up By</th>
-                        <th>Follow Up Date</th>
-                        <th>Follow Up Date</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                </tbody>
-            </table>
+        <div class="card-header d-flex justify-content-between">
+            <div class="head-label text-center my-auto">
+                <h5 class="card-title mb-0"></h5>
+            </div>
+            <div class="dt-action-buttons text-end pt-3 pt-md-0">
+                <div class="dt-buttons">
+                    <a id="btnNew" class="dt-button create-new btn btn-primary" asp-area="Page" asp-controller="InputKonsolidasi" asp-action="Index">
+                        <span>
+                            @* <i class="bx bx-plus me-sm-2"></i> *@
+                            <span class="d-none d-sm-inline-block">Input Konsolidasi</span>
+                        </span>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="card-datatable table-responsive text-nowrap">
+                <div class="loader" style="display: none;">Loading...</div>
+
+                <table id="dataTable" class="table table-bordered" style="width: 100%;">
+                </table>
+            </div>
         </div>
     </div>
 </div>
 
 @section Scripts {
-    @*<script src="~/js/demo/dataTable-demos.js"></script>*@
-    @* <script src="~/js/pages/AuditProcess/audit-list.js"></script> *@
+    <script src="~/js/demo/dataTable-demos.js"></script>
+    <script src="~/js/pages/Konsolidasi/Konsolidasi.js"></script>
 }
