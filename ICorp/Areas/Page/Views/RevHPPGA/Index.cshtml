@@ -1,0 +1,138 @@
+@using Microsoft.AspNetCore.Http;
+
+@{
+    ViewData["Title"] = "InputRevHPPGA";
+}
+
+@section Styles {
+    @*<link href="~/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">*@
+    <link rel="stylesheet" href="~/lib/datatables-bs5/dataTables.bootstrap5.min.css">
+    <link rel="stylesheet" href="~/lib/datatables-responsive-bs5/responsive.bootstrap5.min.css">
+
+    <style>
+        /* CSS untuk mengatur tampilan tabel */
+
+        .indented-row th {
+            padding-left: 40px; /* Atur nilai sesuai keinginan untuk memberi efek tab */
+        }
+
+        .table_header th {
+            position: sticky;
+            top: 0;
+            background-color: #f8f9fa;
+            z-index: 10;
+        }
+
+        .table_header td:first-child {
+            position: sticky;
+            left: 0;
+            background-color: #f8f9fa;
+            z-index: 10;
+        }
+    </style>
+
+}
+
+<div id="loadingContent" class="container-xxl flex-grow-1 container-p-y">
+    <div class="card">
+        <div class="card-body text-center">
+            <div class="spinner-grow text-primary" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+            <div class="spinner-grow text-primary" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+            <div class="spinner-grow text-primary" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="contentPage" class="container-xxl flex-grow-1 container-p-y">
+    <h4 class="fw-bold py-3 mb-4"><span>RJPP /</span> Revenue HPP GA</h4>
+    <div class="card">
+        <div class="card-header d-flex justify-content-between">
+            <div class="head-label text-center my-auto">
+                <h5 class="card-title mb-0 fw-bold-">Summary Of Revenue, HPP GA</h5>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="card-datatable table-responsive text-nowrap">
+                <table id="dataTableSUM" class="table no-footer">
+                    <thead>
+                        <tr class="text-nowrap" id="headerSUM">
+                            <th>Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="contentPage" class="container-xxl flex-grow-1 container-p-y">
+    <div class="card">
+        <div class="card-header d-flex justify-content-between">
+            <div class="head-label text-center my-auto">
+                <h5 class="card-title mb-0"></h5>
+            </div>
+            <div class="dt-action-buttons text-end me-auto pt-3 pt-md-0">
+                <div class="dt-buttons">
+                    <a id="btnNew" class="dt-button inport-new btn btn-primary text-white" asp-area="Page" asp-controller="RevHPPGA" asp-action="ImportRevHPPGA">
+                        <span>
+                            <i class="bx bx-plus me-sm-2"></i>
+                            <span class="d-none d-sm-inline-block">Add Data Rev, HPP GA</span>
+                        </span>
+                    </a>
+                    <button id="btnEdit" type="button" class="dt-button inport-new btn btn-success text-white">
+                        <span>
+                            <i class="bx bx-edit me-sm-2"></i>
+                            <span class="d-none d-sm-inline-block">Edit Data Rev, HPP GA</span>
+                        </span>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="card-datatable table-responsive text-nowrap">
+                <table id="dataTableRevHPP" class="table no-footer">
+                    <thead>
+                        <tr class="text-nowrap" id="headerRevHPPGA">
+                            <th>No.</th>
+                            <th>Id</th>
+                            <th>Segment RJPP</th>
+                            <th>Alat / Nama Cost Center</th>
+                            <th>HP</th>
+                            <th>Unique Code</th>
+                            <th>Kategori RIG</th>
+                            <th>PIC</th>
+                            <th>Customer</th>
+                            <th>Project</th>
+                            <th>HPP/Sales</th>
+                            <th>GA/Sales</th>
+
+                            @* <th>Ownership</th>
+                            <th>Probability</th> *@
+                        </tr>
+                    </thead>
+                    <tbody>
+                       
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/js/demo/dataTable-demos.js"></script>
+    <script src="~/js/pages/RevHPPGA/RevHPPGA.js"></script>
+    <script src="~/assets/vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="~/lib/datatables-bs5/dataTables.bootstrap5.min.js"></script>
+    <script src="~/lib/datatables-responsive-bs5/responsive.bootstrap5.min.js"></script>
+
+}

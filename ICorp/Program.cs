@@ -46,6 +46,8 @@ builder.Services.AddScoped<IAuditExternalMonitoring, AuditExternalMonitoring>();
 builder.Services.AddScoped<IRoleService, RoleService>();
 builder.Services.AddScoped<IUserInRoleService, UserInRoleService>();
 
+builder.Services.AddScoped<IRevenue_RJPP_Service, Revenue_RJPP_Service>();
+
 // Add services to the container.
 builder.Services.AddApplicationInsightsTelemetry(builder.Configuration.GetSection("ApplicationInsights:InstrumentationKey")); // add App insight telematry
 builder.Services.AddSingleton<ConnectionDB>();

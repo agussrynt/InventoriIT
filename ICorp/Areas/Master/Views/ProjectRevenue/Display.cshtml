@@ -1,0 +1,109 @@
+﻿@{
+	ViewData["Title"] = "Detail Data Project";
+}
+@section Styles {
+	<link rel="stylesheet" href="~/css/bs-stepper.css">
+	<style>
+		.bs-stepper.vertical .bs-stepper-header {
+			width: 18rem !important;
+		}
+
+		.bs-stepper.vertical .bs-stepper-content {
+			/*width: 100%*/
+			width: calc(100% - 18rem) !important;
+		}
+		.ml-1{
+			margin-left: 1rem;
+		}
+	</style>
+    }
+	<div id="loadingContent" class="container-xxl flex-grow-1 container-p-y d-none">
+		<div class="card">
+			<div class="card-body text-center">
+				<div class="spinner-grow text-primary" role="status">
+					<span class="visually-hidden">Loading...</span>
+				</div>
+				<div class="spinner-grow text-primary" role="status">
+					<span class="visually-hidden">Loading...</span>
+				</div>
+				<div class="spinner-grow text-primary" role="status">
+					<span class="visually-hidden">Loading...</span>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div id="contentPage" class="container-xxl flex-grow-1 container-p-y">
+		<h4 class="fw-bold py-3 mb-4"><span>Detail Data Project</span></h4>
+		<div class="row">
+			<div class="col-12">
+				<div class="card">
+					<div class="card-body d-flex_ align-items-center justify-content-between flex-column flex-md-row">
+						<div class="row">
+							<div class="col-sm-12 col-md-6 mb-2">
+								<div>
+									<label class="form-label" for="NamaProject">Nama Project</label>
+									<input type="text" id="NamaProject" name="NamaProject" class="form-control" readonly />
+								</div>
+								<div class="mt-2">
+									<label class="form-label" for="Segmen">Segmen</label>
+									<input type="text" id="Segmen" name="Segmen" class="form-control" readonly />
+								</div>
+								<div class="mt-2">
+									<label class="form-label" for="Asset">Asset</label>
+									<input type="text" id="Asset" name="Asset" class="form-control" readonly />
+								</div>
+								<div class="mt-2">
+									<label class="form-label" for="CostCenter">Cost Center</label>
+									<input type="text" id="CostCenter" name="CostCenter" class="form-control" readonly />
+								</div>
+								<div class="mt-2">
+									<label class="form-label" for="Customer">Customer</label>
+									<input type="text" id="Customer" name="Customer" class="form-control" readonly />
+								</div>
+								<div class="mt-2">
+									<label class="form-label" for="Regional">Regional</label>
+									<input type="text" id="Regional" name="Regional" class="form-control" readonly />
+								</div>
+							</div>
+
+							<div class="col-sm-12 col-md-6 mb-2">
+								<div>
+									<label class="form-label" for="Contract">Contract</label>
+									<input type="text" id="Contract" name="Contract" class="form-control" readonly />
+								</div>
+								<div class="mt-2">
+									<label class="form-label" for="Probability">Probability</label>
+									<input type="text" id="Probability" name="Probability" class="form-control" readonly />
+								</div>
+								<div class="mt-2">
+									<label class="form-label" for="Sumur">Sumur</label>
+									<input type="text" id="Sumur" name="Sumur" class="form-control" readonly />
+								</div>
+								<div class="mt-2">
+									<label class="form-label" for="Control Project">Control Project</label>
+									<input type="text" id="ControlProject" name="ControlProject" class="form-control" readonly />
+								</div>
+								<div class="mt-2">
+									<label class="form-label" for="Pekerjaan">Pekerjaan</label>
+									<input type="text" id="Pekerjaan" name="Pekerjaan" class="form-control" readonly />
+								</div>
+								<div class="mt-2">
+									<label class="form-label" for="SBT">SBT</label>
+									<input type="text" id="SBT" name="SBT" class="form-control" readonly />
+								</div>
+							</div>
+						</div>
+					</div>
+					
+				</div>
+			</div>
+		</div>
+	</div>
+
+	@section Scripts {
+	@*<script src="~/js/demo/dataTable-demos.js"></script>*@
+	<script src="~/js/pages/Masterdata/project-detail.js"></script>
+
+}
+

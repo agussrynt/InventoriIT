@@ -11,11 +11,9 @@
         ddAssetParent = $("#ddAssetType")
 
     ///** Fill dropdown select */
-    var costCenterDD = { key: 'fundsCenter', value: 'fundsCenter' };
-    await fillSelect(baseUrl + "/master/asset-revenue/get-CostCenterDD-ajax", "#CostCenter", costCenterDD, ddCCParent);
-
-    var assetTypeDD = { key: 'id', value: 'tipeAsset' };
-    await fillSelect(baseUrl + "/master/asset-revenue/get-assetType-ajax", "#TipeAsset", assetTypeDD, ddAssetParent);
+    await selectCostCenter()
+    
+    await selectAssetType()
 
     $('#CostCenter').on('change', await onChangeCostCenter);
 
@@ -239,6 +237,54 @@
                     swallAllert.Error("Fetch Data Failed!", err.data);
                 })
         }
+    }
+
+    async function selectCostCenter() {
+        await asyncAjax("/master/asset-revenue/get-CostCenterDD-ajax", "GET")
+            .then(async function successCallBack(response) {
+                console.log(response)
+                var data = response.data;
+                var opt = '<option></option>';
+
+                for (var i = 0; i < data.length; i++) {
+                    opt += '<option value="' + data[i].fundsCenter + '"> ' + data[i].fundsCenter + '</option>';
+                }
+
+                $("#CostCenter").html(opt);
+                $("#CostCenter").select2({
+                    placeholder: '- Please select a CostCenter -',
+                    dropdownParent: ddCCParent
+                })
+            })
+            .catch(async function errorCallBack(err) {
+                console.log("err : ");
+                console.log(err);
+                swallAllert.Error("Fetch Data Failed!", err.data);
+            })
+    }
+
+    async function selectAssetType() {
+        await asyncAjax("/master/asset-revenue/get-assetType-ajax", "GET")
+            .then(async function successCallBack(response) {
+                console.log(response)
+                var data = response.data;
+                var opt = '<option></option>';
+
+                for (var i = 0; i < data.length; i++) {
+                    opt += '<option value="' + data[i].id + '"> ' + data[i].tipeAsset + '</option>';
+                }
+
+                $("#TipeAsset").html(opt);
+                $("#TipeAsset").select2({
+                    placeholder: '- Please select a Asset Type -',
+                    dropdownParent: ddAssetParent
+                })
+            })
+            .catch(async function errorCallBack(err) {
+                console.log("err : ");
+                console.log(err);
+                swallAllert.Error("Fetch Data Failed!", err.data);
+            })
     }
 
     await Load();

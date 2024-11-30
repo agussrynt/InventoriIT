@@ -1,4 +1,4 @@
-﻿@using Microsoft.AspNetCore.Http;
+@using Microsoft.AspNetCore.Http;
 
 <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme position-fixed" data-bg-class="bg-menu-theme">
 	<div class="app-brand demo">
@@ -63,9 +63,9 @@
 				</a>
 			</li>
 			<li class="menu-item">
-				<a class="menu-link" asp-area="Master" asp-controller="GLAccount" asp-action="Index">
+				<a class="menu-link" asp-area="Master" asp-controller="SBT" asp-action="Index">
 					<i class="menu-icon tf-icons bx bx-file"></i>
-					<div data-i18n="Basic">GL Account</div>
+					<div data-i18n="Basic">SBT</div>
 				</a>
 			</li>
 			<li class="menu-item">
@@ -83,7 +83,7 @@
 			<li class="menu-item">
 				<a class="menu-link" asp-area="Master" asp-controller="ProjectRevenue" asp-action="Index">
 					<i class="menu-icon tf-icons bx bx-chalkboard"></i>
-					<div data-i18n="Basic">Project Revenue</div>
+					<div data-i18n="Basic">Project</div>
 				</a>
 			</li>
 		}
@@ -157,78 +157,41 @@
 				</a>
 			</li> *@
 			<li class="menu-item">
-				<a class="menu-link" asp-area="Page" asp-controller="Monitoring" asp-action="List">
-					<i class='menu-icon tf-icons bx bx-desktop'></i>
+				<a href="javascript:void(0);" class="menu-link menu-toggle">
+					<i class="menu-icon tf-icons bx bx-spreadsheet"></i>
 					<div data-i18n="Basic">RJPP</div>
 				</a>
+				<ul class="menu-sub">
+					<li class="menu-item">
+						<a href="javascript:void(0);" class="menu-link menu-toggle">
+							<i class='menu-icon tf-icons bx bx-merge'></i>
+							<div data-i18n="Basic">Konsolidasi</div>
+						</a>
+						<ul class="menu-sub">
+							<a class="menu-link" asp-area="Page" asp-controller="Konsolidasi" asp-action="Index">
+								<div data-i18n="Basic">Overview</div>
+							</a>
+							<a class="menu-link" asp-area="Page" asp-controller="InputKonsolidasi" asp-action="Index">
+								<div data-i18n="Basic">Laporan Laba Rugi Komprehensif</div>
+							</a>
+						</ul>
+					</li>
+				</ul>
+				<ul class="menu-sub">
+					<li class="menu-item">
+						<a class="menu-link" asp-area="Page" asp-controller="RevHPPGA" asp-action="Index">
+							<i class='menu-icon tf-icons bx bx-merge'></i>
+							<div data-i18n="Basic">Revenue HPP GA</div>
+						</a>
+					</li>
+				</ul>
 			</li>
 		}
 
 
 
 
-		@* <li class="menu-item">
-			<a href="javascript:void(0);" class="menu-link menu-toggle">
-				<i class="menu-icon tf-icons bx bx-check-shield"></i>
-				<div data-i18n="Basic">Audit External</div>
-			</a>
-			<ul class="menu-sub">
-				@if (User.IsInRole("Admin") || User.IsInRole("Auditor"))
-				{
-					<li class="menu-item">
-						<a class="menu-link" asp-area="Page" asp-controller="AuditExternal" asp-action="Index">
-							<div data-i18n="Basic">Upload Score and Recomendation</div>
-						</a>
-					</li>
-					<li class="menu-item">
-						<a class="menu-link" asp-area="Page" asp-controller="AuditExternalAssigment" asp-action="Index">
-							<div data-i18n="Basic">Assigement Recomendation</div>
-						</a>
-					</li>
-					<li class="menu-item">
-						<a class="menu-link" asp-area="Page" asp-controller="AuditExternalMonitoring" asp-action="Index">
-							<div data-i18n="Basic">Monitoring FolowUp Recomendation</div>
-						</a>
-					</li>
-				}
-				@if (User.IsInRole("Auditee"))
-				{
-					<li class="menu-item">
-						<a class="menu-link" asp-area="Page" asp-controller="AuditExternalFollowUp" asp-action="Index">
-							<div data-i18n="Basic">FolowUp Recomendation</div>
-						</a>
-					</li>
-				}
-
-			</ul>
-		</li>
- *@
-		<!-- Pages -->
-		@* <li class="menu-header small text-uppercase">
-			<span class="menu-header-text">Access</span>
-		</li> *@
-		@*		<li class="menu-item">
-		<a class="menu-link">
-		<i class="menu-icon tf-icons bx bx-plus-medical"></i>
-		<div data-i18n="Basic">SIDOKTER</div>
-		</a>
-		</li>*@
-		@* <li class="menu-item">
-			<a class="menu-link" asp-controller="Home" asp-action="accessSIHP" target="_blank">
-				<i class="menu-icon tf-icons bx bx-collection"></i>
-				<div data-i18n="Basic">SIHP</div>
-			</a>
-		</li> *@
-		@*<script type="text/javascript">
-		function movePage() {
-		var
-		url = "https://localhost:44309/SIHP/Account/Login?UID=ParamID",
-		uid = "@Context.Session.GetString("uID")";
-		url = url.replace("ParamID", uid);
-		console.log(uid, url);
-		//window.open(url, '_blank');
-		}
-		</script>*@
+		
 
 		<!-- Misc -->
 		<li class="menu-header small text-uppercase"><span class="menu-header-text">Misc</span></li>

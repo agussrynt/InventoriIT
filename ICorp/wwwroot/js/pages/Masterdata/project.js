@@ -17,25 +17,27 @@
         ddAssetParent = $("#ddAsset")
 
     ///** Fill dropdown select */
-    var segmenDD = { key: 'id', value: 'segmen' };
-    await fillSelect(baseUrl + "/master/project-revenue/get-segmenDD-ajax", "#Segmen", segmenDD, ddSegmenParent);
 
-    var contractDD = { key: 'id', value: 'contract' };
-    await fillSelect(baseUrl + "/master/project-revenue/get-contractTypeDD-ajax", "#Contract", contractDD, ddContractParent);
+    //Dropdown Segmen
+    await selectSegmen()
 
-    var custumerDD = { key: 'id', value: 'customer' };
-    await fillSelect(baseUrl + "/master/project-revenue/get-customerDD-ajax", "#Customer", custumerDD, ddCostumerParent);
+    //Dropdown Contract
+    await selectContract();
 
-    var SBTDD = { key: 'id', value: 'sbtIndex' };
-    await fillSelect(baseUrl + "/master/project-revenue/get-SBTDD-ajax", "#SBT", SBTDD, ddSBTParent);
+    //Dropdown Customer
+    await selectCustomer();
 
-    var pekerjaanDD = { key: 'id', value: 'pekerjaan' };
-    await fillSelect(baseUrl + "/master/project-revenue/get-pekerjaanDD-ajax", "#Pekerjaan", pekerjaanDD, ddPekerjaanParent);
+    //Dropdown SBT
+    await selectSBT();
 
-    var assetDD = { key: 'id', value: 'asset' };
-    await fillSelect(baseUrl + "/master/project-revenue/get-assetDD-ajax", "#Asset", assetDD, ddAssetParent);
+    //Dropdown Pekerjaan
+    await selectPekerjaan();
 
-    //$('#CostCenter').on('change', await onChangeCostCenter);
+    //Dropdown Asset
+    await selectAsset();
+
+    $('#Asset').on('change', await onChangeCostCenter);
+    $('#Customer').on('change', await onChangeRegional);
 
     /** Open Modal Add User */
     $('#btnNewProject').click(await openModalProject);
@@ -118,19 +120,22 @@
                     },
                     { data: 'id', defaultcontent: "", visible: false },
                     { data: 'namaProject', defaultcontent: "" },
-                    { data: 'segmen', defaultContent: "" },
-                    { data: 'asset', defaultContent: "" },
                     { data: 'customer', defaultContent: "" },
+                    { data: 'asset', defaultContent: "" },
+                    /*{ data: 'segmen', defaultContent: "" },*/
                     { data: 'contract', defaultContent: "" },
-                    { data: 'probability', defaultcontent: "" },
-                    { data: 'sumur', defaultContent: "" },
-                    { data: 'controlProject', defaultContent: "" },
-                    { data: 'pekerjaan', defaultContent: "" },
-                    { data: 'sbtIndex', defaultContent: "" },
+                    /* { data: 'probability', defaultcontent: "" },
+                     { data: 'sumur', defaultContent: "" },
+                     { data: 'controlProject', defaultContent: "" },
+                     { data: 'pekerjaan', defaultContent: "" },
+                     { data: 'sbtIndex', defaultContent: "" },*/
                     {
                         data: null,
                         render: function (data, type, full, meta) {
                             return `<div class="d-flex">
+                                            <button type="button" class="btn text-info col btn-link btn-icon moveButton" data-bs-toggle="tooltip" data-bs-html="true" data-bs-original-title="View">
+                                                <i class="bx bx-show"></i>
+                                            </button>
                                             <button type="button" class="btn text-warning col btn-link btn-icon editButton" data-bs-toggle="tooltip" data-bs-html="true" data-bs-original-title="Edit">
                                                 <i class="bx bx-edit-alt"></i>
                                             </button>
@@ -157,7 +162,7 @@
                         className: "text-center",
                         searchable: false,
                         orderable: false,
-                        targets: 12,
+                        targets: 6,
                     }
                 ],
                 lengthMenu: [[5, 10, 50, 100, -1], [5, 10, 50, 100, "All"]],
@@ -213,6 +218,20 @@
                 idproject = data.id;
                 await openModalProject(data, true);
             }
+
+            /** Open Modal View User */
+            $('#dataTable').on('click', '.moveButton', moveRow);
+            async function moveRow() {
+                var
+                    tb = $('#dataTable').DataTable(),
+                    dt = tb.row($(this).parents('tr')).data(),
+                    urldetail = decodeURIComponent(baseUrl + "/master/project-revenue/getDetail?id=Params"),
+                    url = decodeURIComponent(urldetail);
+                url = url.replace("Params", window.btoa(dt.id));
+
+                window.location.href = url;
+            }
+
         }
     }
 
@@ -259,13 +278,15 @@
         modalDialog.modal("show");
     }
 
-    async function onChangeCostCenter() {
-        var costCenterDD = formProject.find('select[name="CostCenter"]').val();
-        if (costCenterDD != '') {
-            await asyncAjax("/master/project-revenue/get-CostCenter-ajax?FundsCenter=" + costCenterDD, "GET")
+    async function onChangeRegional() {
+        var custRegionalDD = formProject.find('select[name="Customer"]').val();
+        if (custRegionalDD != '') {
+            await asyncAjax("/master/project-revenue/get-Regional-ajax?IDCust=" + custRegionalDD, "GET")
                 .then(async function successCallBack(response) {
+                    console.log(response)
+
                     if (response.data.length > 0) {
-                        formProject.find('input[name="project"]').val(response.data[0].name);
+                        formProject.find('input[name="Regional"]').val(response.data[0].regional);
                     }
                 })
                 .catch(async function errorCallBack(err) {
@@ -274,6 +295,167 @@
                     swallAllert.Error("Fetch Data Failed!", err.data);
                 })
         }
+    }
+
+    async function onChangeCostCenter() {
+        var costCenterDD = formProject.find('select[name="Asset"]').val();
+        if (costCenterDD != '') {
+            await asyncAjax("/master/project-revenue/get-CostCenterFD-ajax?IDCC=" + costCenterDD, "GET")
+                .then(async function successCallBack(response) {
+                    console.log(response)
+                    if (response.data.length > 0) {
+                        formProject.find('input[name="CostCenter"]').val(response.data[0].costCenter);
+                    }
+                })
+                .catch(async function errorCallBack(err) {
+                    console.log("err : ");
+                    console.log(err);
+                    swallAllert.Error("Fetch Data Failed!", err.data);
+                })
+        }
+    }
+
+    async function selectSegmen() {
+        await asyncAjax("/master/project-revenue/get-segmenDD-ajax", "GET")
+            .then(async function successCallBack(response) {
+                console.log(response)
+                var data = response.data;
+                var opt = '<option></option>';
+
+                for (var i = 0; i < data.length; i++) {
+                    opt += '<option value="' + data[i].id + '"> ' + data[i].segmen + '</option>';
+                }
+
+                $("#Segmen").html(opt);
+                $("#Segmen").select2({
+                    placeholder: '- Please select a Segmen -',
+                    dropdownParent: ddSegmenParent
+                })
+            })
+            .catch(async function errorCallBack(err) {
+                console.log("err : ");
+                console.log(err);
+                swallAllert.Error("Fetch Data Failed!", err.data);
+            })
+    }
+
+    async function selectContract() {
+        await asyncAjax("/master/project-revenue/get-contractTypeDD-ajax", "GET")
+            .then(async function successCallBack(response) {
+                var data = response.data;
+                var opt = '<option></option>';
+
+                for (var i = 0; i < data.length; i++) {
+                    opt += '<option value="' + data[i].id + '"> ' + data[i].contract + '</option>';
+                }
+
+                $("#Contract").html(opt);
+                $("#Contract").select2({
+                    placeholder: '- Please select a Contract -',
+                    dropdownParent: ddContractParent
+                })
+            })
+            .catch(async function errorCallBack(err) {
+                console.log("err : ");
+                console.log(err);
+                swallAllert.Error("Fetch Data Failed!", err.data);
+            })
+    }
+
+    async function selectCustomer() {
+        await asyncAjax("/master/project-revenue/get-customerDD-ajax", "GET")
+            .then(async function successCallBack(response) {
+                console.log(response)
+                var data = response.data;
+                var opt = '<option></option>';
+
+                for (var i = 0; i < data.length; i++) {
+                    opt += '<option value="' + data[i].id + '"> ' + data[i].customer + '</option>';
+                }
+
+                $("#Customer").html(opt);
+                $("#Customer").select2({
+                    placeholder: '- Please select a Customer -',
+                    dropdownParent: ddCostumerParent
+                })
+            })
+            .catch(async function errorCallBack(err) {
+                console.log("err : ");
+                console.log(err);
+                swallAllert.Error("Fetch Data Failed!", err.data);
+            })
+    }
+
+    async function selectSBT() {
+        await asyncAjax("/master/project-revenue/get-SBTDD-ajax", "GET")
+            .then(async function successCallBack(response) {
+                console.log(response)
+                var data = response.data;
+                var opt = '<option></option>';
+
+                for (var i = 0; i < data.length; i++) {
+                    opt += '<option value="' + data[i].id + '"> ' + data[i].sbtIndex + '</option>';
+                }
+
+                $("#SBT").html(opt);
+                $("#SBT").select2({
+                    placeholder: '- Please select a SBT Index -',
+                    dropdownParent: ddSBTParent
+                })
+            })
+            .catch(async function errorCallBack(err) {
+                console.log("err : ");
+                console.log(err);
+                swallAllert.Error("Fetch Data Failed!", err.data);
+            })
+    }
+
+    async function selectPekerjaan() {
+        await asyncAjax("/master/project-revenue/get-pekerjaanDD-ajax", "GET")
+            .then(async function successCallBack(response) {
+                console.log(response)
+                var data = response.data;
+                var opt = '<option></option>';
+
+                for (var i = 0; i < data.length; i++) {
+                    opt += '<option value="' + data[i].id + '"> ' + data[i].pekerjaan + '</option>';
+                }
+
+                $("#Pekerjaan").html(opt);
+                $("#Pekerjaan").select2({
+                    placeholder: '- Please select a Work -',
+                    dropdownParent: ddPekerjaanParent
+                })
+            })
+            .catch(async function errorCallBack(err) {
+                console.log("err : ");
+                console.log(err);
+                swallAllert.Error("Fetch Data Failed!", err.data);
+            })
+    }
+
+    async function selectAsset() {
+        await asyncAjax("/master/project-revenue/get-assetDD-ajax", "GET")
+            .then(async function successCallBack(response) {
+                console.log(response)
+                var data = response.data;
+                var opt = '<option></option>';
+
+                for (var i = 0; i < data.length; i++) {
+                    opt += '<option value="' + data[i].id + '"> ' + data[i].asset + '</option>';
+                }
+
+                $("#Asset").html(opt);
+                $("#Asset").select2({
+                    placeholder: '- Please select a Asset -',
+                    dropdownParent: ddAssetParent
+                })
+            })
+            .catch(async function errorCallBack(err) {
+                console.log("err : ");
+                console.log(err);
+                swallAllert.Error("Fetch Data Failed!", err.data);
+            })
     }
 
     await Load();

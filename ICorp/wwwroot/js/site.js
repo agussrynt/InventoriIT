@@ -49,7 +49,6 @@ $(document).ready(function () {
     })
 });
 
-
 var
     swallAllert = {
         Success: function (title, message) {
@@ -76,6 +75,15 @@ var
                 if (result.isConfirmed) {
                     location.reload();
                 }
+            })
+        },
+        Warning: function (title, message) {
+            Swal.fire({
+                icon: 'warning',
+                title: title,
+                text: message,
+                timer: 3500,
+                //confirmButtonColor: '#d33',
             })
         },
         ConfirmDelete: function () {
@@ -193,7 +201,7 @@ var
             const blob = this.Base64toBlob(base64String);
             window.navigator.msSaveBlob(blob, fileName);
         } else {
-            const extension = fileName.split('.').pop().toLowerCase(); // Get uploaded file extension  
+            const extension = fileName.split('.').pop().toLowerCase(); // Get uploaded file extension
             const linkSource = "data:application/" + extension + ";base64," + base64String;
             const downloadLink = document.createElement("a");
             downloadLink.href = linkSource;
@@ -214,6 +222,33 @@ var
 function convertDate(dateTime) {
     const d = new Date(dateTime);
     return d.getDate() + ' ' + monthNames[d.getMonth()] + ' ' + d.getFullYear();
+}
+
+function formatNumberToThousands(value, pemisah = '', currency = '') {
+    // Pastikan input adalah angka
+    if (isNaN(value)) {
+        throw new Error('Input harus berupa angka');
+    }
+
+    let formattedValue = value.toLocaleString("id-ID"); // Gunakan format lokal Indonesia
+    if (pemisah === ",") {
+        formattedValue = formattedValue.replace(/\./g, ",").replace(/,/g, ".");
+    }
+
+    // Tambahkan imbuhan sesuai pilihan
+    switch (currency) {
+        case 'USD':
+            return 'USD ' + formattedValue;
+        case 'Rp':
+            return 'Rp. ' + formattedValue;
+        default:
+            return formattedValue; // Tanpa imbuhan
+    }
+
+    // Contoh penggunaan
+    //console.log(formatNumberToThousands(1234567));        // Output: "1,234,567"
+    //console.log(formatNumberToThousands(1234567,",", 'USD')); // Output: "USD 1,234,567"
+    //console.log(formatNumberToThousands(1234567, 'Rp'));  // Output: "Rp. 1,234,567"
 }
 
 function urlAction() {
@@ -341,7 +376,7 @@ function loadingFormAccount(flag, inputID, inputText) {
 //}
 
 //comment on 031122
-async function fillSelect(url, id, elem, idParent) {
+async function fillSelect(url, id, elem) {
     var groups_array = [];
 
     $.getJSON(url, {},
@@ -356,20 +391,19 @@ async function fillSelect(url, id, elem, idParent) {
                             text: response.data[index][elem.value],
                         });
                     } else {
-                        let opt = `<option value="${response.data[index].id}" ${index == 0 ? "selected" : ""}>${response.data[index].name}</option>`
+                        let opt = `<option value="${response.data[index].id}" ${index == 0 ? "selected" : ""}>${response.data[index].name}</option>`;
+                        $(id).append(opt);
                     }
                 });
 
                 $("select" + id).select2({
                     placeholder: "Please select one",
-                    dropdownParent: idParent,
                     data: groups_array
                 });
             }
         }
     );
 }
-
 
 function fillSelect2(elem, url = null) {
     if (url) {
@@ -416,6 +450,6 @@ var DateFunction = {
         const d = new Date(dateTime);
         const dt = d.getDate() < 10 ? '0' + d.getDate() : d.getDate();
         const m = (d.getMonth() + 1) < 10 ? '0' + (d.getMonth() + 1) : (d.getMonth() + 1);
-        return dt + '/' + m+ '/' + d.getFullYear();
+        return dt + '/' + m + '/' + d.getFullYear();
     }
 } 
