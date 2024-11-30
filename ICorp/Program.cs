@@ -7,6 +7,7 @@ using PlanCorp.Models;
 using PlanCorp.Areas.Page.Interfaces;
 using PlanCorp.Areas.Page.Services;
 using PlanCorp.Middlewares;
+using PlanCorp.Areas.Page.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("PlanCorpDbContextConnection") ?? throw new InvalidOperationException("Connection string 'PlanCorpDbContextConnection' not found.");
@@ -39,6 +40,8 @@ builder.Services.AddScoped<IRoleService, RoleService>();
 builder.Services.AddScoped<IUserInRoleService, UserInRoleService>();
 
 builder.Services.AddScoped<IRevenue_RJPP_Service, Revenue_RJPP_Service>();
+
+builder.Services.AddScoped<IInput_Konsolidasi_Service, InputKonsolidasi_Service>();
 
 // Add services to the container.
 builder.Services.AddApplicationInsightsTelemetry(builder.Configuration.GetSection("ApplicationInsights:InstrumentationKey")); // add App insight telematry
