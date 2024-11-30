@@ -20,10 +20,15 @@ builder.Services.AddIdentity<IdentityUser, IdentityRole>(options => options.Sign
     .AddDefaultTokenProviders();
 //.AddDefaultUI();
 
-// Add collection services to project
+// Add collection services Master Data
 builder.Services.AddScoped<IAssetService, AssetService>();
 builder.Services.AddScoped<IWorkService, WorkService>();
 builder.Services.AddScoped<IProjectService, ProjectService>();
+
+// Add collection Services Revenue
+builder.Services.AddScoped<IRevenueService, RevenueService>();
+
+
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IYearService, YearService>();
 builder.Services.AddScoped<IFungsiService, FungsiService>();
