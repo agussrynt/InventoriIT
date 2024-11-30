@@ -1,8 +1,7 @@
 $(document).ready(function () {
-
-    $(document).ready(function () {
+    
         $.ajax({
-            url: '/page/inputkonsolidasi/get_list_inputkonsolidasi',
+            url: baseUrl + '/page/inputkonsolidasi/get_list_inputkonsolidasi',
             method: "POST",
             dataType: 'json',
             beforeSend: function () {
@@ -370,7 +369,6 @@ $(document).ready(function () {
                 alert("Gagal mengambil data dari server.");
             }
         });
-    });
 });
 
 function onlyUnique(value, index, array) {

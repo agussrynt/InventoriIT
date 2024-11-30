@@ -3,9 +3,8 @@ $(document).ready(function () {
         $("#uploadFileModal").modal("show");
     });
 
-    $(document).ready(function () {
         $.ajax({
-            url: '/page/inputkonsolidasi/get_list_inputkonsolidasi',
+            url: baseUrl + '/page/inputkonsolidasi/get_list_inputkonsolidasi',
             method: "POST",
             dataType: 'json',
             beforeSend: function () {
@@ -310,8 +309,7 @@ $(document).ready(function () {
             error: function () {
                 alert("Gagal mengambil data dari server.");
             }
-        });
-    });
+});
 
     document.getElementById("uploadFileForm").addEventListener("submit", async function (e) {
         e.preventDefault();
