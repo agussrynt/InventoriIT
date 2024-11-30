@@ -92,6 +92,7 @@
         await asyncAjax("/master/project-revenue/get-project-list", "POST")
             .then(async function successCallBack(response) {
                 if (response.success) {
+                    console.log(response.data);
                     await OnSuccess(response.data);
                 } else {
                     swallAllert.Error("Fetch Data Failed!", response.data);
