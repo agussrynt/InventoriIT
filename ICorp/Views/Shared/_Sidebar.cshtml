@@ -68,6 +68,24 @@
 					<div data-i18n="Basic">GL Account</div>
 				</a>
 			</li>
+			<li class="menu-item">
+				<a class="menu-link" asp-area="Master" asp-controller="Asset" asp-action="Index">
+					<i class="menu-icon tf-icons bx bx-cabinet"></i>
+					<div data-i18n="Basic">Asset</div>
+				</a>
+			</li>
+			<li class="menu-item">
+				<a class="menu-link" asp-area="Master" asp-controller="Work" asp-action="Index">
+					<i class="menu-icon tf-icons bx bx-briefcase"></i>
+					<div data-i18n="Basic">Pekerjaan</div>
+				</a>
+			</li>
+			<li class="menu-item">
+				<a class="menu-link" asp-area="Master" asp-controller="ProjectRevenue" asp-action="Index">
+					<i class="menu-icon tf-icons bx bx-chalkboard"></i>
+					<div data-i18n="Basic">Project Revenue</div>
+				</a>
+			</li>
 		}
 
 
@@ -123,17 +141,21 @@
 				<ul class="menu-sub">
 					<li class="menu-item">
 						<a class="menu-link" asp-area="Page" asp-controller="Revenue" asp-action="Index">
-							<div data-i18n="Basic">Revenue</div>
+							<div data-i18n="Basic">Project Revenue</div>
 						</a>
 					</li>
 					<li class="menu-item">
-						<a class="menu-link" asp-area="Page" asp-controller="ProfitLoss" asp-action="Index">
-							<div data-i18n="Basic">Profit & Loss</div>
+						<a class="menu-link" asp-area="Page" asp-controller="Revenue" asp-action="Amount">
+							<div data-i18n="Basic">Amount Revenue</div>
 						</a>
 					</li>
 				</ul>
 			</li>
-
+			@* <li class="menu-item">
+				<a class="menu-link" asp-area="Page" asp-controller="AuditExternal" asp-action="Index">
+					<div data-i18n="Basic">Upload Score and Recomendation</div>
+				</a>
+			</li> *@
 			<li class="menu-item">
 				<a class="menu-link" asp-area="Page" asp-controller="Monitoring" asp-action="List">
 					<i class='menu-icon tf-icons bx bx-desktop'></i>

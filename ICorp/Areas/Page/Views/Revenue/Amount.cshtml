@@ -1,0 +1,47 @@
+﻿@{
+    ViewData["Title"] = "Revenue List";
+}
+
+
+<div id="loadingContent" class="container-xxl flex-grow-1 container-p-y d-none">
+    <div class="card">
+        <div class="card-body text-center">
+            <div class="spinner-grow text-primary" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+            <div class="spinner-grow text-primary" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+            <div class="spinner-grow text-primary" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="contentPage" class="container-xxl flex-grow-1 container-p-y">
+    <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Page /</span> <span class="text-muted fw-light">Revenue /</span> List</h4>
+    <div class="card">
+        <div class="card-header d-flex justify-content-between">
+
+            <div class="dt-action-buttons text-end pt-3 pt-md-0">
+                <div class="dt-buttons">
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addRevenue">
+                        <i class="bx bx-plus me-sm-2"></i>
+                        <span class="d-none d-sm-inline-block">Add Proyeksi Revenue RKAP</span>
+                    </button>
+                </div>
+            </div>
+
+        </div>
+        <div class="card-body table-responsive text-nowrap">
+            <table id="dataTable" class="table no-footer nowrap">
+            </table>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/js/pages/Revenue/amount.js"></script>
+
+}

@@ -1,0 +1,354 @@
+﻿@{
+    ViewData["Title"] = "Revenue List";
+}
+
+
+<div id="loadingContent" class="container-xxl flex-grow-1 container-p-y d-none">
+    <div class="card">
+        <div class="card-body text-center">
+            <div class="spinner-grow text-primary" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+            <div class="spinner-grow text-primary" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+            <div class="spinner-grow text-primary" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="contentPage" class="container-xxl flex-grow-1 container-p-y">
+    <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Page /</span> <span class="text-muted fw-light">Revenue /</span> Edit</h4>
+    <div class="card">
+        
+        <div class="card-body p-3">
+        <form name="editHeaderRevenue" class="editHeaderRevenue pt-0 row g-2 fv-plugins-bootstrap5 fv-plugins-framework need-validation" novalidate="novalidate">
+            <div class="row mb-3">
+                <input type="hidden" id="idHeader" name="IDHeader" />
+                <div class="col-sm-12 mb-3 col-md-6">
+                    <label class="form-label" for="tahunBerjalan">Tahun Berjalan</label>
+                    <select id="tahunBerjalan" class="form-control" name="tahunBerjalan" required>
+                        <option value="2023">2023</option>
+                        <option value="2024">2024</option>
+                        <option value="2025">2025</option>
+                        <option value="2026">2026</option>
+                        <option value="2027">2027</option>
+                    </select>
+                    <div class="invalid-feedback"></div>
+                </div>
+
+                <div class="col-sm-12 mb-3 col-md-6">
+                    <label class="form-label" for="rjppNextStaRev">RJPP Next Sta</label>
+                    <input type="text" id="rjppNextStaRev" name="rjppNextSta" class="form-control" required />
+                </div>
+
+                <div class="col-sm-12 mb-3 col-md-6">
+                    <label class="form-label" for="rkapYearStaRev">RKAP Year Sta</label>
+                    <input type="number" id="rkapYearStaRev" name="rkapYearSta" class="form-control" required />
+                </div>
+
+                <div class="col-sm-12 mb-3 col-md-6">
+                    <label class="form-label" for="prognosaRev">Prognosa</label>
+                    <input type="number" id="prognosaRev" name="prognosa" class="form-control" required />
+                </div>
+
+                <div class="col-sm-12 mb-3 col-md-6">
+                    <label class="form-label" for="realisasiBackYearRev">Realisasi Back Year</label>
+                    <input type="number" id="realisasiBackYearRev" name="realisasiBackYear" class="form-control" required />
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <div class="col-sm-12 col-md-6">
+                    <button type="submit" id="submitEditHeader" class="btn btn-warning">Save</button>
+                </div>
+            </div>
+        </form>
+            <div class="row mb-2">
+                <div class="col-md-12 text-end">
+                    <div class="dt-action-buttons">
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#uploadProjectRevenue">
+                            <i class="bx bx-plus me-sm-2"></i>
+                            <span class="d-none d-sm-inline-block">Upload Template</span>
+                        </button>
+                       @*  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addProject">
+                            <i class="bx bx-plus me-sm-2"></i>
+                            <span class="d-none d-sm-inline-block">Add Project Revenue</span>
+                        </button> *@
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addProjectExist">
+                            <i class="bx bx-plus me-sm-2"></i>
+                            <span class="d-none d-sm-inline-block">Add Project Revenue</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <table id="dataTable" class="table no-footer">
+                    
+                </table>
+            </div>
+        </div>
+       
+    </div>
+</div>
+<div class="modal fade" id="uploadProjectRevenue" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form name="uploadProjectRevenue-modal" class="uploadProjectRevenue-modal pt-0 row g-2 fv-plugins-bootstrap5 fv-plugins-framework need-validation" novalidate="novalidate">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="uploadProject">
+                        Upload Project Revenue
+                    </h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <a href="~/template/Template_Upload_Project_RKAP.xlsx">Download Template</a>
+                    <div class="col-sm-12 mb-2">
+                        <label class="form-label" for="costCenterRev">Upload</label>
+
+                        <input type="file" id="fileUploadProject" class="form-control" required />
+
+                    </div>
+                    
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button id="submitImportButton" class="btn btn-primary">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="addProjectExist" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form name="addProjectExist-modal" class="addProjectExist-modal pt-0 row g-2 fv-plugins-bootstrap5 fv-plugins-framework need-validation" novalidate="novalidate">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="addRevenue">
+                        Input Project Revenue
+                    </h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" name="ID" id="ID" />
+                   
+                    <div class="row mb-3" id="ddProject">
+                        <div class="col-12 mb-3">
+                            <label class="form-label" for="Segmen">Pilih Project</label>
+                            <div class="row">
+                                <div class="col-9">
+                                    <div class="position-relative">
+                                        <select class="form-select" id="Project" name="projectExist" style="width: 100%;" required>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-3">
+
+                                    <button class="btn btn-primary" id="addNewProject" type="button" data-bs-toggle="modal" data-bs-target="#addProject" data-bs-dismis="modal">Add New</button>
+                                </div>
+                            </div>
+                            
+                        </div>
+                        
+                    </div>
+                    <div class="row mb-3" id="">
+                        <div class="col-12 mb-3">
+                            <label class="form-label" for="Segmen">Segmen</label>
+                            <div class="position-relative">
+                            <select class="form-select" id="SegmenExist" name="SegmenExist" style="width: 100%;" required disabled></select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mb-3" id="">
+                        <div class="col-12 mb-3">
+                            <label class="form-label" for="Asset">Asset</label>
+                            <div class="position-relative">
+                                <select class="form-select" id="AssetExist" name="AssetExist" style="width: 100%;" required disabled></select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-12 mb-3">
+                            <label for="CostCenter" class="form-label form-required">Cost Center</label>
+                            <input type="text" class="form-control" id="CostCenterExist" name="CostCenterExist" required readonly/>
+                        </div>
+                    </div>
+                    <div class="row mb-3" id="">
+                        <div class="col-12 mb-3">
+                            <label class="form-label" for="Customer">Customer</label>
+                            <div class="position-relative">
+                                <select class="form-select" id="CustomerExist" name="CustomerExist" style="width: 100%;" required disabled></select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-12 mb-3">
+                            <label for="RegionalExist" class="form-label form-required">Regional</label>
+                            <input type="text" class="form-control" id="RegionalExist" name="RegionalExist" readonly/>
+                        </div>
+                    </div>
+                    <div class="row mb-3" id="">
+                        <div class="col-12 mb-3">
+                            <label class="form-label" for="Contract">Contract</label>
+                            <div class="position-relative">
+                                <select class="form-select" id="ContractExist" name="ContractExist" style="width: 100%;" required disabled></select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-12 mb-3">
+                            <label for="Probability" class="form-label form-required">Probability</label>
+                            <input type="text" class="form-control" id="ProbabilityExist" name="ProbabilityExist" readonly/>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-12 mb-3">
+                            <label for="Sumur" class="form-label form-required">Sumur</label>
+                        <input type="text" class="form-control" id="SumurExist" name="SumurExist" readonly/>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-12 mb-3">
+                            <label for="ControlProject" class="form-label form-required">Control Project</label>
+                        <input type="text" class="form-control" id="ControlProjectExist" name="ControlProjectExist" readonly/>
+                        </div>
+                    </div>
+                    <div class="row mb-3" id="">
+                        <div class="col-12 mb-3">
+                            <label class="form-label" for="Pekerjaan">Pekerjaan</label>
+                            <div class="position-relative">
+                            <select class="form-select" id="PekerjaanExist" name="PekerjaanExist" style="width: 100%;" required disabled></select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mb-3" id="">
+                        <div class="col-12 mb-3">
+                            <label class="form-label" for="SBTExist">SBT</label>
+                            <div class="position-relative">
+                            <select class="form-select" id="SBTExist" name="SBTExist" style="width: 100%;" required ></select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" id="submitProjectExist" class="btn btn-primary">Submit</button>
+                    <button type="button" class="btn btn-secondary" id="btnCancel" data-bs-dismiss="modal">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="addProject" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form name="addProject-modal" class="addProject-modal pt-0 row g-2 fv-plugins-bootstrap5 fv-plugins-framework need-validation" novalidate="novalidate">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="addRevenue">
+                        Input Project Revenue Baru
+                    </h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" name="ID" id="ID" />
+                    <div class="row mb-3">
+                        <div class="col-12 mb-3">
+                            <label for="project" class="form-label form-required">Nama Project</label>
+                            <input type="text" class="form-control" id="NamaProject" name="NamaProject" required />
+                        </div>
+                    </div>
+                    <div class="row mb-3" id="ddSegmen">
+                        <div class="col-12 mb-3">
+                            <label class="form-label" for="Segmen">Segmen</label>
+                            <div class="position-relative">
+                                <select class="form-select" id="Segmen" name="Segmen" style="width: 100%;" required></select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mb-3" id="ddAsset">
+                        <div class="col-12 mb-3">
+                            <label class="form-label" for="Asset">Asset</label>
+                            <div class="position-relative">
+                                <select class="form-select" id="Asset" name="Asset" style="width: 100%;" required></select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-12 mb-3">
+                            <label for="CostCenter" class="form-label form-required">Cost Center</label>
+                            <input type="text" class="form-control" id="CostCenter" name="CostCenter" />
+                        </div>
+                    </div>
+                    <div class="row mb-3" id="ddCustomer">
+                        <div class="col-12 mb-3">
+                            <label class="form-label" for="Customer">Customer</label>
+                            <div class="position-relative">
+                                <select class="form-select" id="Customer" name="Customer" style="width: 100%;" required></select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-12 mb-3">
+                            <label for="Regional" class="form-label form-required">Regional</label>
+                            <input type="text" class="form-control" id="Regional" name="Regional" />
+                        </div>
+                    </div>
+                    <div class="row mb-3" id="ddContract">
+                        <div class="col-12 mb-3">
+                            <label class="form-label" for="Contract">Contract</label>
+                            <div class="position-relative">
+                                <select class="form-select" id="Contract" name="Contract" style="width: 100%;" required></select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-12 mb-3">
+                            <label for="Probability" class="form-label form-required">Probability</label>
+                            <input type="text" class="form-control" id="Probability" name="Probability" />
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-12 mb-3">
+                            <label for="Sumur" class="form-label form-required">Sumur</label>
+                            <input type="text" class="form-control" id="Sumur" name="Sumur" />
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-12 mb-3">
+                            <label for="ControlProject" class="form-label form-required">Control Project</label>
+                            <input type="text" class="form-control" id="ControlProject" name="ControlProject" />
+                        </div>
+                    </div>
+                    <div class="row mb-3" id="ddPekerjaan">
+                        <div class="col-12 mb-3">
+                            <label class="form-label" for="Pekerjaan">Pekerjaan</label>
+                            <div class="position-relative">
+                                <select class="form-select" id="Pekerjaan" name="Pekerjaan" style="width: 100%;" required></select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mb-3" id="ddSBT">
+                        <div class="col-12 mb-3">
+                            <label class="form-label" for="Tipeproject">SBT</label>
+                            <div class="position-relative">
+                                <select class="form-select" id="SBT" name="SBT" style="width: 100%;"></select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" id="submitProject" class="btn btn-primary">Submit</button>
+                    <button type="button" class="btn btn-secondary" id="btnCancel" data-bs-dismiss="modal">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+
+    <script src="~/js/pages/Revenue/revenue-edit.js"></script>
+}
