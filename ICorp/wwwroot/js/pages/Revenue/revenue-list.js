@@ -160,15 +160,15 @@
 
         const headerData = {
             Tahun: $("select[name='tahunBerjalan']").val(),
-            RJPPNextSta: $("input[name='rjppNextSta']").val(),
-            RKAPYearSta: $("input[name='rkapYearSta']").val(),
-            Prognosa: $("input[name='prognosa']").val(),
-            RealisasiBackYear: $("input[name='realisasiBackYear']").val(),
+            RJPPNextSta: parseRupiahToDecimal($("input[name='rjppNextSta']").val()),
+            RKAPYearSta: parseRupiahToDecimal($("input[name='rkapYearSta']").val()),
+            Prognosa: parseRupiahToDecimal($("input[name='prognosa']").val()),
+                RealisasiBackYear: parseRupiahToDecimal($("input[name='realisasiBackYear']").val()),
         };
         console.log(headerData);
 
         try {
-            const response = await fetch("/page/revenue/create-header-ajax", {
+            const response = await fetch(baseUrl+"/page/revenue/create-header-ajax", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(headerData),
@@ -189,6 +189,7 @@
 
     // Event listener untuk submit modal form
     $('.addRevenue-modal').on('submit', submitRevenueData);
+
     function formatRupiah(value) {
         let numberString = value.toString().replace(/[^,\d]/g, ''), // Hilangkan karakter non-angka
             split = numberString.split(','),
@@ -202,6 +203,18 @@
         }
 
         return split[1] !== undefined ? rupiah + ',' + split[1] : rupiah;
+    }
+
+    $(document).on('input', '.table-input', function () {
+        let rawValue = $(this).val().replace(/[^,\d]/g, ''); // Hanya ambil angka
+        $(this).val(formatRupiah(rawValue)); // Format ulang ke rupiah
+    });
+
+    function parseRupiahToDecimal(value) {
+        value = value.trim().replace(/^Rp\s?/, '');
+        value = value.replace(/\./g, '');
+        value = value.replace(/,/g, '.');
+        return parseFloat(value) || 0;
     }
 
     await Load();

@@ -166,10 +166,10 @@
             console.log(headerDetail);
             document.getElementById('idHeader').value = headerDetail.id;
             document.getElementById('tahunBerjalan').value = headerDetail.tahun;
-            document.getElementById('rjppNextStaRev').value = headerDetail.rjppNextSta;
-            document.getElementById('rkapYearStaRev').value = headerDetail.rkapYearSta;
-            document.getElementById('prognosaRev').value = headerDetail.prognosa;
-            document.getElementById('realisasiBackYearRev').value = headerDetail.realisasiBackYear;
+            document.getElementById('rjppNextStaRev').value = formatRupiah(headerDetail.rjppNextSta);
+            document.getElementById('rkapYearStaRev').value = formatRupiah(headerDetail.rkapYearSta);
+            document.getElementById('prognosaRev').value = formatRupiah(headerDetail.prognosa);
+            document.getElementById('realisasiBackYearRev').value = formatRupiah(headerDetail.realisasiBackYear);
             
         }
     }
@@ -180,15 +180,15 @@
         const headerData = {
             ID: $("input[name='IDHeader']").val(),
             Tahun: $("select[name='tahunBerjalan']").val(),
-            RJPPNextSta: $("input[name='rjppNextSta']").val(),
-            RKAPYearSta: $("input[name='rkapYearSta']").val(),
-            Prognosa: $("input[name='prognosa']").val(),
-            RealisasiBackYear: $("input[name='realisasiBackYear']").val(),
+            RJPPNextSta: parseRupiahToDecimal($("input[name='rjppNextSta']").val()),
+            RKAPYearSta: parseRupiahToDecimal($("input[name='rkapYearSta']").val()),
+            Prognosa: parseRupiahToDecimal($("input[name='prognosa']").val()),
+            RealisasiBackYear: parseRupiahToDecimal($("input[name='realisasiBackYear']").val()),
         };
         console.log(headerData);
 
         try {
-            const response = await fetch("/page/revenue/create-header-ajax", {
+            const response = await fetch(baseUrl+"/page/revenue/create-header-ajax", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(headerData),
@@ -220,7 +220,7 @@
         console.log(headerData);
 
         try {
-            const response = await fetch("/page/revenue/create-mapping-project", {
+            const response = await fetch(baseUrl+"/page/revenue/create-mapping-project", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(headerData),
@@ -257,7 +257,7 @@
         console.log(headerData);
 
         try {
-            const response = await fetch("/page/revenue/create-mapping-project", {
+            const response = await fetch(baseUrl+"/page/revenue/create-mapping-project", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(headerData),
@@ -570,6 +570,18 @@
         }
 
         return split[1] !== undefined ? rupiah + ',' + split[1] : rupiah;
+    }
+
+    $(document).on('input', '.table-input', function () {
+        let rawValue = $(this).val().replace(/[^,\d]/g, ''); // Hanya ambil angka
+        $(this).val(formatRupiah(rawValue)); // Format ulang ke rupiah
+    });
+
+    function parseRupiahToDecimal(value) {
+        value = value.trim().replace(/^Rp\s?/, '');
+        value = value.replace(/\./g, '');
+        value = value.replace(/,/g, '.');
+        return parseFloat(value) || 0;
     }
 
     await Load(idHeader);

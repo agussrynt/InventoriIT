@@ -211,10 +211,10 @@
 
         }
     }
-    //$(document).on('input', '.table-input', function () {
-    //    let rawValue = $(this).val().replace(/[^,\d]/g, ''); // Hanya ambil angka
-    //    $(this).val(formatRupiah(rawValue)); // Format ulang ke rupiah
-    //});
+    $(document).on('input', '.table-input', function () {
+        let rawValue = $(this).val().replace(/[^,\d]/g, ''); // Hanya ambil angka
+        $(this).val(formatRupiah(rawValue)); // Format ulang ke rupiah
+    });
     function formatRupiah(value) {
         let numberString = value.toString().replace(/[^,\d]/g, ''), // Hilangkan karakter non-angka
             split = numberString.split(','),
@@ -230,6 +230,12 @@
         return split[1] !== undefined ? rupiah + ',' + split[1] : rupiah;
     }
 
+    function parseRupiahToDecimal(value) {
+        value = value.trim().replace(/^Rp\s?/, '');
+        value = value.replace(/\./g, '');
+        value = value.replace(/,/g, '.');
+        return parseFloat(value) || 0;
+    }
 
     let changes = []; // Array untuk menyimpan perubahan
 
@@ -237,13 +243,9 @@
     $('#fixedTable').on('change', 'input.table-input', function () {
         const $input = $(this);
         const column = $input.data('column'); // Nama bulan dari atribut data-column
-        const value = $input.val(); // Pastikan nilai numerik
+        let value = $input.val(); // Pastikan nilai numerik
 
-        // Konversi format rupiah ke angka desimal
-        //value = value.replace(/\./g, ''); // Hapus titik sebagai pemisah ribuan
-        //value = value.replace(',', '.'); // Ganti koma menjadi titik sebagai pemisah desimal
-        //value = parseFloat(value) || 0;
-
+        value = parseRupiahToDecimal(value);
         console.log('Parsed value:', value);
         const rowData = table.row($input.closest('tr')).data(); // Mengambil data row terkait
 
@@ -266,7 +268,7 @@
     $('#saveChangesButton').on('click', function () {
         console.log(changes);
         if (changes.length === 0) {
-            alert('Tidak ada perubahan yang perlu disimpan.');
+            swallAllert.Error('Tidak ada perubahan yang perlu disimpan.');
             return;
         }
 
@@ -278,15 +280,15 @@
             success: function (response) {
                 if (response.success) {
                     console.log(response);
-                    alert('Perubahan berhasil disimpan.');
+                    swallAllert.Success('Perubahan berhasil disimpan.');
                     changes = []; // Reset perubahan
                 } else {
-                    alert('Gagal menyimpan perubahan: ' + response.message);
+                    swallAllert.Error('Gagal menyimpan perubahan: ' + response.message);
                 }
             },
             error: function (xhr, status, error) {
                 console.error('Error:', error);
-                alert('Terjadi kesalahan saat menyimpan perubahan.');
+                swallAllert.Error('Terjadi kesalahan saat menyimpan perubahan.');
             }
         });
     });
