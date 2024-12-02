@@ -46,22 +46,28 @@
     <div class="card">
         <div class="card-header d-flex justify-content-between">
             <div class="head-label text-center my-auto">
-                <h5 class="card-title mb-0"></h5>
+                <button id="btnModalUploadFile" class="btn btn-success" type="button">
+                    <span>
+                        <i class='bx bx-cloud-upload'></i>
+                        <span class="d-none d-sm-inline-block">Upload Excel</span>
+                    </span>
+                </button>
+
+                @* <button class="btn btn-success" onclick="downloadTemplate()">
+                <i class="fa fa-download"></i>&nbsp;Download Template
+                </button> *@
+                <a href="~/template/Template Input Konsolidasi(RJPP).xlsx" class="dt-button create-new btn btn-primary">Download Template </a>
             </div>
             <div class="dt-action-buttons text-end pt-3 pt-md-0">
                 <div class="dt-buttons">
-                    <button id="btnModalUploadFile" class="dt-button create-new btn btn-primary" type="button">
-                        <span>
-                            <i class='bx bx-cloud-upload'></i>
-                            <span class="d-none d-sm-inline-block">Upload Excel</span>
-                        </span>
-                    </button>
+                    
                     <a id="btnNew" class="dt-button create-new btn btn-primary" asp-area="Page" asp-controller="RevHPPGA" asp-action="Index">
                         <span>
                             @* <i class="bx bx-plus me-sm-2"></i> *@
                             <span class="d-none d-sm-inline-block">Rev HPP GA</span>
                         </span>
                     </a>
+    
                 </div>
             </div>
         </div>
