@@ -1,17 +1,17 @@
-﻿using PlanCorp.Areas.Account.Models;
+﻿using InventoryIT.Areas.Account.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using PlanCorp.Areas.Master.Interface;
+using InventoryIT.Areas.Master.Interface;
 using Microsoft.Extensions.Options;
-using PlanCorp.Models;
+using InventoryIT.Models;
 using Newtonsoft.Json;
 using System.Text;
-using PlanCorp.Helpers;
+using InventoryIT.Helpers;
 using System.Net.Http.Headers;
-using PlanCorp.Areas.Master.Controllers;
+using InventoryIT.Areas.Master.Controllers;
 
-namespace PlanCorp.Areas.Account.Controllers
+namespace InventoryIT.Areas.Account.Controllers
 {
     [Area("Account")]
     [Route("account/login")]

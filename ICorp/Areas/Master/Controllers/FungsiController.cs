@@ -1,7 +1,7 @@
-﻿using PlanCorp.Areas.Master.Interface;
+﻿using InventoryIT.Areas.Master.Interface;
 using Microsoft.AspNetCore.Mvc;
 
-namespace PlanCorp.Areas.Master.Controllers
+namespace InventoryIT.Areas.Master.Controllers
 {
     [Area("Master")]
     [Route("master/fungsi")]

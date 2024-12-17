@@ -1,4 +1,4 @@
-﻿using PlanCorp.Areas.Account.Models;
+﻿using InventoryIT.Areas.Account.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.WebUtilities;
 using System.Text;
 using System.Text.Encodings.Web;
 
-namespace PlanCorp.Areas.Account.Controllers
+namespace InventoryIT.Areas.Account.Controllers
 {
     [Area("Account")]
     [Route("account/forgot-password")]

@@ -1,6 +1,6 @@
-﻿using PlanCorp.Areas.Account.Models;
-using PlanCorp.Data;
-using PlanCorp.Models;
+﻿using InventoryIT.Areas.Account.Models;
+using InventoryIT.Data;
+using InventoryIT.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.WebUtilities;
 using System.Text;
 using System.Text.Encodings.Web;
 
-namespace PlanCorp.Areas.Account.Controllers
+namespace InventoryIT.Areas.Account.Controllers
 {
     [AllowAnonymous]
     [Area("Account")]

@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
 
-namespace PlanCorp.Areas.Account.Controllers
+namespace InventoryIT.Areas.Account.Controllers
 {
     [AllowAnonymous]
     [Area("Account")]

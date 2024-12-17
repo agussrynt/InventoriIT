@@ -1,12 +1,12 @@
 ﻿using Dapper;
-using PlanCorp.Areas.Master.Interface;
-using PlanCorp.Areas.Master.Models;
-using PlanCorp.Areas.Page.Models;
-using PlanCorp.Data;
-using PlanCorp.Models;
+using InventoryIT.Areas.Master.Interface;
+using InventoryIT.Areas.Master.Models;
+using InventoryIT.Areas.Page.Models;
+using InventoryIT.Data;
+using InventoryIT.Models;
 using System.Data;
 
-namespace PlanCorp.Areas.Master.Service
+namespace InventoryIT.Areas.Master.Service
 {
     public class RoleService : IRoleService
     {

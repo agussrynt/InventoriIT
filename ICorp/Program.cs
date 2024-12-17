@@ -1,13 +1,13 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using PlanCorp.Data;
-using PlanCorp.Areas.Master.Interface;
-using PlanCorp.Areas.Master.Service;
-using PlanCorp.Models;
-using PlanCorp.Areas.Page.Interfaces;
-using PlanCorp.Areas.Page.Services;
-using PlanCorp.Middlewares;
-using PlanCorp.Areas.Page.Models;
+using InventoryIT.Data;
+using InventoryIT.Areas.Master.Interface;
+using InventoryIT.Areas.Master.Service;
+using InventoryIT.Models;
+using InventoryIT.Areas.Page.Interfaces;
+using InventoryIT.Areas.Page.Services;
+using InventoryIT.Middlewares;
+using InventoryIT.Areas.Page.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("PlanCorpDbContextConnection") ?? throw new InvalidOperationException("Connection string 'PlanCorpDbContextConnection' not found.");

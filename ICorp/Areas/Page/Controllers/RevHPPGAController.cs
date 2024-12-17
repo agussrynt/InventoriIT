@@ -2,13 +2,13 @@
 using Microsoft.AspNetCore.Mvc;
 using NuGet.Packaging.Signing;
 using OfficeOpenXml;
-using PlanCorp.Areas.Page.Interfaces;
-using PlanCorp.Areas.Page.Models;
-using PlanCorp.Areas.Page.Services;
-using PlanCorp.Data;
+using InventoryIT.Areas.Page.Interfaces;
+using InventoryIT.Areas.Page.Models;
+using InventoryIT.Areas.Page.Services;
+using InventoryIT.Data;
 using System.Data.SqlClient;
 
-namespace PlanCorp.Areas.Page.Controllers
+namespace InventoryIT.Areas.Page.Controllers
 {
     [Authorize]
     [Area("Page")]

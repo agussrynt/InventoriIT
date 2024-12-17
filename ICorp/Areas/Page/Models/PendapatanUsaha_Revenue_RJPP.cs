@@ -1,4 +1,4 @@
-﻿namespace PlanCorp.Areas.Page.Models
+﻿namespace InventoryIT.Areas.Page.Models
 {
 	public class PendapatanUsaha_Revenue_RJPP
 	{

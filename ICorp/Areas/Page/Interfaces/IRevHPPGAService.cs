@@ -1,7 +1,7 @@
-﻿using PlanCorp.Areas.Master.Models;
-using PlanCorp.Models;
+﻿using InventoryIT.Areas.Master.Models;
+using InventoryIT.Models;
 
-namespace PlanCorp.Areas.Page.Interfaces
+namespace InventoryIT.Areas.Page.Interfaces
 {
     public interface IRevHPPGAService
     {

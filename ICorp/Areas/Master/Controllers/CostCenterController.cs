@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace PlanCorp.Areas.Master.Controllers
+namespace InventoryIT.Areas.Master.Controllers
 {
     [Authorize(Roles = "Admin")]
     [Area("Master")]

@@ -353,7 +353,7 @@ $(document).ready(function () {
         submitButton.disabled = true; // Nonaktifkan tombol submit
 
         try {
-            const response = await fetch("/page/inputkonsolidasi/upload-excel-ajax", {
+            const response = await fetch( baseUrl + '/page/inputkonsolidasi/upload-excel-ajax', {
                 method: "POST",
                 body: formData,
             });

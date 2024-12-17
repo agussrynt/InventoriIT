@@ -3,10 +3,10 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using NuGet.ContentModel;
 using OfficeOpenXml;
-using PlanCorp.Areas.Master.Models;
-using PlanCorp.Areas.Page.Interfaces;
-using PlanCorp.Areas.Page.Models;
-using PlanCorp.Data;
+using InventoryIT.Areas.Master.Models;
+using InventoryIT.Areas.Page.Interfaces;
+using InventoryIT.Areas.Page.Models;
+using InventoryIT.Data;
 using System.Data;
 using System.Data.SqlClient;
 using System.Diagnostics;
@@ -14,7 +14,7 @@ using System.Diagnostics.Contracts;
 using System.Reflection.PortableExecutable;
 using System.Threading.Channels;
 
-namespace PlanCorp.Areas.Page.Controllers
+namespace InventoryIT.Areas.Page.Controllers
 {
     [Authorize]
     [Area("Page")]

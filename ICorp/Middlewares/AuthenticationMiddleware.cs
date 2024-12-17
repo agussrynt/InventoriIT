@@ -1,11 +1,11 @@
 ﻿using Dapper;
-using PlanCorp.Areas.Master.Models;
-using PlanCorp.Data;
+using InventoryIT.Areas.Master.Models;
+using InventoryIT.Data;
 using Microsoft.AspNetCore.Antiforgery;
 using Microsoft.AspNetCore.Identity;
 using System.Data;
 
-namespace PlanCorp.Middlewares
+namespace InventoryIT.Middlewares
 {
     public class AuthenticationMiddleware
     {

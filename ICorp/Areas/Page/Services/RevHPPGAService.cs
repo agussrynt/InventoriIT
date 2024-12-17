@@ -1,4 +1,4 @@
-﻿namespace PlanCorp.Areas.Page.Services
+﻿namespace InventoryIT.Areas.Page.Services
 {
     public class RevHPPGAService
     {

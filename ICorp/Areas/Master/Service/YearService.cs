@@ -1,10 +1,10 @@
-﻿using PlanCorp.Areas.Master.Interface;
-using PlanCorp.Areas.Master.Models;
-using PlanCorp.Data;
+﻿using InventoryIT.Areas.Master.Interface;
+using InventoryIT.Areas.Master.Models;
+using InventoryIT.Data;
 using System.Data;
 using Dapper;
 
-namespace PlanCorp.Areas.Master.Service
+namespace InventoryIT.Areas.Master.Service
 {
     public class YearService : IYearService
     {

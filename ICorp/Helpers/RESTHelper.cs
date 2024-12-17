@@ -6,7 +6,7 @@ using System.Net;
 using System.Text;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 
-namespace PlanCorp.Helpers
+namespace InventoryIT.Helpers
 {
     public class RESTHelper
     {

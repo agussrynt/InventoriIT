@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace PlanCorp.Models
+namespace InventoryIT.Models
 {
     public class JsonResponse
     {

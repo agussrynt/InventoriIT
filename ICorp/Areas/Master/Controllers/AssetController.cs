@@ -4,16 +4,16 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
-using PlanCorp.Areas.Identity;
-using PlanCorp.Areas.Master.Interface;
-using PlanCorp.Areas.Master.Models;
-using PlanCorp.Areas.Master.Service;
-using PlanCorp.Data;
-using PlanCorp.Models;
+using InventoryIT.Areas.Identity;
+using InventoryIT.Areas.Master.Interface;
+using InventoryIT.Areas.Master.Models;
+using InventoryIT.Areas.Master.Service;
+using InventoryIT.Data;
+using InventoryIT.Models;
 using System.Linq;
 
 
-namespace PlanCorp.Areas.Master.Controllers
+namespace InventoryIT.Areas.Master.Controllers
 {
     [Authorize(Roles = "Admin")]
     [Area("Master")]

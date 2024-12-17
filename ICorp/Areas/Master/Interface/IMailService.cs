@@ -1,6 +1,6 @@
-﻿using PlanCorp.Models;
+﻿using InventoryIT.Models;
 
-namespace PlanCorp.Areas.Master.Interface
+namespace InventoryIT.Areas.Master.Interface
 {
     public interface IMailService
     {

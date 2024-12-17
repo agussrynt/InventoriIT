@@ -1,13 +1,13 @@
 ﻿using Dapper;
 using Microsoft.AspNetCore.Mvc;
-using PlanCorp.Areas.Master.Models;
-using PlanCorp.Areas.Page.Interfaces;
-using PlanCorp.Areas.Page.Models;
-using PlanCorp.Data;
-using PlanCorp.Models;
+using InventoryIT.Areas.Master.Models;
+using InventoryIT.Areas.Page.Interfaces;
+using InventoryIT.Areas.Page.Models;
+using InventoryIT.Data;
+using InventoryIT.Models;
 using System.Data;
 
-namespace PlanCorp.Areas.Page.Services
+namespace InventoryIT.Areas.Page.Services
 {
     public class Revenue_RJPP_Service : IRevenue_RJPP_Service
     {

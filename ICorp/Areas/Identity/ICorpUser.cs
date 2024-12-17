@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 
-namespace PlanCorp.Areas.Identity
+namespace InventoryIT.Areas.Identity
 {
     public class PlanCorpUser : IdentityUser
     {

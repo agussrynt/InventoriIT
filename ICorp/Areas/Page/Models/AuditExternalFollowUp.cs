@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace PlanCorp.Areas.Page.Models
+namespace InventoryIT.Areas.Page.Models
 {
     public class AuditExternalFollowUp
     {

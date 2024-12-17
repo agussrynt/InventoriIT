@@ -1,10 +1,10 @@
-﻿using PlanCorp.Data;
+﻿using InventoryIT.Data;
 using Microsoft.AspNetCore.Mvc.Filters;
-using PlanCorp.Models;
+using InventoryIT.Models;
 using Dapper;
 using System.Data;
 
-namespace PlanCorp.Middlewares
+namespace InventoryIT.Middlewares
 {
     public class ExceptionHandlerAttribute : IExceptionFilter
     {

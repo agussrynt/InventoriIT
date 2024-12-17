@@ -1,4 +1,4 @@
-﻿namespace PlanCorp.Areas.Master.Models
+﻿namespace InventoryIT.Areas.Master.Models
 {
     public class CostCenter
     {

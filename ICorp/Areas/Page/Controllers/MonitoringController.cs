@@ -1,9 +1,9 @@
-﻿using PlanCorp.Areas.Page.Interfaces;
-using PlanCorp.Models;
+﻿using InventoryIT.Areas.Page.Interfaces;
+using InventoryIT.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace PlanCorp.Areas.Page.Controllers
+namespace InventoryIT.Areas.Page.Controllers
 {
     [Authorize]
     [Area("Page")]

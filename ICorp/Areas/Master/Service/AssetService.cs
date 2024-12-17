@@ -1,15 +1,15 @@
 ﻿using Dapper;
-using PlanCorp.Areas.Master.Interface;
-using PlanCorp.Areas.Master.Models;
-using PlanCorp.Data;
-using PlanCorp.Models;
+using InventoryIT.Areas.Master.Interface;
+using InventoryIT.Areas.Master.Models;
+using InventoryIT.Data;
+using InventoryIT.Models;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using System.Data;
 using NuGet.ContentModel;
 using System.Security.Cryptography;
 
-namespace PlanCorp.Areas.Master.Service
+namespace InventoryIT.Areas.Master.Service
 {
     public class AssetService : IAssetService
     {

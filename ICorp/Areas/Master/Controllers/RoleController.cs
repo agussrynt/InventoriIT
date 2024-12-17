@@ -1,10 +1,10 @@
-﻿using PlanCorp.Areas.Master.Interface;
-using PlanCorp.Areas.Master.Models;
+﻿using InventoryIT.Areas.Master.Interface;
+using InventoryIT.Areas.Master.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
-namespace PlanCorp.Areas.Master.Controllers
+namespace InventoryIT.Areas.Master.Controllers
 {
     [Authorize(Roles = "Admin")]
     [Area("Master")]

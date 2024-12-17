@@ -1,4 +1,4 @@
-﻿namespace PlanCorp.Models
+﻿namespace InventoryIT.Models
 {
     public class ResponseJson
     {

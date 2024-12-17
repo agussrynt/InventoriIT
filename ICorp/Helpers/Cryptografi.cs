@@ -1,7 +1,7 @@
 ﻿using System.Security.Cryptography;
 using System.Text;
 
-namespace PlanCorp.Helpers
+namespace InventoryIT.Helpers
 {
     public class Cryptografi
     {

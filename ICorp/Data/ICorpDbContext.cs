@@ -1,9 +1,9 @@
-﻿using PlanCorp.Areas.Master.Models;
-using PlanCorp.Models;
+﻿using InventoryIT.Areas.Master.Models;
+using InventoryIT.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-namespace PlanCorp.Data
+namespace InventoryIT.Data
 {
     public class PlanCorpDbContext : IdentityDbContext
     {

@@ -1,12 +1,12 @@
 ﻿using Dapper;
-using PlanCorp.Areas.Master.Interface;
-using PlanCorp.Data;
-using PlanCorp.Models;
+using InventoryIT.Areas.Master.Interface;
+using InventoryIT.Data;
+using InventoryIT.Models;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using System.Data;
 
-namespace PlanCorp.Areas.Master.Service
+namespace InventoryIT.Areas.Master.Service
 {
     public class MailService : IMailService
     {

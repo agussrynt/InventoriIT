@@ -1,7 +1,7 @@
 ﻿using System.Data;
 using System.Data.SqlClient;
 
-namespace PlanCorp.Data
+namespace InventoryIT.Data
 {
     public class ConnectionDB
     {

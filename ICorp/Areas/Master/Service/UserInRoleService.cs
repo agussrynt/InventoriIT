@@ -1,14 +1,14 @@
-﻿using PlanCorp.Areas.Identity;
-using PlanCorp.Areas.Master.Interface;
-using PlanCorp.Areas.Master.Models;
-using PlanCorp.Data;
+﻿using InventoryIT.Areas.Identity;
+using InventoryIT.Areas.Master.Interface;
+using InventoryIT.Areas.Master.Models;
+using InventoryIT.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Dapper;
 using System.Data;
-using PlanCorp.Models;
+using InventoryIT.Models;
 
-namespace PlanCorp.Areas.Master.Service
+namespace InventoryIT.Areas.Master.Service
 {
     public class UserInRoleService : IUserInRoleService
     {

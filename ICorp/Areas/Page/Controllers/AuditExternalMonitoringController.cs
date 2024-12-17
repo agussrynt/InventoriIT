@@ -1,10 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using PlanCorp.Areas.Page.Interfaces;
-using PlanCorp.Areas.Page.Models;
-using PlanCorp.Models;
+using InventoryIT.Areas.Page.Interfaces;
+using InventoryIT.Areas.Page.Models;
+using InventoryIT.Models;
 using Microsoft.AspNetCore.Authorization;
 
-namespace PlanCorp.Areas.Page.Controllers
+namespace InventoryIT.Areas.Page.Controllers
 {
     [Area("Page")]
     [Authorize(Roles = "Admin,Auditor")]

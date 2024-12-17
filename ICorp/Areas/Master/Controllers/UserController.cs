@@ -1,20 +1,20 @@
-﻿using PlanCorp.Areas.Master.Models;
-using PlanCorp.Areas.Master.Interface;
-using PlanCorp.Data;
+﻿using InventoryIT.Areas.Master.Models;
+using InventoryIT.Areas.Master.Interface;
+using InventoryIT.Data;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
-using PlanCorp.Models;
-using PlanCorp.Areas.Identity;
-using PlanCorp.Helpers;
-using PlanCorp.Areas.Account.Models;
+using InventoryIT.Models;
+using InventoryIT.Areas.Identity;
+using InventoryIT.Helpers;
+using InventoryIT.Areas.Account.Models;
 using Newtonsoft.Json;
 using Microsoft.Extensions.Options;
 using System.Text;
 
-namespace PlanCorp.Areas.Master.Controllers
+namespace InventoryIT.Areas.Master.Controllers
 {
     [Authorize(Roles = "Admin")]
     [Area("Master")]

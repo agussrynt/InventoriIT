@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace PlanCorp.Migrations
+namespace InventoryIT.Migrations
 {
     public partial class MenambahkanTableProfile : Migration
     {

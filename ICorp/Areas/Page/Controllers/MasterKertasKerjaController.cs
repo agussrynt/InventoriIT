@@ -1,12 +1,12 @@
-﻿using PlanCorp.Areas.Page.Interfaces;
-using PlanCorp.Areas.Page.Models;
-using PlanCorp.Models;
+﻿using InventoryIT.Areas.Page.Interfaces;
+using InventoryIT.Areas.Page.Models;
+using InventoryIT.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using OfficeOpenXml;
 using System.Data.SqlClient;
 
-namespace PlanCorp.Areas.Page.Controllers
+namespace InventoryIT.Areas.Page.Controllers
 {
     [Authorize(Roles = "Admin,Auditor")]
     [Area("Page")]

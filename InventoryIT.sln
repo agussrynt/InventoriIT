@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.2.32516.85
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PlanCorp", "ICorp\PlanCorp.csproj", "{DA580C0B-DC84-4730-AEBE-AB6F3B4B43C2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InventoryIT", "ICorp\InventoryIT.csproj", "{DA580C0B-DC84-4730-AEBE-AB6F3B4B43C2}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FakeAPI_PDSI", "FakeAPI_PDSI\FakeAPI_PDSI.csproj", "{1F7F29F5-80A9-403F-8369-9E3F31CC3B83}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PlanCorp_API", "ICorp_API\PlanCorp_API.csproj", "{C041C97B-FCF0-47AC-AD23-F64F7C4F8EAC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InventoryIT_API", "ICorp_API\InventoryIT_API.csproj", "{C041C97B-FCF0-47AC-AD23-F64F7C4F8EAC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

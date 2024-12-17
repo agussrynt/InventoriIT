@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace PlanCorp.Areas.Master.Models
+namespace InventoryIT.Areas.Master.Models
 {
     public class UserDetail
     {

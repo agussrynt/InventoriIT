@@ -2,15 +2,15 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using OfficeOpenXml;
-using PlanCorp.Areas.Master.Controllers;
-using PlanCorp.Areas.Master.Models;
-using PlanCorp.Areas.Page.Interfaces;
-using PlanCorp.Areas.Page.Models;
-using PlanCorp.Data;
-using PlanCorp.Models;
+using InventoryIT.Areas.Master.Controllers;
+using InventoryIT.Areas.Master.Models;
+using InventoryIT.Areas.Page.Interfaces;
+using InventoryIT.Areas.Page.Models;
+using InventoryIT.Data;
+using InventoryIT.Models;
 using System.Data;
 
-namespace PlanCorp.Areas.Page.Services
+namespace InventoryIT.Areas.Page.Services
 {
     public class InputKonsolidasi_Service : IInput_Konsolidasi_Service
     {

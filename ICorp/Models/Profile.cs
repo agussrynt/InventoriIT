@@ -2,7 +2,7 @@
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
-namespace PlanCorp.Models
+namespace InventoryIT.Models
 {
     public class Profile
     {

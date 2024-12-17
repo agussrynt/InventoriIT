@@ -1,8 +1,8 @@
-﻿using PlanCorp.Areas.Master.Models;
-using PlanCorp.Areas.Page.Models;
-using PlanCorp.Models;
+﻿using InventoryIT.Areas.Master.Models;
+using InventoryIT.Areas.Page.Models;
+using InventoryIT.Models;
 
-namespace PlanCorp.Areas.Page.Interfaces
+namespace InventoryIT.Areas.Page.Interfaces
 {
     public interface IRevenue_RJPP_Service
     {

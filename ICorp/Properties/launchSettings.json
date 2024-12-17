@@ -1,6 +1,6 @@
 {
   "profiles": {
-    "PlanCorp": {
+    "InventoryIT": {
       "commandName": "Project",
       "launchBrowser": true,
       "environmentVariables": {
@@ -21,7 +21,7 @@
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
     "iisExpress": {
-      "applicationUrl": "http://localhost:33036/PlanCorp",
+      "applicationUrl": "http://localhost:33036/InventoryIT",
       "sslPort": 44349
     }
   }

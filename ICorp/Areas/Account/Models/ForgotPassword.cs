@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace PlanCorp.Areas.Account.Models
+namespace InventoryIT.Areas.Account.Models
 {
     public class ForgotPassword
     {

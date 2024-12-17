@@ -1,8 +1,8 @@
 ﻿using Dapper;
-using PlanCorp.Areas.Master.Interface;
-using PlanCorp.Areas.Master.Models;
-using PlanCorp.Data;
-using PlanCorp.Models;
+using InventoryIT.Areas.Master.Interface;
+using InventoryIT.Areas.Master.Models;
+using InventoryIT.Data;
+using InventoryIT.Models;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using System.Data;
@@ -11,7 +11,7 @@ using System.Security.Cryptography;
 using System.Collections.Generic;
 using System.Diagnostics.Contracts;
 
-namespace PlanCorp.Areas.Master.Service
+namespace InventoryIT.Areas.Master.Service
 {
 	public class ProjectService : IProjectService
 	{

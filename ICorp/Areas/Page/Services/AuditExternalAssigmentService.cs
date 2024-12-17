@@ -1,12 +1,12 @@
-﻿using PlanCorp.Areas.Page.Interfaces;
-using PlanCorp.Data;
+﻿using InventoryIT.Areas.Page.Interfaces;
+using InventoryIT.Data;
 using Dapper;
-using PlanCorp.Areas.Page.Models;
-using PlanCorp.Models;
+using InventoryIT.Areas.Page.Models;
+using InventoryIT.Models;
 using System.Data;
 using System.Data.SqlClient;
 
-namespace PlanCorp.Areas.Page.Services
+namespace InventoryIT.Areas.Page.Services
 {
     public class AuditExternalAssigmentService : IAuditExternalAssigmentService
     {
