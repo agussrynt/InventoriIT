@@ -21,7 +21,6 @@ builder.Services.AddIdentity<IdentityUser, IdentityRole>(options => options.Sign
 //.AddDefaultUI();
 
 // Add collection services Master Data
-builder.Services.AddScoped<IAssetService, AssetService>();
 builder.Services.AddScoped<IWorkService, WorkService>();
 builder.Services.AddScoped<IProjectService, ProjectService>();
 
@@ -32,24 +31,17 @@ builder.Services.AddScoped<IRevenueService, RevenueService>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IYearService, YearService>();
 builder.Services.AddScoped<IFungsiService, FungsiService>();
-builder.Services.AddScoped<IMasterKertasKerjaService, MasterKertasKerjaService>();
-builder.Services.AddScoped<IFUKAssignmentService, FUKAssignmentService>();
 builder.Services.AddScoped<IDokumenUPService, DokumenUPService>();
 builder.Services.AddScoped<IAuditProcessService, AuditProcessService>();
 builder.Services.AddScoped<IFollowUpService, FollowUpService>();
 builder.Services.AddScoped<IMailService, MailService>();
 builder.Services.AddScoped<IAuditExternalService, AuditExternalService>();
-builder.Services.AddScoped<IMonitoringService, MonitoringService>();
 builder.Services.AddScoped<IAuditExternalAssigmentService, AuditExternalAssigmentService>();
 builder.Services.AddScoped<IAuditExternalFolowUpService, AuditExternalFolowUpService>();
 builder.Services.AddScoped<IAuditExternalMonitoring, AuditExternalMonitoring>();
 
 builder.Services.AddScoped<IRoleService, RoleService>();
 builder.Services.AddScoped<IUserInRoleService, UserInRoleService>();
-
-builder.Services.AddScoped<IRevenue_RJPP_Service, Revenue_RJPP_Service>();
-
-builder.Services.AddScoped<IInput_Konsolidasi_Service, InputKonsolidasi_Service>();
 
 // Add services to the container.
 builder.Services.AddApplicationInsightsTelemetry(builder.Configuration.GetSection("ApplicationInsights:InstrumentationKey")); // add App insight telematry
